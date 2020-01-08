@@ -16,7 +16,7 @@ import business.UniversityYearDAO;
 import persistence.Promotion;
 
 @ManagedBean
-public class AddCourseBean {
+public class AddCourseBean { /*Commentaire inutile test*/
 
 	private String name;
 
