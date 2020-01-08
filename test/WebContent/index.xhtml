@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>Index</title>
+</h:head>
+<h:body>
+	<p:megaMenu orientation="#{index.orientation}" style="margin-top:20px">
+		<p:submenu label="Search" icon="pi pi-check">
+			<p:column>
+				<p:submenu label="Visualization">
+					<p:menuitem value="Project" url="showProjects.jsf" />
+				</p:submenu>
+			</p:column>
+
+			<p:column>
+				<p:submenu label="Evaluation">
+					<p:menuitem value="Project" url="selectTeam.jsf" />
+					<p:menuitem value="Assiociation Evaluation/Project" url="selectProject.jsf" />
+				</p:submenu>
+			</p:column>
+		</p:submenu>
+
+		<p:submenu label="Add">
+			<p:column>
+				<p:submenu>
+					<p:menuitem value="Promotion" url="addPromo.jsf" />
+					<p:menuitem value="Students" url="addStudent.jsf" />
+					<p:menuitem value="Course" url="addCourse.jsf" />
+					<p:menuitem value="Project" url="addProject.jsf" />
+					<p:menuitem value="Team" url="addTeam.jsf" />
+					<p:menuitem value="Criteria" url="addCriterion.jsf" />
+				</p:submenu>
+			</p:column>
+		</p:submenu>
+
+		<p:submenu label="Update" icon="pi pi-pencil">
+			<p:column>
+				<p:submenu>
+					<p:menuitem value="Project" url="addProjectInfo.jsf" />
+					<p:menuitem value="Students" url="editStudentsFromPromotion.jsf" />
+					<p:menuitem value="Team" url="editTeamsOfProject.jsf" />
+					<p:menuitem value="Criteria" url="editCriterion.jsf" />
+					<p:menuitem value="Evaluation" url="selectTeam.jsf" />
+				</p:submenu>
+			</p:column>
+
+		</p:submenu>
+		<p:submenu label="Suivi" icon="pi pi-pencil">
+		
+		<p:column>
+				<p:submenu label="Student">
+						<p:menuitem value="Student Note Distribution" url="studentsDistributionNotes.jsf" />
+					<p:menuitem value="Student Best Note Criteria " url="studentsCriterionNotesBest.jsf" />
+				</p:submenu>
+			</p:column>
+			
+			<p:column>
+				<p:submenu label="Hall of fame">
+						<p:menuitem value="Hof occurence by year" url="hofNbProjectsbyYear.jsf" />
+				</p:submenu>
+			</p:column>
+
+		</p:submenu>
+		
+	</p:megaMenu>
+</h:body>
+</html>
