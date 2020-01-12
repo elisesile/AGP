@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Resultat de la recherche</title>
+	<link type="text/css" rel="stylesheet" href="style.css" />
+</h:head>
+<h:body>
+	<p:tabMenu activeIndex="#{param.menu}">
+		<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="0" />
+		</p:menuitem>
+		<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="1" />
+		</p:menuitem>
+		<p:menuitem value="Chercher des informations" outcome="/simple-search" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="2" />
+		</p:menuitem>
+	</p:tabMenu>
+	<h:form>
+		<h2>Hotels trouvés: </h2>
+		<p:repeat value="#{simpleResultBean.hotels}" var="hotel">
+	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
+	            <p:commandLink action="index" value="#{hotel.name}"/>
+	            <p:outputPanel>
+	                <h:panelGrid columns="2" cellpadding="5">
+	                    <h:outputText value="Prix:" />
+	                    <h:outputText value="#{hotel.price}€" style="font-weight: bold"/>
+	 
+	                    <h:outputText value="Description:" />
+	                    <h:outputText value="#{hotel.description}" style="font-weight: bold"/>
+	 
+	                </h:panelGrid>
+	            </p:outputPanel>
+	        </h:panelGrid>
+	        <hr />
+    	</p:repeat>
+    	<h2>Sites touristiques trouvés: </h2>
+    	<p:repeat value="#{simpleResultBean.sites}" var="site">
+	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
+	            <p:commandLink action="index" value="#{site.name}"/>
+	            <p:outputPanel>
+	                <h:panelGrid columns="2" cellpadding="5">
+	                    <h:outputText value="Prix:" />
+	                    <h:outputText value="#{site.price}€" style="font-weight: bold"/>
+	 
+	                    <h:outputText value="Description:" />
+	                    <h:outputText value="#{site.description}" style="font-weight: bold"/>
+	 
+	                </h:panelGrid>
+	            </p:outputPanel>
+	        </h:panelGrid>
+	        <hr />
+    	</p:repeat>
+    </h:form>
+</h:body>
+</html>

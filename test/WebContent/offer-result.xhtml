@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Resultat de la recherche</title>
+	<link type="text/css" rel="stylesheet" href="style.css" />
+</h:head>
+<h:body>
+	<p:tabMenu activeIndex="#{param.menu}">
+		<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="0" />
+		</p:menuitem>
+		<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="1" />
+		</p:menuitem>
+		<p:menuitem value="Chercher des informations" outcome="/simple-search" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="2" />
+		</p:menuitem>
+	</p:tabMenu>
+	<h2>Offres trouvées:</h2>
+	<p:repeat value="#{offerResultBean.offres}" var="offre">
+		<h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
+			<p:commandLink action="index" value="#{offre.name}" />
+			<p:outputPanel>
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputText value="Prix:" />
+					<h:outputText value="#{offre.price}€" style="font-weight: bold" />
+
+					<h:outputText value="Description:" />
+					<h:outputText value="#{offre.description}" style="font-weight: bold" />
+
+				</h:panelGrid>
+			</p:outputPanel>
+		</h:panelGrid>
+		<hr />
+	</p:repeat>
+</h:body>
+</html>

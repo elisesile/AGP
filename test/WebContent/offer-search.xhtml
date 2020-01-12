@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Offres de voyage</title>
+	<link type="text/css" rel="stylesheet" href="style.css" />
+</h:head>
+<h:body>
+	<p:tabMenu activeIndex="#{param.menu}">
+		<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="0" />
+		</p:menuitem>
+		<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="1" />
+		</p:menuitem>
+		<p:menuitem value="Chercher des informations" outcome="/simple-search" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="2" />
+		</p:menuitem>
+	</p:tabMenu>
+	<h:form>
+	    <h:outputText id="displayRange" value="Prix compris entre #{offerSearchBean.minPrice}€ et #{offerSearchBean.maxPrice}€"/>
+	    <p:slider minValue="500" maxValue="5000" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix compris entre {min}€ et {max}€" />
+	    <h:inputHidden id="valMin" value="#{offerSearchBean.minPrice}" />
+	    <h:inputHidden id="valMax" value="#{offerSearchBean.maxPrice}" />
+	    <br/>
+	    <h:panelGrid columns="2" cellpadding="5">
+	        <h:outputText value="Type de voyage souhaité:" />
+	        <p:selectOneButton value="#{offerSearchBean.typeOfTrip}">
+	            <f:selectItem itemLabel="Loisir" itemValue="Loisir" />
+	            <f:selectItem itemLabel="Historique" itemValue="Historique" />
+	            <f:selectItem itemLabel="Loisir et Historique" itemValue="Loisir et Historique" />
+	        </p:selectOneButton>
+        </h:panelGrid>
+        <h:panelGrid columns="3" cellpadding="5">
+        	<h:outputText value="Intensité souhaité:" />
+	        <p:rating value="#{offerSearchBean.intensity}" cancel="false" stars="4">
+            	<p:ajax event="rate" listener="#{offerSearchBean.changeMessage}" update="message"  />
+        	</p:rating>
+        	<h:outputText value="#{offerSearchBean.intensityMessage}" id="message" />
+        </h:panelGrid>
+        <br/>
+	    <p:commandButton value="Go" action="#{offerSearchBean.searchAction}">
+	    	<f:param name="menu" value="1" />
+		</p:commandButton>
+    </h:form>
+</h:body>
+</html>

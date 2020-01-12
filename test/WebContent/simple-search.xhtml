@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Chercher une information</title>
+	<link type="text/css" rel="stylesheet" href="style.css" />
+</h:head>
+<h:body>
+	<p:tabMenu activeIndex="#{param.menu}">
+		<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="0" />
+		</p:menuitem>
+		<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="1" />
+		</p:menuitem>
+		<p:menuitem value="Chercher des informations" outcome="/simple-search" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="2" />
+		</p:menuitem>
+	</p:tabMenu>
+	<h:form>
+		<h:outputText value="Mots clées: " />
+		<p:inputText value="#{simpleSearchBean.keywords}" />
+		<br />
+		<h:outputText id="displayRange" value="Prix de l'activité / nuit d'hôtel compris entre #{simpleSearchBean.minPrice}€ et #{simpleSearchBean.maxPrice}€" />
+		<p:slider minValue="0" maxValue="500" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix de l'activité / nuit d'hôtel compris entre {min}€ et {max}€" />
+		<h:inputHidden id="valMin" value="#{simpleSearchBean.minPrice}" />
+		<h:inputHidden id="valMax" value="#{simpleSearchBean.maxPrice}" />
+		<br />
+		<p:commandButton value="Go" action="#{simpleSearchBean.searchAction}">
+			<f:param name="menu" value="2" />
+		</p:commandButton>
+	</h:form>
+</h:body>
+</html>
