@@ -89,9 +89,20 @@ INSERT INTO hotel(name, price, beach_name, id_coordinates)
  ('Le rocher', 273, 'Plage du Rocher', 16);
 
 
-
-
-
 -- Ride Insertion
 INSERT INTO ride(departure_site, arrival_site, id_transport)
- ();
+VALUES (1,3,1),
+(3,4,1),
+(4,10,1),
+(2,6,1),
+(6,7,1),
+(7,8,1),
+(13,14,1),
+(14,15,1),
+(16,17,1),
+(12,18,1),
+(19,2,2),
+(5,9,1),
+(9,10,1),
+(10,11,1),
+(4,19,2);
