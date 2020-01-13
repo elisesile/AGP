@@ -5,26 +5,25 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>Voyages Organisés</title>
-	<link type="text/css" rel="stylesheet" href="style.css" />
-</h:head>
-<h:body>
-	<p:tabMenu activeIndex="#{param.menu}">
-		<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
-			<f:param name="menu" value="0" />
-		</p:menuitem>
-		<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
-			<f:param name="menu" value="1" />
-		</p:menuitem>
-		<p:menuitem value="Chercher des informations" outcome="/simple-search" icon="pi pi-search" class="menu">
-			<f:param name="menu" value="2" />
-		</p:menuitem>
-	</p:tabMenu>
-	<p>
-		<strong>Bienvenue sur le site</strong>
-		<br/>
-		Infos sur le site + image de l'ile ...
-	</p>
-</h:body>
+	<h:head>
+		<title>Voyages Organisés</title>
+		<h:outputStylesheet library="default" name="css/style.css" />
+	</h:head>
+	
+	<h:body>
+		<p:tabMenu activeIndex="#{param.menu}">
+			<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
+				<f:param name="menu" value="0" />
+			</p:menuitem>
+			<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
+				<f:param name="menu" value="1" />
+			</p:menuitem>
+			<p:menuitem value="Chercher des informations" outcome="/simple-search" icon="pi pi-search" class="menu">
+				<f:param name="menu" value="2" />
+			</p:menuitem>
+		</p:tabMenu>
+		
+		<h1 class="heading1">Bienvenue sur le site</h1>
+		<p class="homeInfo">Infos sur le site + image de l'ile ...</p>
+	</h:body>
 </html>

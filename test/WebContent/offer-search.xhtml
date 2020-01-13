@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Offres de voyage</title>
-	<link type="text/css" rel="stylesheet" href="style.css" />
+	<h:outputStylesheet library="default" name="css/style.css" />
 </h:head>
 <h:body>
 	<p:tabMenu activeIndex="#{param.menu}">
@@ -23,7 +23,7 @@
 	</p:tabMenu>
 	<h:form>
 	    <h:outputText id="displayRange" value="Prix compris entre #{offerSearchBean.minPrice}€ et #{offerSearchBean.maxPrice}€"/>
-	    <p:slider minValue="500" maxValue="5000" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix compris entre {min}€ et {max}€" />
+	    <p:slider minValue="500" maxValue="5000" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix compris entre {min}€ et {max}€" class="slider"/>
 	    <h:inputHidden id="valMin" value="#{offerSearchBean.minPrice}" />
 	    <h:inputHidden id="valMax" value="#{offerSearchBean.maxPrice}" />
 	    <br/>

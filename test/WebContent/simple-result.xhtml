@@ -6,8 +6,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Resultat de la recherche</title>
-	<link type="text/css" rel="stylesheet" href="style.css" />
+	<title>Résultat de la recherche</title>
+	<h:outputStylesheet library="default" name="css/style.css" />
 </h:head>
 <h:body>
 	<p:tabMenu activeIndex="#{param.menu}">
@@ -22,7 +22,7 @@
 		</p:menuitem>
 	</p:tabMenu>
 	<h:form id="form">
-		<h2>Hotels trouvés: </h2>
+		<h2>Hotels trouvés :</h2>
 		<p:repeat value="#{simpleResultBean.hotels}" var="hotel">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
 	            <p:commandLink update=":form:hotelDetail" oncomplete="PF('hotelDialog').show()">
@@ -56,7 +56,7 @@
         	</p:outputPanel>
    		</p:dialog>
    		</h:form>
-    	<h2>Sites touristiques trouvés: </h2>
+    	<h2>Sites touristiques trouvés :</h2>
     	<h:form id = "formSite">
     	<p:repeat value="#{simpleResultBean.sites}" var="site">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
