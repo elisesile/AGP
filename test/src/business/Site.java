@@ -1,6 +1,6 @@
 package business;
 
-abstract class Site {
+public abstract class Site {
 //	private int id_site;
 	private String name;
 	private int price;

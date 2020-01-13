@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import business.ActivitySite;
+import business.HistoricSite;
 import business.Hotel;
 import business.Site;
 
@@ -26,8 +28,8 @@ public class SimpleResultBean {
     	hotels.add(h1);
     	hotels.add(h2);
     	
-    	Site s1 = new Site("Volcan", 250,"Un joli volcan");
-    	Site s2 = new Site("Ruines", 0,"De belles ruines");
+    	Site s1 = new ActivitySite("Volcan", 250,"Un joli volcan");
+    	Site s2 = new HistoricSite("Ruines", 0,"De belles ruines");
     	sites.add(s1);
     	sites.add(s2);
     }
