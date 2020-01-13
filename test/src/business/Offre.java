@@ -7,16 +7,10 @@ public class Offre {
 	private String name;
 	private int price;
 	private String description;
-	private String hotelName;
+	private Hotel hotel;
 	private ArrayList<Excursion> excursions = new ArrayList<Excursion>();
 	
-	public Offre(String name, int price, String description) {
-		this.name = name;
-		this.price = price;
-		this.description = description;
-		this.hotelName = "hotel Name";
-		Excursion e = new Excursion("excursion test");
-		this.excursions.add(e);
+	public Offre() {
 	}
 
 	public String getName() {
@@ -43,12 +37,12 @@ public class Offre {
 		this.description = description;
 	}
 
-	public String getHotelName() {
-		return hotelName;
+	public Hotel getHotel() {
+		return hotel;
 	}
 
-	public void setHotelName(String hotelName) {
-		this.hotelName = hotelName;
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 
 	public ArrayList<Excursion> getExcursions() {

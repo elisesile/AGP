@@ -1,10 +1,9 @@
 package business;
 
-public class ActivitySite extends Site {
+public class ActivitySite extends AbstractSite {
 
-	public ActivitySite(String name, int price, String description) {
-		super(name, price, description);
-		// TODO Auto-generated constructor stub
+	public ActivitySite() {
+		type = SiteEnum.ACTIVITY;
 	}
 
 }

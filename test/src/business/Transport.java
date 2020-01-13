@@ -1,21 +1,13 @@
 package business;
 
 public class Transport {
-	// private int id_transport;
-	private TransportType type;
+	private TransportEnum type;
 	private int price;
 	
-//	public int getId_transport() {
-//		return id_transport;
-//	}
-	
-//	public void setId_transport(int id_transport) {
-//		this.id_transport = id_transport;
-//	}
-	public TransportType getType() {
+	public TransportEnum getType() {
 		return type;
 	}
-	public void setType(TransportType type) {
+	public void setType(TransportEnum type) {
 		this.type = type;
 	}
 	public int getPrice() {

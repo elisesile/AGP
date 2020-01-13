@@ -10,26 +10,36 @@ import javax.faces.bean.RequestScoped;
 import business.ActivitySite;
 import business.HistoricSite;
 import business.Hotel;
-import business.Site;
+import business.AbstractSite;
 
 @ManagedBean
 @RequestScoped
 public class SimpleResultBean {
     
 	private List<Hotel> hotels = new ArrayList<Hotel>();
-	private List<Site> sites = new ArrayList<Site>();
+	private List<AbstractSite> sites = new ArrayList<AbstractSite>();
 	private Hotel selectedHotel;
-	private Site selectedSite;
+	private AbstractSite selectedSite;
      
     @PostConstruct
     public void init() {
-    	Hotel h1 = new Hotel("Hotel1", 75,"1er hotel");
-    	Hotel h2 = new Hotel("Hotel2", 100,"2eme hotel");
+    	Hotel h1 = new Hotel();
+    	h1.setName("Tokyo Hotel");
+    	h1.setPrice(125);
+    	h1.setDescription("Moonson");
+    	Hotel h2 = new Hotel();
+    	h2.setName("Hotel California");
+    	h2.setPrice(400);
+    	h2.setDescription("Welcome to the Hotel California");
     	hotels.add(h1);
     	hotels.add(h2);
     	
-    	Site s1 = new ActivitySite("Volcan", 250,"Un joli volcan");
-    	Site s2 = new HistoricSite("Ruines", 0,"De belles ruines");
+    	AbstractSite s1 = new ActivitySite();
+    	s1.setName("Volcan");
+    	s1.setDescription("Un joli volcan");
+    	AbstractSite s2 = new HistoricSite();
+    	s2.setName("Ruines");
+    	s2.setDescription("Une jolie ruine");
     	sites.add(s1);
     	sites.add(s2);
     }
@@ -42,11 +52,11 @@ public class SimpleResultBean {
 		this.hotels = hotels;
 	}
 
-	public List<Site> getSites() {
+	public List<AbstractSite> getSites() {
 		return sites;
 	}
 
-	public void setSites(List<Site> sites) {
+	public void setSites(List<AbstractSite> sites) {
 		this.sites = sites;
 	}
 
@@ -58,11 +68,11 @@ public class SimpleResultBean {
 		this.selectedHotel = selectedHotel;
 	}
 
-	public Site getSelectedSite() {
+	public AbstractSite getSelectedSite() {
 		return selectedSite;
 	}
 
-	public void setSelectedSite(Site selectedSite) {
+	public void setSelectedSite(AbstractSite selectedSite) {
 		this.selectedSite = selectedSite;
 	}
     

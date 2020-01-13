@@ -22,11 +22,11 @@
 		</p:menuitem>
 	</p:tabMenu>
 	<h:outputText value="#{offerDetailBean.offre.name}" />
-	<h:outputText value="#{offerDetailBean.offre.hotelName}" />
+	<h:outputText value="#{offerDetailBean.offre.hotel.name}" />
 	<h:form id="form">
 		<p:repeat value="#{offerDetailBean.offre.excursions}" var="excursion">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
-	        <h:outputText value="#{excursion.name}" ></h:outputText>
+	        <h:outputText value="#{excursion.num}" ></h:outputText>
 	            <p:outputPanel>
 	                <h:panelGrid columns="2" cellpadding="5">
 	                    <h:outputText value="Prix:" />

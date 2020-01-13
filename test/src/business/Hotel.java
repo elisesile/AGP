@@ -6,10 +6,7 @@ public class Hotel {
 	private int price;
 	private String description;
 	
-	public Hotel(String name, int price, String description) {
-		this.name = name;
-		this.price = price;
-		this.description = description;
+	public Hotel() {
 	}
 
 	public String getName() {
