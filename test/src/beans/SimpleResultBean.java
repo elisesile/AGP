@@ -54,6 +54,5 @@ public class SimpleResultBean {
 	public void setSelectedHotel(Hotel selectedHotel) {
 		this.selectedHotel = selectedHotel;
 	}
- 
     
 }
