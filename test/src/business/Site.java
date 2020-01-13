@@ -1,12 +1,12 @@
-package persistence;
+package business;
 
-public class Offre {
+public class Site {
 
 	private String name;
 	private int price;
 	private String description;
 	
-	public Offre(String name, int price, String description) {
+	public Site(String name, int price, String description) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
