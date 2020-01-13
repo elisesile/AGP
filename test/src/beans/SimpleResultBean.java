@@ -16,6 +16,7 @@ public class SimpleResultBean {
     
 	private List<Hotel> hotels = new ArrayList<Hotel>();
 	private List<Site> sites = new ArrayList<Site>();
+	private Hotel selectedHotel;
      
     @PostConstruct
     public void init() {
@@ -44,6 +45,14 @@ public class SimpleResultBean {
 
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
+	}
+
+	public Hotel getSelectedHotel() {
+		return selectedHotel;
+	}
+
+	public void setSelectedHotel(Hotel selectedHotel) {
+		this.selectedHotel = selectedHotel;
 	}
  
     

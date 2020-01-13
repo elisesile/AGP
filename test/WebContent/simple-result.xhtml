@@ -21,11 +21,14 @@
 			<f:param name="menu" value="2" />
 		</p:menuitem>
 	</p:tabMenu>
-	<h:form>
+	<h:form id="form">
 		<h2>Hotels trouvés: </h2>
 		<p:repeat value="#{simpleResultBean.hotels}" var="hotel">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
-	            <p:commandLink action="index" value="#{hotel.name}"/>
+	            <p:commandLink update=":form:hotelDetail" oncomplete="PF('hotelDialog').show()">
+	            	<f:setPropertyActionListener value="#{hotel}" target="#{simpleResultBean.selectedHotel}" />
+	            	<h:outputText value="#{hotel.name}"/>
+	            </p:commandLink>
 	            <p:outputPanel>
 	                <h:panelGrid columns="2" cellpadding="5">
 	                    <h:outputText value="Prix:" />
@@ -39,6 +42,20 @@
 	        </h:panelGrid>
 	        <hr />
     	</p:repeat>
+    	<p:dialog header="Hotel Info" widgetVar="hotelDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+	        <p:outputPanel id="hotelDetail" style="text-align:center;">
+	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultBean.selectedHotel}" columnClasses="name,detail">
+	 
+	                <h:outputText value="Prix:" />
+	                <h:outputText value="#{simpleResultBean.selectedHotel.price}€"/>
+	 
+	                <h:outputText value="Description:" />
+	                <h:outputText value="#{simpleResultBean.selectedHotel.description}"/>
+
+            	</p:panelGrid>
+        	</p:outputPanel>
+   		</p:dialog>
+   		</h:form>
     	<h2>Sites touristiques trouvés: </h2>
     	<p:repeat value="#{simpleResultBean.sites}" var="site">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
@@ -56,6 +73,5 @@
 	        </h:panelGrid>
 	        <hr />
     	</p:repeat>
-    </h:form>
 </h:body>
 </html>
