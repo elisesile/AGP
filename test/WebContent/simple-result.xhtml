@@ -44,7 +44,7 @@
     	</p:repeat>
     	<p:dialog header="Hotel Info" widgetVar="hotelDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
 	        <p:outputPanel id="hotelDetail" style="text-align:center;">
-	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultBean.selectedHotel}" columnClasses="name,detail">
+	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultBean.selectedHotel}">
 	 
 	                <h:outputText value="Prix:" />
 	                <h:outputText value="#{simpleResultBean.selectedHotel.price}€"/>
