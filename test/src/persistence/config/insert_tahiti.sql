@@ -47,26 +47,26 @@ INSERT INTO transport(type, price)
  ();
 
 -- Site Insertion
-INSERT INTO site(name, type, price, id_coordinates)
-VALUES ('Notre Dame Cathedral', 'Historic', 0, 17),
-('Pointe Venus', 'Activity', 0, 18),
-('Temple Protestant de Paofai', 'Historic', 0, 19),
-('Tombe du roi Pomare V', 'Historic', 0, 20),
-('Safari Jeep', 'Activity', 81, 21),
-('Marae Arahurahu', 'Activity', 0, 22),
-('Grotte Maraa', 'Activity', 0, 23),
-('jardin Vaipahi', 'Activity', 0, 24),
-('Cascade de Faarumai', 'Activity', 0, 25),
-('Arahoho', 'Activity', 0, 26),
-('Belvedere Tahara\'a', 'Activity', 0, 27),
- ('Location Scooter', 'Activity', 39, 28),
- ('Musee de la perle', 'Historic', 5, 29),
- ('Musee de Tahiti et des Iles', 'Historic', 6, 30),
- ('Tagaloa Tattoo', 'Historic', 0, 31),
- ('Rainbow Park', 'Activity', 30, 32),
- ('Api Dive', 'Activity', 50, 33),
- ('Eleuthera', 'Activity', 150, 34),
- ('Nui Diving', 'Activity', 49, 35);
+INSERT INTO site(id_site, name, type, price, id_coordinates)
+VALUES (1,'Notre Dame Cathedral', 'Historic', 0, 17),
+(2,'Pointe Venus', 'Activity', 0, 18),
+(3,'Temple Protestant de Paofai', 'Historic', 0, 19),
+(4,'Tombe du roi Pomare V', 'Historic', 0, 20),
+(5,'Safari Jeep', 'Activity', 81, 21),
+(6,'Marae Arahurahu', 'Activity', 0, 22),
+(7,'Grotte Maraa', 'Activity', 0, 23),
+(8,'jardin Vaipahi', 'Activity', 0, 24),
+(9,'Cascade de Faarumai', 'Activity', 0, 25),
+(10,'Arahoho', 'Activity', 0, 26),
+(11,'Belvedere Tahara\'a', 'Activity', 0, 27),
+ (12,'Location Scooter', 'Activity', 39, 28),
+ (13,'Musee de la perle', 'Historic', 5, 29),
+ (14,'Musee de Tahiti et des Iles', 'Historic', 6, 30),
+ (15,'Tagaloa Tattoo', 'Historic', 0, 31),
+ (16,'Rainbow Park', 'Activity', 30, 32),
+ (17,'Api Dive', 'Activity', 50, 33),
+ (18,'Eleuthera', 'Activity', 150, 34),
+ (19,'Nui Diving', 'Activity', 49, 35);
 
 -- Hotel Insertion
 INSERT INTO hotel(name, price, beach_name, id_coordinates)
