@@ -7,8 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import persistence.Hotel;
-import persistence.Site;
+import business.Hotel;
+import business.Site;
 
 @ManagedBean
 @RequestScoped
