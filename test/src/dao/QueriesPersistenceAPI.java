@@ -1,17 +1,18 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public interface QueriesPersistenceAPI {
 	void dataInit();
 
-	ResultSet searchHotelByPrice(int startRange, int endRange);
+	ResultSet searchHotelByPrice(PreparedStatement preparedStatement, int startRange, int endRange);
 	
-	ResultSet searchSiteByType(String type);
+	ResultSet searchSiteByType(PreparedStatement preparedStatement, String type);
 	
-	ResultSet getSites();
+	ResultSet getSites(PreparedStatement preparedStatement);
 	
-	ResultSet searchSitesByPrice(int startRange, int endRange);
+	ResultSet searchSitesByPrice(PreparedStatement preparedStatement, int startRange, int endRange);
 	
-	ResultSet getRides();
+	ResultSet getRides(PreparedStatement preparedStatement);
 }

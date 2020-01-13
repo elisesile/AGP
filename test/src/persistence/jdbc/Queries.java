@@ -24,21 +24,17 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet searchHotelByPrice(int startRange, int endRange) {
+	public ResultSet searchHotelByPrice(PreparedStatement preparedStatement, int startRange, int endRange) {
 		ResultSet result = null;
 		try {
-			String query = "SELECT *"
-							+ "FROM hotel"
-							+ "WHERE price <= ? AND price >= ?";
+			String query = "SELECT * FROM hotel WHERE price <= ? AND price >= ?";
 	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
 			preparedStatement.setInt(1, endRange);
 			preparedStatement.setInt(2, startRange);
 	
 			result = preparedStatement.executeQuery();
-	
-			preparedStatement.close();
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
@@ -52,20 +48,16 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet searchSiteByType(String type) {
+	public ResultSet searchSiteByType(PreparedStatement preparedStatement, String type) {
 		ResultSet result = null;
 		try {
-			String query = "SELECT *"
-							+ "FROM site"
-							+ "WHERE type = ?";
+			String query = "SELECT * FROM site WHERE type = ?";
 	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
 			preparedStatement.setString(1, type);
 	
 			result = preparedStatement.executeQuery();
-	
-			preparedStatement.close();
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
@@ -77,17 +69,14 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet getSites() {
+	public ResultSet getSites(PreparedStatement preparedStatement) {
 		ResultSet result = null;
 		try {
-			String query = "SELECT *"
-							+ "FROM site";
+			String query = "SELECT * FROM site";
 	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
 			result = preparedStatement.executeQuery();
-	
-			preparedStatement.close();
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
@@ -102,21 +91,17 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet searchSitesByPrice(int startRange, int endRange) {
+	public ResultSet searchSitesByPrice(PreparedStatement preparedStatement, int startRange, int endRange) {
 		ResultSet result = null;
 		try {
-			String query = "SELECT *"
-							+ "FROM site"
-							+ "WHERE price <= ? AND price >= ?";
+			String query = "SELECT * FROM site WHERE price <= ? AND price >= ?";
 	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
 			preparedStatement.setInt(1, endRange);
 			preparedStatement.setInt(2, startRange);
 	
 			result = preparedStatement.executeQuery();
-	
-			preparedStatement.close();
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
@@ -131,20 +116,18 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet getRides() {
+	public ResultSet getRides(PreparedStatement preparedStatement) {
 		ResultSet result = null;
 		try {
 			String query = "SELECT ride.id_ride, siteS.*, siteE.*, transport.*" + 
-							"FROM ride" + 
-							"INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
-							"INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
-							"INNER JOIN transport ON transport.id_transport = ride.id_transport;";
+							" FROM ride" + 
+							" INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
+							" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
+							" INNER JOIN transport ON transport.id_transport = ride.id_transport;";
 	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 	
 			result = preparedStatement.executeQuery();
-	
-			preparedStatement.close();
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
