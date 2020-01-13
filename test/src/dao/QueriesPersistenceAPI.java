@@ -1,26 +1,17 @@
 package dao;
 
-import business.ActivitySite;
-import business.Coordinates;
-import business.HistoricSite;
-import business.Hotel;
-import business.Ride;
-//import business.Site;
-import business.Transport;
+import java.sql.ResultSet;
 
 public interface QueriesPersistenceAPI {
 	void dataInit();
 
-	Hotel hotelsInformations();
+	ResultSet searchHotelByPrice(int startRange, int endRange);
 	
-	ActivitySite activitySitesInformations();
+	ResultSet searchSiteByType(String type);
 	
-	HistoricSite historicSitesInformations();
+	ResultSet getSites();
 	
-	Ride rideInformations();
+	ResultSet searchSitesByPrice(int startRange, int endRange);
 	
-	Transport transportInformations();
-	
-	Coordinates CoordinatesInformations();
-	
+	ResultSet getRides();
 }
