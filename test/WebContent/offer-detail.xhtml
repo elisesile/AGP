@@ -21,6 +21,26 @@
 			<f:param name="menu" value="2" />
 		</p:menuitem>
 	</p:tabMenu>
+	<h:outputText value="#{offerDetailBean.offre.name}" />
+	<h:outputText value="#{offerDetailBean.offre.hotelName}" />
+	<h:form id="form">
+		<p:repeat value="#{offerDetailBean.offre.excursions}" var="excursion">
+	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
+	        <h:outputText value="#{excursion.name}" ></h:outputText>
+	            <p:outputPanel>
+	                <h:panelGrid columns="2" cellpadding="5">
+	                    <h:outputText value="Prix:" />
+	                    <h:outputText value="info excursion" style="font-weight: bold"/>
+	 
+	                    <h:outputText value="Description:" />
+	                    <h:outputText value="info excursion" style="font-weight: bold"/>
+	 
+	                </h:panelGrid>
+	            </p:outputPanel>
+	        </h:panelGrid>
+	        <hr />
+    	</p:repeat>
+   		</h:form>
 	
 </h:body>
 </html>
