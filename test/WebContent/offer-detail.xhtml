@@ -21,24 +21,6 @@
 			<f:param name="menu" value="2" />
 		</p:menuitem>
 	</p:tabMenu>
-	<h2>Offres trouvées:</h2>
-	<p:repeat value="#{offerResultBean.offres}" var="offre">
-		<h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
-		<h:link value="#{offre.name}" outcome="offer-detail">
-			<f:param name="menu" value="1" />
-		</h:link>
-			<p:outputPanel>
-				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText value="Prix:" />
-					<h:outputText value="#{offre.price}€" style="font-weight: bold" />
-
-					<h:outputText value="Description:" />
-					<h:outputText value="#{offre.description}" style="font-weight: bold" />
-
-				</h:panelGrid>
-			</p:outputPanel>
-		</h:panelGrid>
-		<hr />
-	</p:repeat>
+	
 </h:body>
 </html>
