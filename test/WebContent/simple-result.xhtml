@@ -57,9 +57,13 @@
    		</p:dialog>
    		</h:form>
     	<h2>Sites touristiques trouvés: </h2>
+    	<h:form id = "formSite">
     	<p:repeat value="#{simpleResultBean.sites}" var="site">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
-	            <p:commandLink action="index" value="#{site.name}"/>
+	             <p:commandLink update=":formSite:siteDetail" oncomplete="PF('siteDialog').show()">
+	            	<f:setPropertyActionListener value="#{site}" target="#{simpleResultBean.selectedSite}" />
+	            	<h:outputText value="#{site.name}"/>
+	            </p:commandLink>
 	            <p:outputPanel>
 	                <h:panelGrid columns="2" cellpadding="5">
 	                    <h:outputText value="Prix:" />
@@ -72,5 +76,19 @@
 	        </h:panelGrid>
 	        <hr />
     	</p:repeat>
+    	<p:dialog header="Site Info" widgetVar="siteDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+	        <p:outputPanel id="siteDetail" style="text-align:center;">
+	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultBean.selectedSite}" columnClasses="name,detail">
+	 
+	                <h:outputText value="Prix:" />
+	                <h:outputText value="#{simpleResultBean.selectedSite.price}€"/>
+	 
+	                <h:outputText value="Description:" />
+	                <h:outputText value="#{simpleResultBean.selectedSite.description}"/>
+
+            	</p:panelGrid>
+        	</p:outputPanel>
+   		</p:dialog>
+   		</h:form>
 </h:body>
 </html>
