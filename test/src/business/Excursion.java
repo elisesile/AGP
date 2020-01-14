@@ -35,5 +35,14 @@ public class Excursion {
 	public void setNum(int num) {
 		this.num = num;
 	}
+
+	public ArrayList<AbstractSite> getVisitedSites() {
+		return visitedSites;
+	}
+
+	public void setVisitedSites(ArrayList<AbstractSite> visitedSites) {
+		this.visitedSites = visitedSites;
+	}
+	
 	
 }
