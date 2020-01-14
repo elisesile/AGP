@@ -16,7 +16,7 @@ public class Queries implements QueriesPersistenceAPI {
 
 	
 	/**
-	 * Print an error message to inform the user
+	 * Print an error messa ge to inform the user
 	 */
 	public void dataInit() {
 		System.err.println("Please don't forget to create tables manually by importing config/create_tables.sql and config/insert_tahiti.sql in your database !");
@@ -200,79 +200,65 @@ public class Queries implements QueriesPersistenceAPI {
 	}
 	*/
 	
-	public void getRidesCoordAndTransportTypePrice(ArrayList<Integer> idRides) {
+	public int getTotalPriceRidesAndHotel(ArrayList<Integer> idRides, int idHotel) {
+		ResultSet result = null;
+		ResultSet result1 = null;
+		int totalPrice = 0;
 		try {
-			String query =	"SELECT transport.price, coordS.latitude, coordS.longitude, coordE.latitude, coordE.longitude" + 
-							" FROM ride" + 
-							" INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
-							" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
-							" INNER JOIN coordinates AS coordS ON coordS.id_coordinates = siteS.id_coordinates" + 
-							" INNER JOIN coordinates AS coordE ON coordE.id_coordinates = siteE.id_coordinates" + 
-							" INNER JOIN transport ON transport.id_transport = ride.id_transport" + 
-							" WHERE ride.id_ride IN (?)";
-	
-			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+
+			String query =	"SELECT transport.price, transport.id_transport, coordS.latitude, coordS.longitude, coordE.latitude, coordE.longitude" + 
+					" FROM ride" + 
+					" INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
+					" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
+					" INNER JOIN coordinates AS coordS ON coordS.id_coordinates = siteS.id_coordinates" + 
+					" INNER JOIN coordinates AS coordE ON coordE.id_coordinates = siteE.id_coordinates" + 
+					" INNER JOIN transport ON transport.id_transport = ride.id_transport" + 
+					" WHERE ride.id_ride IN (?)";
 			
-			Array array = JdbcConnection.getConnection().createArrayOf("Integer", idRides.toArray());
-			this.preparedStatement.setArray(1, array);
-			
-			this.initIterator(this.preparedStatement.executeQuery());
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
-	}
-	
-	public void getHotel(int idHotel) {
-		try {
-			String query =	"SELECT *" + 
-							" FROM hotel" +  
-							" WHERE id_hotel = (?)";
-			
-			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
-			
-			this.preparedStatement.setInt(1, idHotel);
-			
-			this.initIterator(this.preparedStatement.executeQuery());
-		} catch (SQLException se) {
-			System.err.println(se.getMessage());
-		}
-	}
-	
-	public int getTotalPriceHotelAndRides(ResultSet rides, ResultSet hotel) throws SQLException {
-		int price = 0;
-		
-		System.out.println("coucou");
-		
-		try {
-			
-			System.out.println("coucou");
-			
- 			while (rides.next()) {
-				int transportPrice = rides.getInt(1);
-				double latDeparture = rides.getDouble(2); 
-				double longDeparture = rides.getDouble(3);
-				double latArrival = rides.getDouble(4);
-				double longArrival = rides.getDouble(5);
+			for(int ride : idRides) {
 				
-				System.out.println(transportPrice);
+				this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 				
-				System.out.println(latDeparture);
+				this.preparedStatement.setInt(1, ride);
+				result = this.preparedStatement.executeQuery();
 				
-				price += (int) ExcursionCalculator.getDistanceKM(latDeparture,longDeparture,latArrival,longArrival)*transportPrice;
-			
-				System.out.println(price);
-				
+				result.next();
+				System.out.println(result.getInt(2));
+			    
+			    if(result.getInt(2)==1) {
+			    	
+			    	
+			    	System.out.println(business.ExcursionCalculator.getDistanceKM(result.getDouble(3),result.getDouble(4),result.getDouble(5),result.getDouble(6)));
+			    	
+			    	
+			    	totalPrice += (int) (business.ExcursionCalculator.getDistanceKM(result.getDouble(3),result.getDouble(4),result.getDouble(5),result.getDouble(6)) * result.getInt(1));
+			    }else {
+			    	totalPrice += result.getInt(1);
+			    }
+			    System.out.println(totalPrice);
+			    this.preparedStatement.close();
 			}
+
+			query =	"SELECT *" + 
+					" FROM hotel" +  
+					" WHERE hotel.id_hotel = (?)";
+
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement.setInt(1, idHotel);
+	
+			result1 = this.preparedStatement.executeQuery();
+			result1.next();
+			
+			totalPrice += result1.getInt(3);
+	
+			this.preparedStatement.close();
+			
+			
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		
-		hotel.next();
-		int hotelPrice = hotel.getInt(3);
-		
-		price += hotelPrice;
-		
-		return price;
+
+		return totalPrice;
 	}
 
 
