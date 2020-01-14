@@ -1,7 +1,5 @@
 package beans;
 
-import java.io.File;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,14 +9,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 import data.AbstractSite;
 import data.ActivitySite;
 import data.HistoricSite;
 import data.Hotel;
-import persistence.jdbc.JdbcConnection;
 import persistence.jdbc.Queries;
 
 @ManagedBean
@@ -37,6 +33,7 @@ public class SimpleResultBean {
     public void init() {
     	Queries queries = new Queries();
     	PreparedStatement preparedStatement = null;
+    	
     	ResultSet hotelsResult = queries.searchHotelByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
     	try {
 			while(hotelsResult.next()){
@@ -45,6 +42,25 @@ public class SimpleResultBean {
 				hotel.setPrice(hotelsResult.getInt(3));
 				hotel.setDescription(hotelsResult.getString(4));
 				hotels.add(hotel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	ResultSet sitesResult = queries.searchSitesByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+    	try {
+			while(sitesResult.next()){
+		    	AbstractSite site;
+		    	if(sitesResult.getString(2) == "Historic") {
+		    		site = new HistoricSite();
+		    	}
+		    	else {
+		    		site = new ActivitySite();
+		    	}
+		    	site.setName(sitesResult.getString(2));
+		    	site.setPrice(sitesResult.getInt(4));
+		    	//site.setDescription(sitesResult.getString(4));
+				sites.add(site);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
