@@ -30,11 +30,11 @@ public class Searcher {
 	    * 
 	    * @throws IOException
 	    */
-	   public Searcher(String indexDirectoryPath) throws IOException {
+	   public Searcher(String indexDirectoryPath, String fileContent) throws IOException {
 	      Directory indexDirectory = FSDirectory.open(Paths.get(indexDirectoryPath));
 	      IndexReader reader = DirectoryReader.open(indexDirectory);
 	      indexSearcher = new IndexSearcher(reader);
-	      queryParser = new QueryParser(LuceneConstants.INDEX_SECOND_FIELD_FIELD_NAME, new StandardAnalyzer());
+	      queryParser = new QueryParser(fileContent, new StandardAnalyzer());
 	   }
 	   
 	   /**

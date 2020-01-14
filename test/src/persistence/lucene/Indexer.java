@@ -21,6 +21,7 @@ public class Indexer {
 	private int maxSearch;
 	private String firstFieldName;
 	private String secondFieldName;
+	private String thirdFieldName;
 	private IndexWriter writer;
 	private TextFileFilter textFileFilter;
 	
@@ -93,6 +94,11 @@ public class Indexer {
 				secondFieldName = secondFieldName.split(";")[0];
 				this.setSecondFieldName(secondFieldName);
 			}
+			if(line.contains(LuceneConstants.INDEX_THIRD_FIELD_FIELD_NAME)){
+				String thirdFieldName = line.split("=")[1];
+				thirdFieldName = thirdFieldName.split(";")[0];
+				this.setThirdFieldName(thirdFieldName);
+			}
 		}
 		reader.close();
 	}
@@ -139,9 +145,12 @@ public class Indexer {
 	 */
 	private Document getDocument(File file) throws IOException {
 		Document document = new Document();
-		TextField contentField = new TextField(LuceneConstants.INDEX_SECOND_FIELD_FIELD_NAME, new FileReader(file));
-		TextField fileNameField = new TextField(LuceneConstants.INDEX_FIRST_FIELD_FIELD_NAME, file.getName(), TextField.Store.YES);
-		TextField filePathField = new TextField(LuceneConstants.INDEX_DIRECTORY_FIELD_NAME, file.getCanonicalPath(), TextField.Store.YES);
+//		TextField contentField = new TextField(LuceneConstants.INDEX_SECOND_FIELD_FIELD_NAME, new FileReader(file));
+//		TextField fileNameField = new TextField(LuceneConstants.INDEX_FIRST_FIELD_FIELD_NAME, file.getName(), TextField.Store.YES);
+//		TextField filePathField = new TextField(LuceneConstants.INDEX_DIRECTORY_FIELD_NAME, file.getCanonicalPath(), TextField.Store.YES);
+		TextField contentField = new TextField(this.getSecondFieldName(), new FileReader(file));
+		TextField fileNameField = new TextField(this.getFirstFieldName(), file.getName(), TextField.Store.YES);
+		TextField filePathField = new TextField(this.getThirdFieldName(), file.getCanonicalPath(), TextField.Store.YES);
 		document.add(contentField);
 		document.add(fileNameField);
 		document.add(filePathField);
@@ -209,7 +218,7 @@ public class Indexer {
 	/**
 	 * @return the secondFieldName
 	 */
-	private String getSecondFieldName() {
+	public String getSecondFieldName() {
 		return secondFieldName;
 	}
 
@@ -218,6 +227,14 @@ public class Indexer {
 	 */
 	private void setSecondFieldName(String secondFieldName) {
 		this.secondFieldName = secondFieldName;
+	}
+	
+	private String getThirdFieldName() {
+		return thirdFieldName;
+	}
+
+	private void setThirdFieldName(String thirdFieldName) {
+		this.thirdFieldName = thirdFieldName;
 	}
 
 	/**
