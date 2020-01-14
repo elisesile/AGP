@@ -1,10 +1,10 @@
-package moteur;
+package business;
 
 import java.util.ArrayList;
 
-import business.AbstractSite;
-import business.Excursion;
-import business.Ride;
+import data.AbstractSite;
+import data.Excursion;
+import data.Ride;
 
 public class ExcursionCalculator {
 

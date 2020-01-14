@@ -14,12 +14,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import business.ActivitySite;
-import business.HistoricSite;
-import business.Hotel;
+import data.AbstractSite;
+import data.ActivitySite;
+import data.HistoricSite;
+import data.Hotel;
 import persistence.jdbc.JdbcConnection;
 import persistence.jdbc.Queries;
-import business.AbstractSite;
 
 @ManagedBean
 @SessionScoped

@@ -5,7 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import business.SimpleEntry;
+import data.SimpleEntry;
 
 @ManagedBean(name = "simpleSearchBean")
 @SessionScoped

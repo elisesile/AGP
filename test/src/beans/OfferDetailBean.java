@@ -8,15 +8,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import business.AbstractSite;
-import business.ActivitySite;
-import business.Excursion;
-import business.HistoricSite;
-import business.Hotel;
-import business.Offre;
-import business.Ride;
-import business.Transport;
-import business.TransportEnum;
+import data.AbstractSite;
+import data.ActivitySite;
+import data.Excursion;
+import data.HistoricSite;
+import data.Hotel;
+import data.Offre;
+import data.Ride;
+import data.Transport;
+import data.TransportEnum;
 
 @ManagedBean
 @SessionScoped

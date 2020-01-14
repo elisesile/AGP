@@ -1,4 +1,4 @@
-package business;
+package data;
 
 public enum TransportEnum {
 	BUS,

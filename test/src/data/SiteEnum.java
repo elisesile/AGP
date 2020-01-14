@@ -1,4 +1,4 @@
-package business;
+package data;
 
 public enum SiteEnum {
 	ACTIVITY,

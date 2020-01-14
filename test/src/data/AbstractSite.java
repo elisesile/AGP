@@ -1,4 +1,4 @@
-package business;
+package data;
 
 public abstract class AbstractSite {
 	private String name;
