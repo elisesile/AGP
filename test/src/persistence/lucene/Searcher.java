@@ -87,4 +87,18 @@ public class Searcher {
 		   
 		   return Integer.valueOf(fileName);
 	   }
+	   
+	   /**
+	    * Get the score of the given document
+	    * 
+	    * @param scoreDoc
+	    * 
+	    * @return document score
+	    * 
+	    * @throws CorruptIndexException
+	    * @throws IOException
+	    */
+	   public float getDocumentScore(ScoreDoc scoreDoc) throws CorruptIndexException, IOException {
+		   return scoreDoc.score;
+	   }
 }

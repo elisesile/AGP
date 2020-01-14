@@ -26,6 +26,7 @@ public class TestLucene {
 					//System.out.println(document.getField("firstFieldName").stringValue()); //File's name:  X.txt
 						//V2 (utiliser cette méthode de préférence)
 					System.out.println(searcher.getDocumentName(doc, "firstFieldName"));
+					System.out.println(searcher.getDocumentScore(doc));
 				}
 				
 			} catch (ParseException e) {
