@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import business.AbstractSite;
 import business.ActivitySite;
@@ -18,13 +20,17 @@ import business.Transport;
 import business.TransportEnum;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class OfferResultBean {
     
 	private List<Offre> offres = new ArrayList<Offre>();
+	
+	@ManagedProperty(value="#{offerSearchBean}")
+	private OfferSearchBean offerSearchBean;
      
     @PostConstruct
     public void init() {
+    	
     	Transport transport = new Transport();
     	transport.setType(TransportEnum.BUS);
     	
@@ -84,6 +90,14 @@ public class OfferResultBean {
 
 	public void setOffres(List<Offre> offres) {
 		this.offres = offres;
+	}
+
+	public OfferSearchBean getOfferSearchBean() {
+		return offerSearchBean;
+	}
+
+	public void setOfferSearchBean(OfferSearchBean offerSearchBean) {
+		this.offerSearchBean = offerSearchBean;
 	}
  
     

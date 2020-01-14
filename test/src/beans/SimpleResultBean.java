@@ -1,47 +1,81 @@
 package beans;
 
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import business.ActivitySite;
 import business.HistoricSite;
 import business.Hotel;
+import persistence.jdbc.JdbcConnection;
+import persistence.jdbc.Queries;
 import business.AbstractSite;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class SimpleResultBean {
     
 	private List<Hotel> hotels = new ArrayList<Hotel>();
 	private List<AbstractSite> sites = new ArrayList<AbstractSite>();
 	private Hotel selectedHotel;
 	private AbstractSite selectedSite;
+	
+	@ManagedProperty(value="#{simpleSearchBean}")
+	private SimpleSearchBean simpleSearchBean;
      
     @PostConstruct
     public void init() {
-    	Hotel h1 = new Hotel();
-    	h1.setName("Tokyo Hotel");
-    	h1.setPrice(125);
-    	h1.setDescription("Moonson");
-    	Hotel h2 = new Hotel();
-    	h2.setName("Hotel California");
-    	h2.setPrice(400);
-    	h2.setDescription("Welcome to the Hotel California");
-    	hotels.add(h1);
-    	hotels.add(h2);
+    	/*Queries queries = new Queries();
+    	PreparedStatement preparedStatement = null;
+    	ResultSet hotelsResult = queries.searchHotelByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+		try {
+			while(hotelsResult.next()){
+		    	Hotel hotel = new Hotel();
+				hotel.setName(hotelsResult.getString(2));
+				hotel.setPrice(hotelsResult.getInt(3));
+				hotel.setDescription(hotelsResult.getString(4));
+				hotels.add(hotel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}*/
+
+    	Queries queries = new Queries();
+		PreparedStatement preparedStatement = null;
+		ResultSet hotels = queries.searchHotelByPrice(preparedStatement, 100, 200);
+		System.out.println("\t searchHotelByPrice");
+		try {
+			while(hotels.next()){ 
+				int id = hotels.getInt(1);
+				String name = hotels.getString(2);
+				int price = hotels.getInt(3);
+				String beachName = hotels.getString(4);
+				
+				System.out.println(id+" || "+name+ " || "+price+" || "+beachName); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     	
-    	AbstractSite s1 = new ActivitySite();
+    	
+    	/*AbstractSite s1 = new ActivitySite();
     	s1.setName("Volcan");
     	s1.setDescription("Un joli volcan");
     	AbstractSite s2 = new HistoricSite();
     	s2.setName("Ruines");
     	s2.setDescription("Une jolie ruine");
     	sites.add(s1);
-    	sites.add(s2);
+    	sites.add(s2);*/
     }
 
 	public List<Hotel> getHotels() {
@@ -74,6 +108,14 @@ public class SimpleResultBean {
 
 	public void setSelectedSite(AbstractSite selectedSite) {
 		this.selectedSite = selectedSite;
+	}
+
+	public SimpleSearchBean getSimpleSearchBean() {
+		return simpleSearchBean;
+	}
+
+	public void setSimpleSearchBean(SimpleSearchBean simpleSearchBean) {
+		this.simpleSearchBean = simpleSearchBean;
 	}
     
 }

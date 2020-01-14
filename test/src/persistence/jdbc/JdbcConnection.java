@@ -2,6 +2,7 @@ package persistence.jdbc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class JdbcConnection {
 	*/
 	private ArrayList<String> readConnectionInfo(String fileName){
 		File file = new File(fileName);
+		
+		System.out.println(file.getAbsolutePath());
 		Scanner reader = null;
 		ArrayList<String> arrayInformation =  new ArrayList<String>();
 		String dbname = null, hostname = null;

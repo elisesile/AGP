@@ -3,21 +3,20 @@ package beans;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
-@ManagedBean
-@RequestScoped
+import business.OfferEntry;
+
+@ManagedBean(name = "offerSearchBean")
+@SessionScoped
 public class OfferSearchBean {
     
-    private int minPrice = 500;
-    private int maxPrice = 5000;
-    private String typeOfTrip;
-    private int intensity = 2;
-    private String intensityMessage;
+	private OfferEntry entries = new OfferEntry();
      
     @PostConstruct
     public void init() {
        //TODO
-    	intensityMessage = "Voyage moyennement intense";
+    	entries.setIntensityMessage("Voyage moyennement intense");
     }
     
     public String searchAction() {
@@ -28,53 +27,53 @@ public class OfferSearchBean {
  
     public void changeMessage() {
     	//Définir de meilleurs messages
-    	switch(intensity) {
-	    	case 0: intensityMessage ="Voyage non intense"; break;
-	    	case 1: intensityMessage ="Voyage peu intense"; break;
-	    	case 2: intensityMessage ="Voyage moyennement intense"; break;
-	    	case 3: intensityMessage ="Voyage intense"; break;
-	    	case 4: intensityMessage ="Voyage très intense"; break;
+    	switch(entries.getIntensity()) {
+	    	case 0: entries.setIntensityMessage("Voyage non intense"); break;
+	    	case 1: entries.setIntensityMessage("Voyage peu intense"); break;
+	    	case 2: entries.setIntensityMessage("Voyage moyennement intense"); break;
+	    	case 3: entries.setIntensityMessage("Voyage intense"); break;
+	    	case 4: entries.setIntensityMessage("Voyage très intense"); break;
 	    	default: break;
     	}
     }
     
 	public int getMinPrice() {
-        return minPrice;
+        return entries.getMinPrice();
     }
  
-    public void setMinPrice(int number8) {
-        this.minPrice = number8;
+    public void setMinPrice(int minPrice) {
+        entries.setMinPrice(minPrice);
     }
  
     public int getMaxPrice() {
-        return maxPrice;
+        return entries.getMaxPrice();
     }
  
-    public void setMaxPrice(int number9) {
-        this.maxPrice = number9;
+    public void setMaxPrice(int maxPrice) {
+    	entries.setMaxPrice(maxPrice);
     }
     
     public String getTypeOfTrip() {
-		return typeOfTrip;
+		return entries.getTypeOfTrip();
 	}
 
 	public void setTypeOfTrip(String typeOfTrip) {
-		this.typeOfTrip = typeOfTrip;
+		entries.setTypeOfTrip(typeOfTrip);
 	}
 
 	public int getIntensity() {
-		return intensity;
+		return entries.getIntensity();
 	}
 
 	public void setIntensity(int intensity) {
-		this.intensity = intensity;
+		entries.setIntensity(intensity);
 	}
 
 	public String getIntensityMessage() {
-		return intensityMessage;
+		return entries.getIntensityMessage();
 	}
 
 	public void setIntensityMessage(String intensityMessage) {
-		this.intensityMessage = intensityMessage;
+		entries.setIntensityMessage(intensityMessage);
 	}
 }

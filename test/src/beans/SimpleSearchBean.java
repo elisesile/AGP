@@ -3,14 +3,15 @@ package beans;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
-@ManagedBean
-@RequestScoped
+import business.SimpleEntry;
+
+@ManagedBean(name = "simpleSearchBean")
+@SessionScoped
 public class SimpleSearchBean {
     
-    private String keywords;
-    private int minPrice = 0;
-    private int maxPrice = 500;
+	private SimpleEntry simpleEntry = new SimpleEntry();
      
     @PostConstruct
     public void init() {
@@ -24,27 +25,27 @@ public class SimpleSearchBean {
 	}
 
 	public String getKeywords() {
-		return keywords;
+		return simpleEntry.getKeywords();
 	}
 
 	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+		simpleEntry.setKeywords(keywords);
 	}
 
 	public int getMinPrice() {
-		return minPrice;
+		return simpleEntry.getMinPrice();
 	}
 
 	public void setMinPrice(int minPrice) {
-		this.minPrice = minPrice;
+		simpleEntry.setMinPrice(minPrice);
 	}
 
 	public int getMaxPrice() {
-		return maxPrice;
+		return simpleEntry.getMaxPrice();
 	}
 
 	public void setMaxPrice(int maxPrice) {
-		this.maxPrice = maxPrice;
+		simpleEntry.setMaxPrice(maxPrice);
 	}
    
 }

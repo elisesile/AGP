@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import business.AbstractSite;
 import business.ActivitySite;
@@ -18,7 +19,7 @@ import business.Transport;
 import business.TransportEnum;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class OfferDetailBean {
     private Offre offre;
 	private List<Offre> offres = new ArrayList<Offre>();
