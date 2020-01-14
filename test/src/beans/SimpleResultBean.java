@@ -33,38 +33,42 @@ public class SimpleResultBean {
     public void init() {
     	Queries queries = new Queries();
     	PreparedStatement preparedStatement = null;
-    	
-    	ResultSet hotelsResult = queries.searchHotelByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-    	try {
-			while(hotelsResult.next()){
-		    	Hotel hotel = new Hotel();
-				hotel.setName(hotelsResult.getString(2));
-				hotel.setPrice(hotelsResult.getInt(3));
-				hotel.setDescription(hotelsResult.getString(4));
-				hotels.add(hotel);
+    	if(simpleSearchBean.isHotelSearch()) {
+	    	ResultSet hotelsResult = queries.searchHotelByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+	    	try {
+				while(hotelsResult.next()){
+			    	Hotel hotel = new Hotel();
+					hotel.setName(hotelsResult.getString(2));
+					hotel.setPrice(hotelsResult.getInt(3));
+					hotel.setDescription(hotelsResult.getString(4));
+					hotels.add(hotel);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+    	}
     	
-    	ResultSet sitesResult = queries.searchSitesByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-    	try {
-			while(sitesResult.next()){
-		    	AbstractSite site;
-		    	if(sitesResult.getString(2) == "Historic") {
-		    		site = new HistoricSite();
-		    	}
-		    	else {
-		    		site = new ActivitySite();
-		    	}
-		    	site.setName(sitesResult.getString(2));
-		    	site.setPrice(sitesResult.getInt(4));
-		    	//site.setDescription(sitesResult.getString(4));
-				sites.add(site);
+    	if(simpleSearchBean.isActivitySearch()) {
+    		ResultSet sitesResult = queries.searchSitesByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+	    	try {
+				while(sitesResult.next()){
+			    	AbstractSite site;
+			    	if(sitesResult.getString(2) == "Historic") {
+			    		site = new HistoricSite();
+			    	}
+			    	else {
+			    		site = new ActivitySite();
+			    	}
+			    	site.setName(sitesResult.getString(2));
+			    	site.setPrice(sitesResult.getInt(4));
+			    	//site.setDescription(sitesResult.getString(4));
+					sites.add(site);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+    	}
+    	
     	
     	
     	/*AbstractSite s1 = new ActivitySite();
