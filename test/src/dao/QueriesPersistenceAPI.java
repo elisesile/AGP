@@ -1,18 +1,21 @@
 package dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public interface QueriesPersistenceAPI {
 	void dataInit();
-
-	ResultSet searchHotelByPrice(PreparedStatement preparedStatement, int startRange, int endRange);
 	
-	ResultSet searchSiteByType(PreparedStatement preparedStatement, String type);
+	void searchHotelByPrice(int startRange, int endRange);
 	
-	ResultSet getSites(PreparedStatement preparedStatement);
+	void searchSiteByType(String type);
 	
-	ResultSet searchSitesByPrice(PreparedStatement preparedStatement, int startRange, int endRange);
+	void getSites();
 	
-	ResultSet getRides(PreparedStatement preparedStatement);
+	void searchSitesByPrice(int startRange, int endRange);
+	
+	void getRides();
+	
+	void getRidesCoordAndTransportTypePrice(ArrayList<Integer> idRides);
+	
+	void getHotel(int idHotel);
 }

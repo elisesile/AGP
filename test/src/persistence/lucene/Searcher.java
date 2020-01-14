@@ -101,11 +101,19 @@ public class Searcher {
 	public float getDocumentScore(ScoreDoc scoreDoc) throws CorruptIndexException, IOException {
 		return scoreDoc.score;
 	}
-	   
+	
+	/**
+	 * Initialize the iterator to the first element
+	 */
 	public void initIterator() {
 		this.setCurrentIndexIterator(0);
 	}
 	
+	/**
+	 * Get the next element of the iterator
+	 * 
+	 * @return next scoreDoc
+	 */
 	public ScoreDoc nextIterator() {
 		int currentIndex = this.getCurrentIndexIterator();
 		if(currentIndex < this.getDocsIterator().length) {

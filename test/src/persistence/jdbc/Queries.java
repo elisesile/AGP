@@ -11,12 +11,52 @@ import business.ExcursionCalculator;
 import dao.QueriesPersistenceAPI;
 
 public class Queries implements QueriesPersistenceAPI {
+	private PreparedStatement preparedStatement = null;
+	private ResultSet resultsSet;
+
 	
 	/**
 	 * Print an error message to inform the user
 	 */
 	public void dataInit() {
 		System.err.println("Please don't forget to create tables manually by importing config/create_tables.sql and config/insert_tahiti.sql in your database !");
+	}
+	
+	/**
+	 * Close the preparedStatement
+	 */
+	private void closePreparedStatement() {
+		try {
+			this.getPreparedStatement().close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Initialize the iterator to the first element
+	 * 
+	 * @param results
+	 */
+	public void initIterator(ResultSet results){
+		this.setResultsSet(results);
+	}
+	
+	/**
+	 * Get the next element of the iterator
+	 */
+	public boolean nextIterator(){
+		boolean currentElement = false;
+		try {
+			currentElement = this.getResultsSet().next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(currentElement == false){
+			this.closePreparedStatement();
+			return false;
+		}
+		return true;
 	}
 
 	
@@ -25,47 +65,39 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @param startRange
 	 * @param endRange
-	 * 
-	 * @return result
 	 */
-	public ResultSet searchHotelByPrice(PreparedStatement preparedStatement, int startRange, int endRange) {
-		ResultSet result = null;
+	public void searchHotelByPrice(int startRange, int endRange) {
 		try {
 			String query = "SELECT * FROM hotel WHERE price <= ? AND price >= ?";
 	
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
-			preparedStatement.setInt(1, endRange);
-			preparedStatement.setInt(2, startRange);
+			this.preparedStatement.setInt(1, endRange);
+			this.preparedStatement.setInt(2, startRange);
 	
-			result = preparedStatement.executeQuery();
+			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		return result;
 	}
 	
 	/**
 	 * Get sites with the correspond type in database
 	 * 
 	 * @param type
-	 * 
-	 * @return result
 	 */
-	public ResultSet searchSiteByType(PreparedStatement preparedStatement, String type) {
-		ResultSet result = null;
+	public void searchSiteByType(String type) {
 		try {
 			String query = "SELECT * FROM site WHERE type = ?";
 	
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
-			preparedStatement.setString(1, type);
+			this.preparedStatement.setString(1, type);
 	
-			result = preparedStatement.executeQuery();
+			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		return result;
 	}
 	
 	/**
@@ -73,18 +105,16 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet getSites(PreparedStatement preparedStatement) {
-		ResultSet result = null;
+	public void getSites() {
 		try {
 			String query = "SELECT * FROM site";
 	
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
-			result = preparedStatement.executeQuery();
+			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		return result;
 	}
 	
 	/**
@@ -95,21 +125,19 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet searchSitesByPrice(PreparedStatement preparedStatement, int startRange, int endRange) {
-		ResultSet result = null;
+	public void searchSitesByPrice(int startRange, int endRange) {
 		try {
 			String query = "SELECT * FROM site WHERE price <= ? AND price >= ?";
 	
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
-			preparedStatement.setInt(1, endRange);
-			preparedStatement.setInt(2, startRange);
+			this.preparedStatement.setInt(1, endRange);
+			this.preparedStatement.setInt(2, startRange);
 	
-			result = preparedStatement.executeQuery();
+			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		return result;
 	}
 	
 	/**
@@ -120,8 +148,7 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public ResultSet getRides(PreparedStatement preparedStatement) {
-		ResultSet result = null;
+	public void getRides() {
 		try {
 			String query = "SELECT ride.id_ride, siteS.*, siteE.*, transport.*" + 
 							" FROM ride" + 
@@ -129,13 +156,12 @@ public class Queries implements QueriesPersistenceAPI {
 							" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
 							" INNER JOIN transport ON transport.id_transport = ride.id_transport;";
 	
-			preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 	
-			result = preparedStatement.executeQuery();
+			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		return result;
 	}
 	
 	/*
@@ -174,8 +200,7 @@ public class Queries implements QueriesPersistenceAPI {
 	}
 	*/
 	
-	public ResultSet getRidesCoordAndTransportTypePrice(ArrayList<Integer> idRides) {
-		ResultSet result = null;
+	public void getRidesCoordAndTransportTypePrice(ArrayList<Integer> idRides) {
 		try {
 			String query =	"SELECT transport.price, coordS.latitude, coordS.longitude, coordE.latitude, coordE.longitude" + 
 							" FROM ride" + 
@@ -186,41 +211,31 @@ public class Queries implements QueriesPersistenceAPI {
 							" INNER JOIN transport ON transport.id_transport = ride.id_transport" + 
 							" WHERE ride.id_ride IN (?)";
 	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
 			Array array = JdbcConnection.getConnection().createArrayOf("Integer", idRides.toArray());
-			preparedStatement.setArray(1, array);
+			this.preparedStatement.setArray(1, array);
 			
-			result = preparedStatement.executeQuery();
-			
-			
-			// preparedStatement.close();
+			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
-		return result;
 	}
 	
-	public ResultSet getHotel(int id_hotel) {
-		ResultSet result = null;
+	public void getHotel(int idHotel) {
 		try {
 			String query =	"SELECT *" + 
 							" FROM hotel" +  
 							" WHERE id_hotel = (?)";
 			
-		//	System.out.println(query);
-	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
-			preparedStatement.setInt(1, id_hotel);
+			this.preparedStatement.setInt(1, idHotel);
 			
-			result = preparedStatement.executeQuery();
-			
-			// preparedStatement.close();
+			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-		return result;
 	}
 	
 	public int getTotalPriceHotelAndRides(ResultSet rides, ResultSet hotel) throws SQLException {
@@ -243,7 +258,7 @@ public class Queries implements QueriesPersistenceAPI {
 				
 				System.out.println(latDeparture);
 				
-				price += (int) business.ExcursionCalculator.getDistanceKM(latDeparture,longDeparture,latArrival,longArrival)*transportPrice;
+				price += (int) ExcursionCalculator.getDistanceKM(latDeparture,longDeparture,latArrival,longArrival)*transportPrice;
 			
 				System.out.println(price);
 				
@@ -259,6 +274,37 @@ public class Queries implements QueriesPersistenceAPI {
 		
 		return price;
 	}
-	
+
+
+	/**
+	 * @return the preparedStatement
+	 */
+	private PreparedStatement getPreparedStatement() {
+		return preparedStatement;
+	}
+
+
+	/**
+	 * @param preparedStatement the preparedStatement to set
+	 */
+	private void setPreparedStatement(PreparedStatement preparedStatement) {
+		this.preparedStatement = preparedStatement;
+	}
+
+
+	/**
+	 * @return the resultsSet
+	 */
+	public ResultSet getResultsSet() {
+		return resultsSet;
+	}
+
+
+	/**
+	 * @param resultsSet the resultsSet to set
+	 */
+	private void setResultsSet(ResultSet resultsSet) {
+		this.resultsSet = resultsSet;
+	}
 	
 }
