@@ -8,6 +8,7 @@ public class Excursion {
 	private ArrayList<AbstractSite> visitedSites = new ArrayList<AbstractSite>();
 	private Hotel hotel;
 	private int num;
+	private boolean beach;
 	
 	public Excursion() {
 	}
@@ -43,6 +44,13 @@ public class Excursion {
 	public void setVisitedSites(ArrayList<AbstractSite> visitedSites) {
 		this.visitedSites = visitedSites;
 	}
-	
+
+	public boolean isBeach() {
+		return beach;
+	}
+
+	public void setBeach(boolean beach) {
+		this.beach = beach;
+	}
 	
 }

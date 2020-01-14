@@ -21,18 +21,18 @@ public class OfferSearchBean {
     
     public String searchAction() {
     	//TODO
-		System.out.println("A impl�menter");
+		System.out.println("A implémenter");
 		return "offer-result";
 	}
  
     public void changeMessage() {
-    	//D�finir de meilleurs messages
+    	//Définir de meilleurs messages
     	switch(entries.getIntensity()) {
 	    	case 0: entries.setIntensityMessage("Voyage non intense"); break;
 	    	case 1: entries.setIntensityMessage("Voyage peu intense"); break;
 	    	case 2: entries.setIntensityMessage("Voyage moyennement intense"); break;
 	    	case 3: entries.setIntensityMessage("Voyage intense"); break;
-	    	case 4: entries.setIntensityMessage("Voyage tr�s intense"); break;
+	    	case 4: entries.setIntensityMessage("Voyage trés intense"); break;
 	    	default: break;
     	}
     }
