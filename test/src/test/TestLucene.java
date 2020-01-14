@@ -32,9 +32,6 @@ public class TestLucene {
 				float currentScore = searcher.getDocumentScore(currentInfo);
 				System.out.println("currentId="+currentId+" currentScore="+currentScore);
 			}
-			
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
