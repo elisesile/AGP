@@ -1,8 +1,12 @@
 package persistence.jdbc;
 
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import business.ExcursionCalculator;
 
 import dao.QueriesPersistenceAPI;
 
@@ -169,4 +173,92 @@ public class Queries implements QueriesPersistenceAPI {
 		return result;
 	}
 	*/
+	
+	public ResultSet getRidesCoordAndTransportTypePrice(ArrayList<Integer> idRides) {
+		ResultSet result = null;
+		try {
+			String query =	"SELECT transport.price, coordS.latitude, coordS.longitude, coordE.latitude, coordE.longitude" + 
+							" FROM ride" + 
+							" INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
+							" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
+							" INNER JOIN coordinates AS coordS ON coordS.id_coordinates = siteS.id_coordinates" + 
+							" INNER JOIN coordinates AS coordE ON coordE.id_coordinates = siteE.id_coordinates" + 
+							" INNER JOIN transport ON transport.id_transport = ride.id_transport" + 
+							" WHERE ride.id_ride IN (?)";
+	
+			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			
+			Array array = JdbcConnection.getConnection().createArrayOf("Integer", idRides.toArray());
+			preparedStatement.setArray(1, array);
+			
+			result = preparedStatement.executeQuery();
+			
+			
+			// preparedStatement.close();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+		return result;
+	}
+	
+	public ResultSet getHotel(int id_hotel) {
+		ResultSet result = null;
+		try {
+			String query =	"SELECT *" + 
+							" FROM hotel" +  
+							" WHERE id_hotel = (?)";
+			
+		//	System.out.println(query);
+	
+			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			
+			preparedStatement.setInt(1, id_hotel);
+			
+			result = preparedStatement.executeQuery();
+			
+			// preparedStatement.close();
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
+		return result;
+	}
+	
+	public int getTotalPriceHotelAndRides(ResultSet rides, ResultSet hotel) throws SQLException {
+		int price = 0;
+		
+		System.out.println("coucou");
+		
+		try {
+			
+			System.out.println("coucou");
+			
+ 			while (rides.next()) {
+				int transportPrice = rides.getInt(1);
+				double latDeparture = rides.getDouble(2); 
+				double longDeparture = rides.getDouble(3);
+				double latArrival = rides.getDouble(4);
+				double longArrival = rides.getDouble(5);
+				
+				System.out.println(transportPrice);
+				
+				System.out.println(latDeparture);
+				
+				price += (int) business.ExcursionCalculator.getDistanceKM(latDeparture,longDeparture,latArrival,longArrival)*transportPrice;
+			
+				System.out.println(price);
+				
+			}
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
+		
+		hotel.next();
+		int hotelPrice = hotel.getInt(3);
+		
+		price += hotelPrice;
+		
+		return price;
+	}
+	
+	
 }
