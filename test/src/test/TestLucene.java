@@ -16,27 +16,25 @@ public class TestLucene {
 			indexer.initIndexer();
 			indexer.createIndexFromDirectory();
 			indexer.closeIndexer();
-
+			
 			Searcher searcher = new Searcher(indexer.getIndexDirectoryPath(), indexer.getSecondFieldName());
 			
 			try {
-				ScoreDoc[] docs = searcher.search(indexer.getMaxSearch(), "cascade").scoreDocs;
-
-				for(ScoreDoc doc : docs) {
-						//V1
-					//Document document = searcher.getDocument(doc);
-					//System.out.println(document.toString());
-					//System.out.println(document.getField("firstFieldName").stringValue()); //File's name:  X.txt
-						//V2 (utiliser cette méthode de préférence)
-					System.out.println(searcher.getDocumentName(doc, "FileName"));
-					System.out.println(searcher.getDocumentScore(doc));
-				}
-				
+				searcher.search(indexer.getMaxSearch(), "cascade culture");
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			searcher.initIterator();
+			ScoreDoc currentInfo;
+			while((currentInfo = searcher.nextIterator()) != null) {
+				//searcher.getDocument(currentInfo);
+				int currentId = searcher.getDocumentName(currentInfo, "firstFieldName");
+				float currentScore = searcher.getDocumentScore(currentInfo);
+				System.out.println("currentId="+currentId+" currentScore="+currentScore);
+			}
 			
-//			indexer.closeIndexer();
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

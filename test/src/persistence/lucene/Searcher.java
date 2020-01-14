@@ -18,87 +18,158 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 public class Searcher {
-	   IndexSearcher indexSearcher;
-	   QueryParser queryParser;
-	   Query query;
+	private IndexSearcher indexSearcher;
+	private QueryParser queryParser;
+	private ScoreDoc[] docsIterator;
+	private int currentIndexIterator;
 	   
 	   
-	   /**
-	    * Initialize the searcher
-	    * 
-	    * @param indexDirectoryPath
-	    * 
-	    * @throws IOException
-	    */
-	   public Searcher(String indexDirectoryPath, String fileContent) throws IOException {
-	      Directory indexDirectory = FSDirectory.open(Paths.get(indexDirectoryPath));
-	      IndexReader reader = DirectoryReader.open(indexDirectory);
-	      indexSearcher = new IndexSearcher(reader);
-	      queryParser = new QueryParser(fileContent, new StandardAnalyzer());
-	   }
+	/**
+	 * Initialize the searcher
+	 * 
+	 * @param indexDirectoryPath
+	 * 
+	 * @throws IOException
+	 */
+	public Searcher(String indexDirectoryPath, String fileContent) throws IOException {
+		Directory indexDirectory = FSDirectory.open(Paths.get(indexDirectoryPath));
+		IndexReader reader = DirectoryReader.open(indexDirectory);
+		indexSearcher = new IndexSearcher(reader);
+		queryParser = new QueryParser(fileContent, new StandardAnalyzer());
+	}
 	   
-	   /**
-	    * Get documents which corresponds to the given query
-	    * 
-	    * @param maxSearch
-	    * @param searchQuery
-	    * 
-	    * @return documents
-	    * 
-	    * @throws IOException(TopDocs)
-	    * @throws ParseException
-	    */
-	   public TopDocs search(int maxSearch, String searchQuery) 
-	      throws IOException, ParseException {
-	      query = queryParser.parse(searchQuery);
-	      return indexSearcher.search(query, maxSearch);
-	   }
+   /**
+    * Get documents which corresponds to the given query
+    * 
+    * @param maxSearch
+    * @param searchQuery
+    * 
+    * @return documents
+    * 
+    * @throws IOException(TopDocs)
+    * @throws ParseException
+    */
+	public void search(int maxSearch, String searchQuery) throws IOException, ParseException {
+		Query query = this.getQueryParser().parse(searchQuery);
+		TopDocs docs = this.getIndexSearcher().search(query, maxSearch);
+		this.setDocsIterator(docs.scoreDocs);
+	}
 	   
-	   /**
-	    * Get a document information
-	    * 
-	    * @param scoreDoc
-	    * 
-	    * @return document
-	    * 
-	    * @throws CorruptIndexException
-	    * @throws IOException
-	    */
-	   public Document getDocument(ScoreDoc scoreDoc) 
-	      throws CorruptIndexException, IOException {
-	      return indexSearcher.doc(scoreDoc.doc);	
-	   }
+	/**
+	 * Get a document information
+	 * 
+	 * @param scoreDoc
+	 * 
+	 * @return document
+	 * 
+	 * @throws CorruptIndexException
+	 * @throws IOException
+	 */
+	public Document getDocument(ScoreDoc scoreDoc) throws CorruptIndexException, IOException {
+		return this.getIndexSearcher().doc(scoreDoc.doc);	
+	}
+
+	/**
+	 * Get the id which correspond to the document name
+	 * 
+	 * @param scoreDoc
+	 * @param fieldName
+	 * 
+	 * @return id of the document name
+	 * 
+	 * @throws CorruptIndexException
+	 * @throws IOException
+	 */
+	public int getDocumentName(ScoreDoc scoreDoc, String fieldName) throws CorruptIndexException, IOException {
+		Document document = this.getDocument(scoreDoc);
+		String fileName = document.getField(fieldName).stringValue();
+		fileName = fileName.split(".txt")[0];
+
+		return Integer.valueOf(fileName);
+	}
 	   
-	   /**
-	    * Get the id which correspond to the document name
-	    * 
-	    * @param scoreDoc
-	    * @param fieldName
-	    * 
-	    * @return id of the document name
-	    * 
-	    * @throws CorruptIndexException
-	    * @throws IOException
-	    */
-	   public int getDocumentName(ScoreDoc scoreDoc, String fieldName) throws CorruptIndexException, IOException {
-		   Document document = this.getDocument(scoreDoc);
-		   String fileName = document.getField(fieldName).stringValue();
-		   fileName = fileName.split(".txt")[0];
-		   
-		   return Integer.valueOf(fileName);
-	   }
+	/**
+	 * Get the score of the given document
+	 * 
+	 * @param scoreDoc
+	 * 
+	 * @return document score
+	 * 
+	 * @throws CorruptIndexException
+	 * @throws IOException
+	 */
+	public float getDocumentScore(ScoreDoc scoreDoc) throws CorruptIndexException, IOException {
+		return scoreDoc.score;
+	}
 	   
-	   /**
-	    * Get the score of the given document
-	    * 
-	    * @param scoreDoc
-	    * 
-	    * @return document score
-	    * 
-	    * @throws CorruptIndexException
-	    * @throws IOException
-	    */
-	   public float getDocumentScore(ScoreDoc scoreDoc) throws CorruptIndexException, IOException {
-		   return scoreDoc.score;
-	   }
+	public void initIterator() {
+		this.setCurrentIndexIterator(0);
+	}
+	
+	public ScoreDoc nextIterator() {
+		int currentIndex = this.getCurrentIndexIterator();
+		if(currentIndex < this.getDocsIterator().length) {
+			this.setCurrentIndexIterator(currentIndex+1);
+			return this.getDocsIterator()[currentIndex];
+		}
+		return null;
+	}
+	
+	
+
+	/**
+	 * @return the indexSearcher
+	 */
+	private IndexSearcher getIndexSearcher() {
+		return indexSearcher;
+	}
+
+	/**
+	 * @param indexSearcher the indexSearcher to set
+	 */
+	private void setIndexSearcher(IndexSearcher indexSearcher) {
+		this.indexSearcher = indexSearcher;
+	}
+
+	/**
+	 * @return the queryParser
+	 */
+	private QueryParser getQueryParser() {
+		return queryParser;
+	}
+
+	/**
+	 * @param queryParser the queryParser to set
+	 */
+	private void setQueryParser(QueryParser queryParser) {
+		this.queryParser = queryParser;
+	}
+
+	/**
+	 * @return the docsIterator
+	 */
+	private ScoreDoc[] getDocsIterator() {
+		return docsIterator;
+	}
+
+	/**
+	 * @param docsIterator the docsIterator to set
+	 */
+	private void setDocsIterator(ScoreDoc[] docsIterator) {
+		this.docsIterator = docsIterator;
+	}
+
+	/**
+	 * @return the currentIndexIterator
+	 */
+	private int getCurrentIndexIterator() {
+		return currentIndexIterator;
+	}
+
+	/**
+	 * @param currentIndexIterator the currentIndexIterator to set
+	 */
+	private void setCurrentIndexIterator(int currentIndexIterator) {
+		this.currentIndexIterator = currentIndexIterator;
+	}
 }
