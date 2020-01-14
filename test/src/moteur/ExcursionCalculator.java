@@ -34,4 +34,18 @@ public class ExcursionCalculator {
 		excursion.setVisitedSites(sites);
 		
 	}
+	
+	
+	public static double getDistanceKM(double lat1, double long1, double lat2, double long2) {
+		double earthRadius = 6378.137;
+		double distance;
+		lat1 = Math.toRadians(lat1);
+		lat2 = Math.toRadians(lat2);
+		long1 = Math.toRadians(long1);
+		long2 = Math.toRadians(long2);
+		distance = Math.acos(Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2)*Math.cos(long1-long2));
+		return earthRadius * distance;
+	}
+
+	
 }
