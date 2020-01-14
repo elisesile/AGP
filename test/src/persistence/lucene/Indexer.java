@@ -204,7 +204,7 @@ public class Indexer {
 	/**
 	 * @return the firstFieldName
 	 */
-	private String getFirstFieldName() {
+	public String getFirstFieldName() {
 		return firstFieldName;
 	}
 

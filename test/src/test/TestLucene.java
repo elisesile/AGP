@@ -28,7 +28,7 @@ public class TestLucene {
 			ScoreDoc currentInfo;
 			while((currentInfo = searcher.nextIterator()) != null) {
 				//searcher.getDocument(currentInfo);
-				int currentId = searcher.getDocumentName(currentInfo, "firstFieldName");
+				int currentId = searcher.getDocumentName(currentInfo, indexer.getFirstFieldName());
 				float currentScore = searcher.getDocumentScore(currentInfo);
 				System.out.println("currentId="+currentId+" currentScore="+currentScore);
 			}
