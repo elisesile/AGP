@@ -35,33 +35,16 @@ public class SimpleResultBean {
      
     @PostConstruct
     public void init() {
-    	/*Queries queries = new Queries();
+    	Queries queries = new Queries();
     	PreparedStatement preparedStatement = null;
     	ResultSet hotelsResult = queries.searchHotelByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-		try {
+    	try {
 			while(hotelsResult.next()){
 		    	Hotel hotel = new Hotel();
 				hotel.setName(hotelsResult.getString(2));
 				hotel.setPrice(hotelsResult.getInt(3));
 				hotel.setDescription(hotelsResult.getString(4));
 				hotels.add(hotel);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}*/
-
-    	Queries queries = new Queries();
-		PreparedStatement preparedStatement = null;
-		ResultSet hotels = queries.searchHotelByPrice(preparedStatement, 100, 200);
-		System.out.println("\t searchHotelByPrice");
-		try {
-			while(hotels.next()){ 
-				int id = hotels.getInt(1);
-				String name = hotels.getString(2);
-				int price = hotels.getInt(3);
-				String beachName = hotels.getString(4);
-				
-				System.out.println(id+" || "+name+ " || "+price+" || "+beachName); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
