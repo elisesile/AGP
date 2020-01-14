@@ -22,7 +22,11 @@
 		</p:menuitem>
 	</p:tabMenu>
 	<h:form>
-		<h:outputText value="Mots clées: " />
+	<p>Vous cherchez:</p>
+	<p:selectBooleanCheckbox value="#{simpleSearchBean.hotelSearch}" itemLabel="Hotels"/>
+	<p:selectBooleanCheckbox value="#{simpleSearchBean.activitySearch}" itemLabel="Activités"/>
+	
+		<h:outputText value="Mots clés: " />
 		<p:inputText value="#{simpleSearchBean.keywords}" />
 		<br />
 		<h:outputText id="displayRange" value="Prix de l'activité / nuit d'hôtel compris entre #{simpleSearchBean.minPrice}€ et #{simpleSearchBean.maxPrice}€" />

@@ -20,7 +20,7 @@ public class SimpleSearchBean {
     
     public String searchAction() {
     	//TODO
-		System.out.println("A implémenter ");
+		System.out.println("A implï¿½menter ");
 		return "simple-result";
 	}
 
@@ -47,5 +47,25 @@ public class SimpleSearchBean {
 	public void setMaxPrice(int maxPrice) {
 		simpleEntry.setMaxPrice(maxPrice);
 	}
+	
+	public boolean isHotelSearch() {
+		return simpleEntry.isHotelSearch();
+	}
+
+
+	public void setHotelSearch(boolean isHotelSearch) {
+		simpleEntry.setHotelSearch(isHotelSearch);
+	}
+
+
+	public boolean isActivitySearch() {
+		return simpleEntry.isActivitySearch();
+	}
+
+
+	public void setActivitySearch(boolean isActivitySearch) {
+		simpleEntry.setActivitySearch(isActivitySearch);
+	}
+    
    
 }
