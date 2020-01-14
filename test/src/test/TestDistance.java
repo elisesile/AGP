@@ -1,5 +1,4 @@
 package test;
-import moteur.ExcursionCalculator;
 
 public class TestDistance {
 	
