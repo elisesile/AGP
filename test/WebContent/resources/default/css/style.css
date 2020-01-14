@@ -15,4 +15,22 @@
 
 .ui-slider .ui-slider-handle, .ui-slider .ui-slider-range{
 	background-color: #e9a063;
-}*/
+}
+*/
+
+.menu {
+	 text-align:center;
+}
+
+.name {
+	width: 10%;
+}
+
+.detail {
+	width: 90%;
+	padding-left: 25px;
+}
+
+.detail td {
+	font-size: 24px;
+}
