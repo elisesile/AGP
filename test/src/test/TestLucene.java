@@ -1,51 +1,42 @@
 package test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
-import persistence.lucene.LuceneAPI;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.search.ScoreDoc;
+
+import persistence.lucene.Indexer;
+import persistence.lucene.Searcher;
 
 public class TestLucene {
 	public static void main(String[] args) {
-		LuceneAPI testAPI = new LuceneAPI();
-//		testAPI.readLuceneInfo("lucene.conf");
-		testAPI.readLuceneInfo();
-		System.out.println(testAPI.getDataDirectoryPath());
-		System.out.println(testAPI.getIndexDirectoryPath());
-		System.out.println(testAPI.getMaxSearch());
-		System.out.println(testAPI.getFirstFieldName());
-		System.out.println(testAPI.getSecondFieldName());
+		Indexer indexer = new Indexer();
 		
 		try {
+			indexer.initIndexer();
+			indexer.createIndexFromDirectory();
+			
+			Searcher searcher = new Searcher(indexer.getIndexDirectoryPath());
 			try {
-				testAPI.initLuceneAP();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				ScoreDoc[] docs = searcher.search(indexer.getMaxSearch(), "cascade").scoreDocs;
+				for(ScoreDoc doc : docs) {
+						//V1
+					//Document document = searcher.getDocument(doc);
+					//System.out.println(document.toString());
+					//System.out.println(document.getField("firstFieldName").stringValue()); //File's name:  X.txt
+						//V2 (utiliser cette méthode de préférence)
+					System.out.println(searcher.getDocumentName(doc, "firstFieldName"));
+					System.out.println(searcher.getDocumentScore(doc));
+				}
+				
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
+			indexer.closeIndexer();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		try {
-			testAPI.indexateFiles();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			testAPI.getIndexWriter().close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
