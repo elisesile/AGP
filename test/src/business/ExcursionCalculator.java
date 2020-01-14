@@ -9,6 +9,7 @@ import data.Ride;
 public class ExcursionCalculator {
 
 	
+	
 	public void getSiteList(Excursion excursion){
 		
 		ArrayList<Ride> rides =  excursion.getRides();
