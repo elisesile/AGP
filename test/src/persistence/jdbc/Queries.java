@@ -257,7 +257,6 @@ public class Queries implements QueriesPersistenceAPI {
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());
 		}
-
 		return totalPrice;
 	}
 

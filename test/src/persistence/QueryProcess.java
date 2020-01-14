@@ -2,31 +2,42 @@ package persistence;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
+import org.apache.lucene.document.Document;
+import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 
+import data.AbstractSite;
 import persistence.lucene.Indexer;
 import persistence.lucene.Searcher;
 
-public class Process{
+public class QueryProcess{
 	private ResultSet sqlResult;
 	private ScoreDoc textResult;
 	private boolean alreadyIndexed = false;
 	private Indexer indexer;
-	private static Process instance = new Process();
+	private static QueryProcess instance = new QueryProcess();
+	private Searcher searcher;
+	private HashMap<Integer,HashMap<String, String>> resultHashMap; 
 	
+	private QueryProcess() {}
 	
-	private Process() {}
-	
-	public static Process getInstance() {
+	public static QueryProcess getInstance() {
 		return instance;
 	}
 	
 	
-	public void executeQuery(ResultSet sqlResult, String luceneParams) {
+	public void executeQuery(ResultSet sqlResult, String luceneParams) throws SQLException, CorruptIndexException, IOException {
 		this.setSqlResult(sqlResult);
 		this.executeText(luceneParams);
+		this.joinQuery();
 	}
 	
 	private void executeText(String luceneKeywords) {
@@ -35,7 +46,7 @@ public class Process{
 			this.setAlreadyIndexed(true);
 		}
 		
-		Searcher searcher;
+//		Searcher searcher;
 		try {
 			searcher = new Searcher(this.getIndexer().getIndexDirectoryPath(), this.getIndexer().getSecondFieldName());
 			
@@ -47,6 +58,8 @@ public class Process{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
+		// this.luceneQuerySavedResults = searcher.search(this.getIndexer().getMaxSearch(), luceneKeywords);
 		/*
 		searcher.initIterator();
 		ScoreDoc currentInfo;
@@ -58,10 +71,50 @@ public class Process{
 		}*/
 	}
 	
-	private void joinQuery() {
+	private HashMap<Integer,HashMap<String, String>> joinQuery() throws SQLException, CorruptIndexException, IOException {
+		int foundDocuments = 0;
+		ScoreDoc actualScoreDoc;
+		resultHashMap = new HashMap<Integer,HashMap<String, String>>();
+		
+//		ResultSetMetaData rsmd = sqlResult.getMetaData();
+		
+		while(sqlResult.next() && foundDocuments < searcher.getDocsIterator().length) {
+			while((actualScoreDoc = searcher.nextIterator()) != null) {
+				int fileName = Integer.valueOf(searcher.getDocumentName(actualScoreDoc, indexer.getFirstFieldName()));
+				if (sqlResult.getInt(1) == fileName) {
+					HashMap<String,String> sitesInformations = new HashMap<String,String>();
+					
+					int id = sqlResult.getInt(1);
+					String name = sqlResult.getString(2);
+					String type = sqlResult.getString(3);
+					int price = sqlResult.getInt(4);
+					int id_coordinates= sqlResult.getInt(5);
+					
+					sitesInformations.put("name", name);
+					sitesInformations.put("type", type);
+					sitesInformations.put("price", String.valueOf(price));
+					sitesInformations.put("id_coordinates", String.valueOf(id_coordinates));
+					
+					resultHashMap.put(id, sitesInformations); 
+					
+					foundDocuments++;
+				}
+			}
+			
+			searcher.initIterator();
+		}
+		return resultHashMap;
 		
 	}
 	
+	public HashMap<Integer, HashMap<String, String>> getResultHashMap() {
+		return resultHashMap;
+	}
+
+	public void setResultHashMap(HashMap<Integer, HashMap<String, String>> resultHashMap) {
+		this.resultHashMap = resultHashMap;
+	}
+
 	private void createIndex() {
 		Indexer indexer = new Indexer();
 		
@@ -131,5 +184,4 @@ public class Process{
 	private void setIndexer(Indexer indexer) {
 		this.indexer = indexer;
 	}
-
 }
