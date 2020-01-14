@@ -22,10 +22,11 @@
 		</p:menuitem>
 	</p:tabMenu>
 	<h:form>
-	<p>Vous cherchez:</p>
-	<p:selectBooleanCheckbox value="#{simpleSearchBean.hotelSearch}" itemLabel="Hotels"/>
-	<p:selectBooleanCheckbox value="#{simpleSearchBean.activitySearch}" itemLabel="Activités"/>
-	
+	<h:panelGrid columns="3" cellpadding="5">
+		<p>Vous cherchez:</p>
+		<p:selectBooleanCheckbox value="#{simpleSearchBean.hotelSearch}" itemLabel="Hotels"/>
+		<p:selectBooleanCheckbox value="#{simpleSearchBean.siteSearch}" itemLabel="Activités"/>
+	</h:panelGrid>
 		<h:outputText value="Mots clés: " />
 		<p:inputText value="#{simpleSearchBean.keywords}" />
 		<br />

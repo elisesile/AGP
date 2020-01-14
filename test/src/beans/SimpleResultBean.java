@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import data.AbstractSite;
 import data.ActivitySite;
@@ -18,7 +21,7 @@ import data.Hotel;
 import persistence.jdbc.Queries;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class SimpleResultBean {
     
 	private List<Hotel> hotels = new ArrayList<Hotel>();
@@ -32,41 +35,47 @@ public class SimpleResultBean {
     @PostConstruct
     public void init() {
     	Queries queries = new Queries();
-    	PreparedStatement preparedStatement = null;
-    	if(simpleSearchBean.isHotelSearch()) {
-	    	ResultSet hotelsResult = queries.searchHotelByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-	    	try {
-				while(hotelsResult.next()){
-			    	Hotel hotel = new Hotel();
-					hotel.setName(hotelsResult.getString(2));
-					hotel.setPrice(hotelsResult.getInt(3));
-					hotel.setDescription(hotelsResult.getString(4));
-					hotels.add(hotel);
+
+    	if(simpleSearchBean.getKeywords().equals("")) {
+	    	if(simpleSearchBean.isHotelSearch()) {
+	    		queries.searchHotelByPrice(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+	    		ResultSet hotelsResult = queries.getResultsSet();
+		    	try {
+					while(hotelsResult.next()){
+						simpleSearchBean.setNumberOfHotels(simpleSearchBean.getNumberOfHotels()+1);
+				    	Hotel hotel = new Hotel();
+						hotel.setName(hotelsResult.getString(2));
+						hotel.setPrice(hotelsResult.getInt(3));
+						hotel.setDescription(hotelsResult.getString(4));
+						hotels.add(hotel);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-    	}
-    	
-    	if(simpleSearchBean.isActivitySearch()) {
-    		ResultSet sitesResult = queries.searchSitesByPrice(preparedStatement, simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-	    	try {
-				while(sitesResult.next()){
-			    	AbstractSite site;
-			    	if(sitesResult.getString(2) == "Historic") {
-			    		site = new HistoricSite();
-			    	}
-			    	else {
-			    		site = new ActivitySite();
-			    	}
-			    	site.setName(sitesResult.getString(2));
-			    	site.setPrice(sitesResult.getInt(4));
-			    	//site.setDescription(sitesResult.getString(4));
-					sites.add(site);
+	    	}
+	    	
+	    	if(simpleSearchBean.isSiteSearch()) {
+	    		queries.searchSitesByPrice(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+	    		ResultSet sitesResult = queries.getResultsSet();
+		    	try {
+					while(sitesResult.next()){
+						simpleSearchBean.setNumberOfSites(simpleSearchBean.getNumberOfSites()+1);
+				    	AbstractSite site;
+				    	if(sitesResult.getString(2) == "Historic") {
+				    		site = new HistoricSite();
+				    	}
+				    	else {
+				    		site = new ActivitySite();
+				    	}
+				    	site.setName(sitesResult.getString(2));
+				    	site.setPrice(sitesResult.getInt(4));
+				    	//site.setDescription(sitesResult.getString(4));
+						sites.add(site);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	    	}
     	}
     	
     	
@@ -119,6 +128,22 @@ public class SimpleResultBean {
 
 	public void setSimpleSearchBean(SimpleSearchBean simpleSearchBean) {
 		this.simpleSearchBean = simpleSearchBean;
+	}
+   
+	public int getNumberOfHotels() {
+		return simpleSearchBean.getNumberOfHotels();
+	}
+
+	public void setNumberOfHotels(int numberOfHotels) {
+		simpleSearchBean.setNumberOfHotels(numberOfHotels);
+	}
+
+	public int getNumberOfSites() {
+		return simpleSearchBean.getNumberOfSites();
+	}
+
+	public void setNumberOfSites(int numberOfSites) {
+		simpleSearchBean.setNumberOfSites(numberOfSites);
 	}
     
 }

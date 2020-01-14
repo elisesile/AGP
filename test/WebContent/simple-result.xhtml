@@ -22,7 +22,7 @@
 		</p:menuitem>
 	</p:tabMenu>
 	<h:form id="form">
-		<h2>Hotels trouvés :</h2>
+		<h2><h:outputText value="Il y a #{simpleResultBean.numberOfHotels} hotel(s) qui correspond(ent) à votre recherche"/></h2>
 		<p:repeat value="#{simpleResultBean.hotels}" var="hotel">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
 	            <p:commandLink update=":form:hotelDetail" oncomplete="PF('hotelDialog').show()">
@@ -56,7 +56,7 @@
         	</p:outputPanel>
    		</p:dialog>
    		</h:form>
-    	<h2>Sites touristiques trouvés :</h2>
+    	<h2><h:outputText value="Il y a #{simpleResultBean.numberOfSites} site(s) qui correspond(ent) à votre recherche"/></h2>
     	<h:form id = "formSite">
     	<p:repeat value="#{simpleResultBean.sites}" var="site">
 	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">

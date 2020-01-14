@@ -8,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 import data.SimpleEntry;
 
 @ManagedBean(name = "simpleSearchBean")
-@SessionScoped
+@RequestScoped
 public class SimpleSearchBean {
     
 	private SimpleEntry simpleEntry = new SimpleEntry();
@@ -20,7 +20,7 @@ public class SimpleSearchBean {
     
     public String searchAction() {
     	//TODO
-		System.out.println("A impl�menter ");
+		System.out.println("A implémenter ");
 		return "simple-result";
 	}
 
@@ -52,20 +52,31 @@ public class SimpleSearchBean {
 		return simpleEntry.isHotelSearch();
 	}
 
-
 	public void setHotelSearch(boolean isHotelSearch) {
 		simpleEntry.setHotelSearch(isHotelSearch);
 	}
 
-
-	public boolean isActivitySearch() {
-		return simpleEntry.isActivitySearch();
+	public boolean isSiteSearch() {
+		return simpleEntry.isSiteSearch();
 	}
 
-
-	public void setActivitySearch(boolean isActivitySearch) {
-		simpleEntry.setActivitySearch(isActivitySearch);
-	}
-    
+	public void setSiteSearch(boolean isActivitySearch) {
+		simpleEntry.setSiteSearch(isActivitySearch);
+	} 
    
+	public int getNumberOfHotels() {
+		return simpleEntry.getNumberOfHotels();
+	}
+
+	public void setNumberOfHotels(int numberOfHotels) {
+		simpleEntry.setNumberOfHotels(numberOfHotels);
+	}
+
+	public int getNumberOfSites() {
+		return simpleEntry.getNumberOfSites();
+	}
+
+	public void setNumberOfSites(int numberOfSites) {
+		simpleEntry.setNumberOfSites(numberOfSites);
+	}
 }
