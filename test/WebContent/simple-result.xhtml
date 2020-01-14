@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -8,6 +9,7 @@
 <h:head>
 	<title>Résultat de la recherche</title>
 	<h:outputStylesheet library="default" name="css/style.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </h:head>
 <h:body>
 	<p:tabMenu activeIndex="#{param.menu}">
@@ -31,26 +33,33 @@
 	            </p:commandLink>
 	            <p:outputPanel>
 	                <h:panelGrid columns="2" cellpadding="5">
+	                	<h:outputText value="Nom" />
+	                    <h:outputText value="#{hotel.name}" style="font-weight: bold"/>
+	                
 	                    <h:outputText value="Prix:" />
-	                    <h:outputText value="#{hotel.price}€" style="font-weight: bold"/>
-	 
-	                    <h:outputText value="Description:" />
-	                    <h:outputText value="#{hotel.description}" style="font-weight: bold"/>
+	                    <h:outputText value="#{hotel.price}€/nuit" style="font-weight: bold"/>
 	 
 	                </h:panelGrid>
 	            </p:outputPanel>
 	        </h:panelGrid>
 	        <hr />
     	</p:repeat>
-    	<p:dialog header="Hotel Info" widgetVar="hotelDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+    	<p:dialog header="Hotel Info" widgetVar="hotelDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false" width="50%">
 	        <p:outputPanel id="hotelDetail" style="text-align:center;">
 	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultBean.selectedHotel}">
-	 
-	                <h:outputText value="Prix:" />
-	                <h:outputText value="#{simpleResultBean.selectedHotel.price}€"/>
-	 
-	                <h:outputText value="Description:" />
-	                <h:outputText value="#{simpleResultBean.selectedHotel.description}"/>
+	            
+	 				<f:facet name="header">
+                    	<h:graphicImage value="resources/default/hotel.jpg" width="100%" resizable="false"/> 
+               		</f:facet>
+               		
+	 				<h:outputText value="Nom" />
+	                <h:outputText value="#{hotel.name}" style="font-weight: bold"/>
+	 		
+	                <h:outputText value="Prix" />
+	                <h:outputText value="#{simpleResultBean.selectedHotel.price}€/nuit"/>
+	                
+	                <h:outputText value="Nom de la plage" />
+	                <h:outputText value="#{hotel.description}" style="font-weight: bold"/>
 
             	</p:panelGrid>
         	</p:outputPanel>
@@ -76,14 +85,24 @@
 	        </h:panelGrid>
 	        <hr />
     	</p:repeat>
-    	<p:dialog header="Site Info" widgetVar="siteDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false">
+    	<p:dialog header="Site Info" widgetVar="siteDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false" width="50%">
 	        <p:outputPanel id="siteDetail" style="text-align:center;">
 	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultBean.selectedSite}" columnClasses="name,detail">
 	 
-	                <h:outputText value="Prix:" />
+	 				<f:facet name="header">
+                    	<h:graphicImage value="https://media-cdn.tripadvisor.com/media/photo-s/18/e3/ac/70/tahiti-nui-helicopters.jpg" width="100%" resizable="false"/> 
+               		</f:facet>
+	 			
+	 				<h:outputText value="Nom du site" />
+	                <h:outputText value="#{simpleResultBean.selectedSite.name}"/>
+	                
+	                <h:outputText value="Type" />
+	                <h:outputText value="#{simpleResultBean.selectedSite.type}"/>
+	 
+	                <h:outputText value="Prix" />
 	                <h:outputText value="#{simpleResultBean.selectedSite.price}€"/>
 	 
-	                <h:outputText value="Description:" />
+	                <h:outputText value="Description" />
 	                <h:outputText value="#{simpleResultBean.selectedSite.description}"/>
 
             	</p:panelGrid>

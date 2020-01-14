@@ -36,6 +36,13 @@ public class ExcursionCalculator {
 		
 	}
 	
+	public void organizeExcursions(ArrayList<Excursion> excursions, ArrayList<Ride> rides) {
+		for(Excursion excursion: excursions) {
+			if(!excursion.isBeach()) {
+				//TODO
+			}
+		}
+	}
 	
 	public static double getDistanceKM(double lat1, double long1, double lat2, double long2) {
 		double earthRadius = 6378.137;

@@ -21,7 +21,6 @@ public class OfferSearchBean {
     
     public String searchAction() {
     	//TODO
-		System.out.println("A implémenter");
 		return "offer-result";
 	}
  

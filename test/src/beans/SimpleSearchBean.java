@@ -20,7 +20,6 @@ public class SimpleSearchBean {
     
     public String searchAction() {
     	//TODO
-		System.out.println("A implémenter ");
 		return "simple-result";
 	}
 

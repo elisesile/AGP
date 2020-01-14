@@ -23,14 +23,19 @@
 }
 
 .name {
-	width: 10%;
+	width: 20%;
+	font-size:18px;
 }
 
 .detail {
-	width: 90%;
+	width: 80%;
 	padding-left: 25px;
 }
 
 .detail td {
 	font-size: 24px;
+}
+
+.ui-dialog{
+     position: absolute !important;
 }

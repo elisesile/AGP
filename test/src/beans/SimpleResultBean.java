@@ -1,10 +1,13 @@
 package beans;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
@@ -69,6 +72,19 @@ public class SimpleResultBean {
 				    	}
 				    	site.setName(sitesResult.getString(2));
 				    	site.setPrice(sitesResult.getInt(4));
+				    	
+				    	File text = new File("data/"+sitesResult.getString(1)+".txt");
+				    	Scanner scnr;
+				    	String line ="";
+						try {
+							scnr = new Scanner(text);
+							while(scnr.hasNextLine()){
+					            line += scnr.nextLine();
+					    	}
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}  	
+				    	site.setDescription(line);
 				    	//site.setDescription(sitesResult.getString(4));
 						sites.add(site);
 					}

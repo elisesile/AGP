@@ -11,8 +11,8 @@ public abstract class AbstractSite {
 	public AbstractSite() {
 	}
 
-	public SiteEnum getType() {
-		return type;
+	public String getType() {
+		return type.name().toLowerCase();
 	}
 
 	public void setType(SiteEnum type) {
