@@ -78,14 +78,14 @@
 	                    <h:outputText value="Prix:" />
 	                    <h:outputText value="#{site.price}€" style="font-weight: bold"/>
 	 
-	                    <h:outputText value="Description:" />
-	                    <h:outputText value="#{site.description}" style="font-weight: bold"/>
+	                    <h:outputText value="Type:" />
+	                    <h:outputText value="#{site.type}" style="font-weight: bold"/>
 	                </h:panelGrid>
 	            </p:outputPanel>
 	        </h:panelGrid>
 	        <hr />
     	</p:repeat>
-    	<p:dialog header="Site Info" widgetVar="siteDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false" width="50%">
+    	<p:dialog header="Site Info" widgetVar="siteDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false" width="80%">
 	        <p:outputPanel id="siteDetail" style="text-align:center;">
 	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultBean.selectedSite}" columnClasses="name,detail">
 	 
