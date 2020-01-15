@@ -23,7 +23,6 @@ public class TestProcessJoinedQuery {
 //			QueryProcess.getInstance().sortHashMap();
 			System.out.println(QueryProcess.getInstance().getScoresArrayList());
 //			System.out.println(QueryProcess.getInstance().generateAndSortScoresArrayList());
-			System.out.println(QueryProcess.getInstance().executeQuery(sqlResult, "cascade"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CorruptIndexException e) {

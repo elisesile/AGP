@@ -39,17 +39,20 @@ public class SimpleResultBean {
      
     @PostConstruct
     public void init() {
-
-    	if(simpleSearchBean.getKeywords().equals("")) {
-	    	if(simpleSearchBean.isHotelSearch()) {
-	    		hotels = init.initHotelList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-	    	}
-	    	if(simpleSearchBean.isSiteSearch()) {
-	    		sites = init.initSiteListint(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-	    	}
-	    	simpleSearchBean.setNumberOfHotels(hotels.size());
-	    	simpleSearchBean.setNumberOfSites(sites.size());
+    	if(simpleSearchBean.isHotelSearch()) {
+    		hotels = init.initHotelList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
     	}
+    	if(simpleSearchBean.isSiteSearch()) {
+	    	if(simpleSearchBean.getKeywords().equals("")) {
+		    	sites = init.initSiteListint(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+	    	}
+	    	else {
+	    		System.out.println("Pas bon" + simpleSearchBean.getKeywords()+"--");
+	    		//sites = init.initSiteListLucene(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice(), simpleSearchBean.getKeywords());
+	    	}
+    	}
+    	simpleSearchBean.setNumberOfHotels(hotels.size());
+    	simpleSearchBean.setNumberOfSites(sites.size());
     	
     	
     	
