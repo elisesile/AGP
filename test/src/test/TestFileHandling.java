@@ -1,10 +1,11 @@
 package test;
 
 import persistence.FileHandler;
+import persistence.QueryProcess;
 
 public class TestFileHandling {
 	public static void main(String[] args) {
-		FileHandler testFileHandler = new FileHandler();
+		/*FileHandler testFileHandler = new FileHandler();
 		
 		testFileHandler.createFile("test0.txt");
 		testFileHandler.writeInFile("test0.txt", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat mauris vel eros dapibus tincidunt. Aliquam et dignissim nisl. Aenean euismod scelerisque nulla ac eleifend. Nunc nulla eros, viverra sagittis arcu id, imperdiet tristique lorem. Nulla rhoncus, risus vel porttitor varius, turpis sem eleifend ipsum, in cursus diam est vitae enim. Integer mollis augue a sapien lobortis ultricies. Donec ornare vehicula ipsum ut sagittis. Proin eu mollis libero. Vivamus pretium bibendum bibendum. Phasellus semper, neque gravida pharetra elementum, justo massa accumsan erat, eget gravida ligula elit ac turpis. Vestibulum ac bibendum dui, in ullamcorper nulla.\r\n" + 
@@ -18,6 +19,8 @@ public class TestFileHandling {
 				"Cras vel diam metus. Fusce eget nulla a turpis maximus varius. Nunc dictum hendrerit commodo. Donec sollicitudin sodales semper. Aliquam ullamcorper pulvinar ex at sodales. Vestibulum non magna ac metus rutrum accumsan. Aliquam et convallis lorem. Nam dignissim tristique elit ut pretium. Duis vehicula placerat ipsum, nec scelerisque urna cursus non. Donec ut imperdiet quam. Donec et finibus nulla. Duis sagittis gravida ipsum, vitae rhoncus dolor lobortis vel."
 				);
 		testFileHandler.deleteFile("test0.txt");
+		*/
+		System.out.println(QueryProcess.getInstance().addSite("Test site", "Historic", 160, -1.65, -1.65, "Ceci est un test de texte pour le fichier texte du nouveau site qui se nomme Test site."));
 		
 	}
 }

@@ -249,15 +249,15 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return idSite
 	 */
-	public int addSite(String name, String type, int price, float latitude, float longitude) {
+	public int addSite(String name, String type, int price, double latitude, double longitude) {
 		int idSite = 0;
 		try {
 			String addCoordinates = "INSERT INTO coordinates (latitude, longitude) VALUES (?, ?)";
 	
 			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(addCoordinates);
 			
-			this.preparedStatement.setFloat(1, latitude);
-			this.preparedStatement.setFloat(2, longitude);
+			this.preparedStatement.setDouble(1, latitude);
+			this.preparedStatement.setDouble(2, longitude);
 	
 			int result = this.preparedStatement.executeUpdate();
 			

@@ -25,7 +25,7 @@ public class QueryProcess {
 	private ResultSet sqlResult;
 	private ScoreDoc textResult;
 	private boolean alreadyIndexed = false;
-	private Indexer indexer;
+	private Indexer indexer = new Indexer();
 	private static QueryProcess instance = new QueryProcess();
 	private Searcher searcher;
 	private HashMap<BigDecimal,HashMap<String, String>> resultHashMap;
@@ -131,7 +131,7 @@ public class QueryProcess {
 	}
 
 	private void createIndex() {
-		Indexer indexer = new Indexer();
+		Indexer indexer = this.getIndexer();
 		
 		try {
 			indexer.initIndexer();
@@ -155,7 +155,7 @@ public class QueryProcess {
 	 * 
 	 * @return boolean (true if it's a success)
 	 */
-	public boolean addSite(String name, String type, int price, float latitude, float longitude, String fileContent){
+	public boolean addSite(String name, String type, int price, double latitude, double longitude, String fileContent){
 		Queries queries = new Queries();
 		int idSite = queries.addSite(name, type, price, latitude, longitude);
 		String fileName = "data/"+String.valueOf(idSite)+".txt";
