@@ -18,6 +18,11 @@ public class TestProcessJoinedQuery {
 		sqlResult = testQueries.getResultsSet();
 		
 		try {
+			System.out.println(QueryProcess.getInstance().executeQuery(sqlResult, "cascade les"));
+			
+//			QueryProcess.getInstance().sortHashMap();
+			System.out.println(QueryProcess.getInstance().getScoresArrayList());
+//			System.out.println(QueryProcess.getInstance().generateAndSortScoresArrayList());
 			System.out.println(QueryProcess.getInstance().executeQuery(sqlResult, "cascade"));
 		} catch (SQLException e) {
 			e.printStackTrace();

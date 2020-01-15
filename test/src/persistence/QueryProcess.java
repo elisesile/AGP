@@ -5,7 +5,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -22,21 +28,45 @@ public class QueryProcess {
 	private Indexer indexer;
 	private static QueryProcess instance = new QueryProcess();
 	private Searcher searcher;
-	private HashMap<BigDecimal,HashMap<String, String>> resultHashMap; 
+	private HashMap<BigDecimal,HashMap<String, String>> resultHashMap;
+	private ArrayList<BigDecimal> scoresArrayList;
 	
+	public ArrayList<BigDecimal> getScoresArrayList() {
+		return scoresArrayList;
+	}
+
+	public void setScoresArrayList(ArrayList<BigDecimal> scoresArrayList) {
+		this.scoresArrayList = scoresArrayList;
+	}
+
 	private QueryProcess() {}
 	
 	public static QueryProcess getInstance() {
 		return instance;
 	}
 	
-	
 	public HashMap<BigDecimal, HashMap<String, String>> executeQuery(ResultSet sqlResult, String luceneParams) throws SQLException, CorruptIndexException, IOException {
 		this.setSqlResult(sqlResult);
 		this.executeText(luceneParams);
 		this.joinQuery();
-		
+		this.generateAndSortScoresArrayList();
 		return this.getResultHashMap();
+	}
+	
+	public void generateAndSortScoresArrayList() {
+		LinkedHashMap<BigDecimal,HashMap<String, String>> sortedHashMap = new LinkedHashMap<BigDecimal,HashMap<String, String>>();
+		this.scoresArrayList = new ArrayList<BigDecimal>();
+		
+		Set set = this.resultHashMap.entrySet();
+		Iterator resultHashMapIterator = set.iterator();
+		
+		while(resultHashMapIterator.hasNext()) {
+			Map.Entry mapEntry = (Map.Entry)resultHashMapIterator.next();
+			scoresArrayList.add((BigDecimal) mapEntry.getKey());
+		}
+		
+		Collections.sort(scoresArrayList);
+		Collections.reverse(scoresArrayList);
 	}
 	
 	private void executeText(String luceneKeywords) {

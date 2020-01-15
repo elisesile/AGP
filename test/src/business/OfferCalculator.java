@@ -2,18 +2,13 @@ package business;
 
 import java.util.ArrayList;
 
-import data.AbstractSite;
 import data.Excursion;
+import data.Hotel;
 import data.Offre;
-import data.Ride;
 
 public class OfferCalculator {
-
 	
-	private Offre offre ;
-	
-	public void initExcursions(int intensity){
-		
+	public void initExcursions(int intensity, Offre offre){
 		ArrayList<Excursion> excursions = new ArrayList<Excursion>();
 		Excursion e1 = new Excursion();
 		Excursion e2 = new Excursion();
@@ -43,5 +38,15 @@ public class OfferCalculator {
 		offre.setExcursions(excursions);
 	}
 	
+	public ArrayList<Offre> initOffer(ArrayList<Hotel> hotels, int intensity) {
+		ArrayList<Offre> offres = new ArrayList<Offre>();
+		for(Hotel hotel: hotels) {
+			Offre offre = new Offre();
+			offre.setHotel(hotel);
+			initExcursions(intensity, offre);
+			offres.add(offre);
+		}
+		return offres;
+	}
 	
 }
