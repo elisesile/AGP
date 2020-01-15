@@ -20,7 +20,7 @@ import data.AbstractSite;
 import data.ActivitySite;
 import data.HistoricSite;
 import data.Hotel;
-import persistence.QueryProcess;
+import persistence.QueriesProcess;
 import persistence.jdbc.Queries;
 
 public class SimpleResultInitialisator {
@@ -99,8 +99,8 @@ public class SimpleResultInitialisator {
 		ResultSet sqlResult = queries.getResultsSet();
 		
 		try {
-			HashMap<BigDecimal, HashMap<String, String>> map = QueryProcess.getInstance().executeQuery(sqlResult, keywords);
-			keys = QueryProcess.getInstance().getScoresArrayList();
+			HashMap<BigDecimal, HashMap<String, String>> map = QueriesProcess.getInstance().executeQuery(sqlResult, keywords);
+			keys = QueriesProcess.getInstance().getScoresArrayList();
 			for(BigDecimal key:keys) {
 				HashMap<String,String> currentMap = map.get(key);
 				AbstractSite site;
