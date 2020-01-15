@@ -20,7 +20,8 @@ CREATE TABLE transport (
 	id_transport INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	
 	type ENUM('Bus', 'Boat') NOT NULL,
-	price INT NOT NULL
+	price INT NOT NULL,
+	is_per_km BOOLEAN 
 )ENGINE=InnoDB,
 CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -44,7 +45,7 @@ CREATE TABLE hotel (
 	name VARCHAR(50) NOT NULL,
 	price INT NOT NULL,
 	beach_name VARCHAR(50),
-	
+	lien_image VARCHAR(50),
 	id_coordinates INT NOT NULL,
 	FOREIGN KEY (id_coordinates) REFERENCES coordinates(id_coordinates) ON DELETE CASCADE
 )ENGINE=InnoDB,

@@ -43,9 +43,9 @@ VALUES (17,-17.5402758,-149.5669825),
 
 
 -- Transport Insertion
-INSERT INTO transport(id_transport, type, price)
-VALUES (1, 'Bus', 2),
-(2, 'Boat', 15);
+INSERT INTO transport(id_transport, type, price, is_per_km)
+VALUES (1, 'Bus', 2, 1),
+(2, 'Boat', 15, 0);
 
 -- Site Insertion
 INSERT INTO site(id_site, name, type, price, id_coordinates)

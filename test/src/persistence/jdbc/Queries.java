@@ -206,7 +206,7 @@ public class Queries implements QueriesPersistenceAPI {
 		int totalPrice = 0;
 		try {
 
-			String query =	"SELECT transport.price, transport.id_transport, coordS.latitude, coordS.longitude, coordE.latitude, coordE.longitude, siteS.price" + 
+			String query =	"SELECT transport.price, transport.is_per_km, coordS.latitude, coordS.longitude, coordE.latitude, coordE.longitude, siteS.price" + 
 					" FROM ride" + 
 					" INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
 					" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
@@ -226,7 +226,7 @@ public class Queries implements QueriesPersistenceAPI {
 								
 				totalPrice += result.getInt(7);
 			    
-			    if(result.getInt(2)==1) {   	
+			    if(result.getBoolean(2) == true) {   	
 			    	
 			    	totalPrice += (int) (business.ExcursionCalculator.getDistanceKM(result.getDouble(3),result.getDouble(4),result.getDouble(5),result.getDouble(6)) * result.getInt(1));
 			    }else {

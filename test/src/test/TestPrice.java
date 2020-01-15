@@ -21,10 +21,10 @@ public class TestPrice {
 	//	PreparedStatement preparedStatement = null;
 		
 		ArrayList<Integer> idRides = new ArrayList<Integer>();
-		idRides.add(1);
+		idRides.add(10);
 		idRides.add(2);
 		
-		int hotel = 17;
+		int hotel = 1;
 				
 		int totalPrice = queries.getTotalPriceRidesAndHotel(idRides, hotel);
 		System.out.println(totalPrice);
