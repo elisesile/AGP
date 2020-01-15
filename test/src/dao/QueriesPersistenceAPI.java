@@ -16,5 +16,6 @@ public interface QueriesPersistenceAPI {
 	void getRides();
 	
 	int getTotalPriceRidesAndHotel(ArrayList<Integer> idRides, int idHotel);
-
+	
+	void getSitesOrderByActivity();
 }
