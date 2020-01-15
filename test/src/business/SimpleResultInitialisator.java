@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import data.ActivitySite;
 import data.HistoricSite;
 import data.Hotel;
 import persistence.QueriesProcess;
+import persistence.jdbc.JdbcConnection;
 import persistence.jdbc.Queries;
 
 public class SimpleResultInitialisator {
@@ -32,7 +34,8 @@ public class SimpleResultInitialisator {
 	}
 	
 	public ArrayList<Hotel> initHotelList(int minPrice, int maxPrice){
-		queries.searchHotelByPrice(minPrice, maxPrice);
+		String query = "SELECT * FROM Hotel WHERE price<="+maxPrice+" AND price>="+minPrice;
+		queries.executeQuery(query);
 		ArrayList<Hotel> hotels = new ArrayList<Hotel>();
 		ResultSet hotelsResult = queries.getResultsSet();
     	try {
@@ -50,8 +53,9 @@ public class SimpleResultInitialisator {
 	}
 	
 	public ArrayList<AbstractSite> initSiteList (int minPrice, int maxPrice){
+		String query = "SELECT * FROM Site WHERE price<="+maxPrice+" AND price>="+minPrice;
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
-		queries.searchSitesByPrice(minPrice, maxPrice);
+		queries.executeQuery(query);
 		ResultSet sitesResult = queries.getResultsSet();
     	try {
 			while(sitesResult.next()){
@@ -95,12 +99,10 @@ public class SimpleResultInitialisator {
 	public ArrayList<AbstractSite> initSiteListLucene(int minPrice, int maxPrice,String keywords){
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
 		ArrayList<BigDecimal> keys;
-		queries.searchSitesByPrice(minPrice, maxPrice);
-		ResultSet sqlResult = queries.getResultsSet();
 		
 		try {
-			HashMap<BigDecimal, HashMap<String, String>> map = QueriesProcess.getInstance().executeQuery(sqlResult, keywords);
-			keys = QueriesProcess.getInstance().getScoresArrayList();
+			HashMap<BigDecimal, HashMap<String, String>> map = QueriesProcess.getInstance().mergeQueries("SELECT * FROM Site WHERE price<="+maxPrice+" AND price>="+minPrice+" WITH "+keywords);
+			keys = QueriesProcess.getInstance().generateAndSortScoresArrayList();
 			for(BigDecimal key:keys) {
 				HashMap<String,String> currentMap = map.get(key);
 				AbstractSite site;

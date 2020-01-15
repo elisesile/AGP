@@ -47,8 +47,7 @@ public class SimpleResultBean {
 			if (simpleSearchBean.getKeywords().equals("")) {
 				sites = initialize.initSiteList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
 			} else {
-				sites = initialize.initSiteListLucene(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice(),
-						simpleSearchBean.getKeywords());
+				sites = initialize.initSiteListLucene(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice(),simpleSearchBean.getKeywords());
 			}
 		}
 		simpleSearchBean.setNumberOfHotels(hotels.size());
