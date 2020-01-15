@@ -49,7 +49,7 @@ public class SimpleResultInitialisator {
     	return hotels;
 	}
 	
-	public ArrayList<AbstractSite> initSiteListint (int minPrice, int maxPrice){
+	public ArrayList<AbstractSite> initSiteList (int minPrice, int maxPrice){
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
 		queries.searchSitesByPrice(minPrice, maxPrice);
 		ResultSet sitesResult = queries.getResultsSet();
@@ -115,6 +115,7 @@ public class SimpleResultInitialisator {
 				//sitesInformations.put("id_coordinates", String.valueOf(id_coordinates));
 				
 				File text = new File("data/"+currentMap.get("id_site")+".txt");
+				System.out.println(currentMap.get("id_site"));
 		    	BufferedReader br;
 		    	String line ="", tmp;
 				try {

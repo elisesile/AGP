@@ -80,6 +80,7 @@
 	 
 	                    <h:outputText value="Type:" />
 	                    <h:outputText value="#{site.type}" style="font-weight: bold"/>
+	                    
 	                </h:panelGrid>
 	            </p:outputPanel>
 	        </h:panelGrid>
@@ -104,6 +105,8 @@
 	 
 	                <h:outputText value="Description" />
 	                <h:outputText value="#{simpleResultBean.selectedSite.description}"/>
+	                
+	                <p:commandButton value="Debug" id="nonAjax" action="#{simpleResultBean.debug}" style="margin-right:20px;" ajax="false" />
 
             	</p:panelGrid>
         	</p:outputPanel>
