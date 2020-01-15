@@ -1,4 +1,4 @@
-package persistence.lucene;
+package persistence;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class FileHandler {
 	
-	public Boolean createFile(String name) {
+	public static boolean createFile(String name) {
 		Boolean isCreated = false;
 		try {
 			File fileToCreate = new File(name);
@@ -24,7 +24,7 @@ public class FileHandler {
 		return isCreated;
 	}
 	
-	public Boolean deleteFile(String name) {
+	public static boolean deleteFile(String name) {
 		Boolean isDeleted = false;
 		File fileToDelete = new File(name);
 		if (fileToDelete.delete()) { 
@@ -36,7 +36,7 @@ public class FileHandler {
 		return isDeleted;
 	}
 	
-	public Boolean writeInFile(String name, String textToWrite) {
+	public static boolean writeInFile(String name, String textToWrite) {
 		Boolean isModified = false;
 		
 		if(textToWrite.length() > 0) {

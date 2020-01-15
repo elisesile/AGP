@@ -1,6 +1,6 @@
 package test;
 
-import persistence.lucene.FileHandler;
+import persistence.FileHandler;
 
 public class TestFileHandling {
 	public static void main(String[] args) {

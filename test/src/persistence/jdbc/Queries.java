@@ -237,6 +237,61 @@ public class Queries implements QueriesPersistenceAPI {
 			System.err.println(se.getMessage());
 		}
 	}
+	
+	/**
+	 * Insert lines in database to add a site
+	 * 
+	 * @param name
+	 * @param type
+	 * @param price
+	 * @param latitude
+	 * @param longitude
+	 * 
+	 * @return idSite
+	 */
+	public int addSite(String name, String type, int price, float latitude, float longitude) {
+		int idSite = 0;
+		try {
+			String addCoordinates = "INSERT INTO coordinates (latitude, longitude) VALUES (?, ?)";
+	
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(addCoordinates);
+			
+			this.preparedStatement.setFloat(1, latitude);
+			this.preparedStatement.setFloat(2, longitude);
+	
+			int result = this.preparedStatement.executeUpdate();
+			
+			ResultSet keys = this.preparedStatement.getGeneratedKeys();
+			keys.next();
+			int idCoordinates = keys.getInt(1);
+			this.closePreparedStatement();
+			
+			if(result != 0) {
+				String addSite = "INSERT INTO site (name, type, price, id_coordinates) VALUES (?, ?, ?, ?)";
+			
+				this.preparedStatement = JdbcConnection.getConnection().prepareStatement(addSite);
+				
+				this.preparedStatement.setString(1, name);
+				this.preparedStatement.setString(2, type);
+				this.preparedStatement.setInt(3, price);
+				this.preparedStatement.setInt(4, idCoordinates);
+		
+				result = this.preparedStatement.executeUpdate();
+				
+				keys = this.preparedStatement.getGeneratedKeys();
+				keys.next();
+				idSite = keys.getInt(1);
+				this.closePreparedStatement();
+			}
+			else {
+				return 0;
+			}
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
+		
+		return idSite;
+	}
 
 	/**
 	 * @return the preparedStatement

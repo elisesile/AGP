@@ -1,5 +1,6 @@
 package persistence;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.ScoreDoc;
 
+import persistence.jdbc.Queries;
 import persistence.lucene.Indexer;
 import persistence.lucene.Searcher;
 
@@ -79,12 +81,8 @@ public class QueryProcess {
 					sitesInformations.put("type", type);
 					sitesInformations.put("price", String.valueOf(price));
 					sitesInformations.put("id_coordinates", String.valueOf(id_coordinates));
-//					sitesInformations.put("scoreDoc", String.valueOf(scoreDoc));
-//					this.resultHashMap.
-					
-//					this.resultHashMap.
+
 					this.resultHashMap.put(scoreDoc, sitesInformations); 
-					
 					
 					foundDocuments++;
 				}
@@ -93,24 +91,6 @@ public class QueryProcess {
 			searcher.initIterator();
 		}
 	}
-	
-	
-//	public void sortHashMap() {
-//		LinkedHashMap<BigDecimal,HashMap<String, String>> sortedHashMap = new LinkedHashMap<BigDecimal,HashMap<String, String>>();
-//		
-//		
-//		
-//		Set set = this.resultHashMap.entrySet();
-//		Iterator resultHashMapIterator = set.iterator();
-//		
-//		System.out.println(this.resultHashMap.keySet());
-//		while(resultHashMapIterator.hasNext()) {
-//			Map.Entry mapEntry = (Map.Entry)resultHashMapIterator.next();
-////			this.resultHashMap.
-////			System.out.print(mapEntry.getKey() + ": ");
-////			System.out.println(mapEntry.getValue());
-//		}
-//	}
 	
 	private HashMap<BigDecimal, HashMap<String, String>> getResultHashMap() {
 		return resultHashMap;
@@ -130,6 +110,42 @@ public class QueryProcess {
 			this.setIndexer(indexer);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Add a site
+	 * 
+	 * @param name
+	 * @param type
+	 * @param price
+	 * @param latitude
+	 * @param longitude
+	 * @param fileContent
+	 * 
+	 * @return boolean (true if it's a success)
+	 */
+	public boolean addSite(String name, String type, int price, float latitude, float longitude, String fileContent){
+		Queries queries = new Queries();
+		int idSite = queries.addSite(name, type, price, latitude, longitude);
+		String fileName = "data/"+String.valueOf(idSite)+".txt";
+		
+		boolean success = FileHandler.createFile(fileName);
+		if(success == true) {
+			boolean modified = FileHandler.writeInFile(fileName, fileContent);
+			
+			File file = new File(fileName);
+			try {
+				this.getIndexer().createIndexFromFile(file);
+			} catch (IOException e) {
+				e.getMessage();
+				return false;
+			}
+			
+			return modified;
+		}
+		else {
+			return false;
 		}
 	}
 	

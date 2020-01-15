@@ -16,6 +16,8 @@ public class JdbcConnection {
     private static String user = "root";
     private static String password = "";
     private static String url = "jdbc:mysql://" + host + "/" + base;
+    
+    private JdbcConnection() {}
 	
 	/**
 	* Get the connection
