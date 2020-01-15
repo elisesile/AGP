@@ -12,14 +12,11 @@ public class FileHandler {
 			File fileToCreate = new File(name);
 			
 			if (fileToCreate.createNewFile()) {
-//				System.out.println("File created: " + fileToCreate.getName());
 				isCreated = true;
 			} else {
-//				System.out.println("File already exists.");
 				isCreated = false;
 			}
 		} catch (IOException e) {
-//			System.out.println("An error occurred.");
 			e.printStackTrace();
 			isCreated = false;
 		}
@@ -32,10 +29,8 @@ public class FileHandler {
 		File fileToDelete = new File(name);
 		if (fileToDelete.delete()) { 
 			isDeleted = true;
-//			System.out.println("Deleted the file: " + fileToDelete.getName());
 		} else {
 			isDeleted = false;
-//			System.out.println("Failed to delete the file.");
 		} 
 		
 		return isDeleted;
@@ -51,10 +46,8 @@ public class FileHandler {
 				myWriter.close();
 				
 				isModified = true;
-//				System.out.println("Successfully wrote to the file.");
 			} catch (IOException e) {
 				isModified = false;
-//				System.out.println("An error occurred.");
 				e.printStackTrace();
 			}
 		}

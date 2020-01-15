@@ -1,12 +1,9 @@
 package persistence.jdbc;
 
-import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import business.ExcursionCalculator;
 
 import dao.QueriesPersistenceAPI;
 
@@ -163,42 +160,6 @@ public class Queries implements QueriesPersistenceAPI {
 			System.err.println(se.getMessage());
 		}
 	}
-	
-	/*
-	private ResultSet getTotalPriceForHotelAndRides(int idHotel, ArrayList<Integer> idSites) {
-		ResultSet result = null;
-		try {
-			String query = "SELECT SUM(total_price)" + 
-						"FROM (" + 
-							"SELECT (SUM(siteS.price)+SUM(siteE.price)+SUM(transport.price)) AS total_price" + 
-							"FROM ride" + 
-							"INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
-							"INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
-							"INNER JOIN coordinates AS coordS ON coordS.id_coordinates = siteS.id_coordinates" + 
-							"INNER JOIN coordinates AS coordE ON coordE.id_coordinates = siteE.id_coordinates" + 
-							"INNER JOIN transport ON transport.id_transport = ride.id_transport" + 
-							"WHERE ride.id_ride IN (?)" + 
-							"UNION" + 
-							"SELECT price AS total_price" + 
-							"FROM hotel" + 
-							"WHERE id_hotel = ?" + 
-						") AS tables";
-	
-			PreparedStatement preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
-			
-			Array array = JdbcConnection.getConnection().createArrayOf("Integer", idRides.toArray());
-			preparedStatement.setArray(1, array);
-			preparedStatement.setInt(2, idHotel);
-			
-			result = preparedStatement.executeQuery();
-	
-			preparedStatement.close();
-		} catch (SQLException se) {
-			System.err.println(se.getMessage());
-		}
-		return result;
-	}
-	*/
 	
 	public int getTotalPriceRidesAndHotel(ArrayList<Integer> idRides, int idHotel) {
 		ResultSet result = null;

@@ -145,9 +145,6 @@ public class Indexer {
 	 */
 	private Document getDocument(File file) throws IOException {
 		Document document = new Document();
-//		TextField contentField = new TextField(LuceneConstants.INDEX_SECOND_FIELD_FIELD_NAME, new FileReader(file));
-//		TextField fileNameField = new TextField(LuceneConstants.INDEX_FIRST_FIELD_FIELD_NAME, file.getName(), TextField.Store.YES);
-//		TextField filePathField = new TextField(LuceneConstants.INDEX_DIRECTORY_FIELD_NAME, file.getCanonicalPath(), TextField.Store.YES);
 		TextField contentField = new TextField(this.getSecondFieldName(), new FileReader(file));
 		TextField fileNameField = new TextField(this.getFirstFieldName(), file.getName(), TextField.Store.YES);
 		TextField filePathField = new TextField(this.getThirdFieldName(), file.getCanonicalPath(), TextField.Store.YES);

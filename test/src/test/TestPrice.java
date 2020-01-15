@@ -9,14 +9,12 @@ import persistence.jdbc.Queries;
 
 public class TestPrice {
 	public static void main(String[] args) throws SQLException {
-		// TODO Auto-generated method stub
 
 		Connection connection = JdbcConnection.getConnection();
 		System.out.println("getConnection: " + connection);
 		
 		
 		Queries queries = new Queries();
-	//	PreparedStatement preparedStatement = null;
 		
 		ArrayList<Integer> idRides = new ArrayList<Integer>();
 		idRides.add(10);

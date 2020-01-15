@@ -10,10 +10,6 @@ import java.sql.SQLException;
 import persistence.jdbc.JdbcConnection;
 import persistence.jdbc.Queries;
 
-/**
- * @author Anne-Sophie
- *
- */
 public class TestJdbc {
 
 	/**
