@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
+import business.SimpleResultInitialisator;
 import data.AbstractSite;
 import data.ActivitySite;
 import data.HistoricSite;
@@ -31,73 +32,23 @@ public class SimpleResultBean {
 	private List<AbstractSite> sites = new ArrayList<AbstractSite>();
 	private Hotel selectedHotel;
 	private AbstractSite selectedSite;
+	private SimpleResultInitialisator init = new SimpleResultInitialisator();
 	
 	@ManagedProperty(value="#{simpleSearchBean}")
 	private SimpleSearchBean simpleSearchBean;
      
     @PostConstruct
     public void init() {
-    	Queries queries = new Queries();
 
     	if(simpleSearchBean.getKeywords().equals("")) {
 	    	if(simpleSearchBean.isHotelSearch()) {
-	    		queries.searchHotelByPrice(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-	    		ResultSet hotelsResult = queries.getResultsSet();
-		    	try {
-					while(hotelsResult.next()){
-						simpleSearchBean.setNumberOfHotels(simpleSearchBean.getNumberOfHotels()+1);
-				    	Hotel hotel = new Hotel();
-						hotel.setName(hotelsResult.getString(2));
-						hotel.setPrice(hotelsResult.getInt(3));
-						hotel.setDescription(hotelsResult.getString(4));
-						hotels.add(hotel);
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+	    		hotels = init.initHotelList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
 	    	}
-	    	
 	    	if(simpleSearchBean.isSiteSearch()) {
-	    		queries.searchSitesByPrice(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-	    		ResultSet sitesResult = queries.getResultsSet();
-		    	try {
-					while(sitesResult.next()){
-						simpleSearchBean.setNumberOfSites(simpleSearchBean.getNumberOfSites()+1);
-				    	AbstractSite site;
-				    	if(sitesResult.getString(3).equals("Historic")) {
-				    		site = new HistoricSite();
-				    	}
-				    	else {
-				    		site = new ActivitySite();
-				    	}
-				    	site.setName(sitesResult.getString(2));
-				    	site.setPrice(sitesResult.getInt(4));
-				    	
-				    	File text = new File("data/"+sitesResult.getString(1)+".txt");
-				    	BufferedReader br;
-				    	String line ="", tmp;
-						try {
-							br = new BufferedReader(new InputStreamReader(new FileInputStream(text), "UTF8"));
-							
-							while((tmp = br.readLine()) != null){
-							    line += tmp;
-							}
-						} catch (UnsupportedEncodingException e1) {
-							e1.printStackTrace();
-						} catch (FileNotFoundException e1) {
-							e1.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						
-				    	site.setDescription(line);
-				    	//site.setDescription(sitesResult.getString(4));
-						sites.add(site);
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+	    		sites = init.initSiteListint(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
 	    	}
+	    	simpleSearchBean.setNumberOfHotels(hotels.size());
+	    	simpleSearchBean.setNumberOfSites(sites.size());
     	}
     	
     	
