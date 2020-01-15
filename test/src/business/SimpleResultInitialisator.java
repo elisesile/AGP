@@ -25,7 +25,7 @@ import persistence.jdbc.Queries;
 
 public class SimpleResultInitialisator {
 
-	Queries queries = new Queries();
+	private Queries queries = new Queries();
 	
 	public SimpleResultInitialisator() {
 		
@@ -94,12 +94,13 @@ public class SimpleResultInitialisator {
 	
 	public ArrayList<AbstractSite> initSiteListLucene(int minPrice, int maxPrice,String keywords){
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
-		ArrayList<BigDecimal> keys = QueryProcess.getInstance().getScoresArrayList();
+		ArrayList<BigDecimal> keys;
 		queries.searchSitesByPrice(minPrice, maxPrice);
 		ResultSet sqlResult = queries.getResultsSet();
 		
 		try {
 			HashMap<BigDecimal, HashMap<String, String>> map = QueryProcess.getInstance().executeQuery(sqlResult, keywords);
+			keys = QueryProcess.getInstance().getScoresArrayList();
 			for(BigDecimal key:keys) {
 				HashMap<String,String> currentMap = map.get(key);
 				AbstractSite site;

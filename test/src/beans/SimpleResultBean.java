@@ -32,23 +32,23 @@ public class SimpleResultBean {
 	private List<AbstractSite> sites = new ArrayList<AbstractSite>();
 	private Hotel selectedHotel;
 	private AbstractSite selectedSite;
-	private SimpleResultInitialisator init = new SimpleResultInitialisator();
+	private SimpleResultInitialisator initialize;
 	
 	@ManagedProperty(value="#{simpleSearchBean}")
 	private SimpleSearchBean simpleSearchBean;
      
     @PostConstruct
     public void init() {
+    	initialize = new SimpleResultInitialisator();
     	if(simpleSearchBean.isHotelSearch()) {
-    		hotels = init.initHotelList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+    		hotels = initialize.initHotelList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
     	}
     	if(simpleSearchBean.isSiteSearch()) {
 	    	if(simpleSearchBean.getKeywords().equals("")) {
-		    	sites = init.initSiteListint(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+		    	sites = initialize.initSiteListint(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
 	    	}
 	    	else {
-	    		System.out.println("Pas bon" + simpleSearchBean.getKeywords()+"--");
-	    		//sites = init.initSiteListLucene(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice(), simpleSearchBean.getKeywords());
+	    		sites = initialize.initSiteListLucene(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice(), simpleSearchBean.getKeywords());
 	    	}
     	}
     	simpleSearchBean.setNumberOfHotels(hotels.size());

@@ -29,7 +29,7 @@ public class QueryProcess {
 	private static QueryProcess instance = new QueryProcess();
 	private Searcher searcher;
 	private HashMap<BigDecimal,HashMap<String, String>> resultHashMap;
-	private ArrayList<BigDecimal> scoresArrayList;
+	private ArrayList<BigDecimal> scoresArrayList = new ArrayList<BigDecimal>();
 	
 	public ArrayList<BigDecimal> getScoresArrayList() {
 		return scoresArrayList;
@@ -54,9 +54,8 @@ public class QueryProcess {
 	}
 	
 	public void generateAndSortScoresArrayList() {
-		LinkedHashMap<BigDecimal,HashMap<String, String>> sortedHashMap = new LinkedHashMap<BigDecimal,HashMap<String, String>>();
 		this.scoresArrayList = new ArrayList<BigDecimal>();
-		
+		System.out.println("OKKKKKKKK");
 		Set set = this.resultHashMap.entrySet();
 		Iterator resultHashMapIterator = set.iterator();
 		
