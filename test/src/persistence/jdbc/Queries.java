@@ -16,7 +16,7 @@ public class Queries implements QueriesPersistenceAPI {
 
 	
 	/**
-	 * Print an error messa ge to inform the user
+	 * Print an error message to inform the user
 	 */
 	public void dataInit() {
 		System.err.println("Please don't forget to create tables manually by importing config/create_tables.sql and config/insert_tahiti.sql in your database !");
@@ -262,12 +262,15 @@ public class Queries implements QueriesPersistenceAPI {
 	 * 
 	 * @return result
 	 */
-	public void getSitesOrderByActivity() {
+	public void getSitesOrderByActivity(String type) {
 		try {
-			String query = "SELECT name, type FROM site ORDER BY type";
+			String query = "SELECT * FROM site ORDER BY type = ? DESC";
 	
 			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
 			
+
+			this.preparedStatement.setString(1, type);
+	
 			this.initIterator(this.preparedStatement.executeQuery());
 		} catch (SQLException se) {
 			System.err.println(se.getMessage());

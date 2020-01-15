@@ -39,8 +39,8 @@ public class TestJdbc {
 			e.printStackTrace();
 		}
 		
-	/*	Queries queries = new Queries();
-		queries.getSitesOrderByActivity();
+		/*Queries queries = new Queries();
+		queries.getSitesOrderByActivity("");
 		ResultSet results = queries.getResultsSet();
 		try {
 			while(queries.nextIterator()) {
