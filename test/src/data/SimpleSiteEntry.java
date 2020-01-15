@@ -1,15 +1,13 @@
 package data;
 
-public class SimpleEntry {
+public class SimpleSiteEntry {
 	
-	private boolean isHotelSearch = true, isSiteSearch = true;
     private String keywords ="";
     private int minPrice = 0;
-    private int maxPrice = 500;
-    private int numberOfHotels;
+    private int maxPrice = 200;
     private int numberOfSites;
     
-    public SimpleEntry() {
+    public SimpleSiteEntry() {
     	
     }
 
@@ -35,30 +33,6 @@ public class SimpleEntry {
 
 	public void setMaxPrice(int maxPrice) {
 		this.maxPrice = maxPrice;
-	}
-
-	public boolean isHotelSearch() {
-		return isHotelSearch;
-	}
-
-	public void setHotelSearch(boolean isHotelSearch) {
-		this.isHotelSearch = isHotelSearch;
-	}
-
-	public boolean isSiteSearch() {
-		return isSiteSearch;
-	}
-
-	public void setSiteSearch(boolean isSiteSearch) {
-		this.isSiteSearch = isSiteSearch;
-	}
-
-	public int getNumberOfHotels() {
-		return numberOfHotels;
-	}
-
-	public void setNumberOfHotels(int numberOfHotels) {
-		this.numberOfHotels = numberOfHotels;
 	}
 
 	public int getNumberOfSites() {

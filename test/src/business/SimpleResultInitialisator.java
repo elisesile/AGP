@@ -117,7 +117,6 @@ public class SimpleResultInitialisator {
 				//sitesInformations.put("id_coordinates", String.valueOf(id_coordinates));
 				
 				File text = new File("data/"+currentMap.get("id_site")+".txt");
-				System.out.println(currentMap.get("id_site"));
 		    	BufferedReader br;
 		    	String line ="", tmp;
 				try {

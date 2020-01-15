@@ -13,16 +13,19 @@
 	
 	<h:body>
 		<p:tabMenu activeIndex="#{param.menu}">
-			<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
-				<f:param name="menu" value="0" />
-			</p:menuitem>
-			<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
-				<f:param name="menu" value="1" />
-			</p:menuitem>
-			<p:menuitem value="Chercher des informations" outcome="/simple-search" icon="pi pi-search" class="menu">
-				<f:param name="menu" value="2" />
-			</p:menuitem>
-		</p:tabMenu>
+		<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="0" />
+		</p:menuitem>
+		<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="1" />
+		</p:menuitem>
+		<p:menuitem value="Chercher un hotel" outcome="/simple-search-hotel" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="2" />
+		</p:menuitem>
+		<p:menuitem value="Chercher un site" outcome="/simple-search-site" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="3" />
+		</p:menuitem>
+	</p:tabMenu>
 		
 		<h1 class="heading1">Bienvenue sur Tahiti Discovery !</h1>
 		<p class="homeInfo">Venez assouvir vos envies d'évasion au soleil grâce à notre créateur de séjours personnalisés.</p>

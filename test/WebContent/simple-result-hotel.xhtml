@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Résultat de la recherche</title>
+	<h:outputStylesheet library="default" name="css/style.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+<h:body>
+	<p:tabMenu activeIndex="#{param.menu}">
+		<p:menuitem value="Accueil" outcome="/index" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="0" />
+		</p:menuitem>
+		<p:menuitem value="Chercher une offre" outcome="/offer-search" icon="pi pi-star" class="menu">
+			<f:param name="menu" value="1" />
+		</p:menuitem>
+		<p:menuitem value="Chercher un hotel" outcome="/simple-search-hotel" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="2" />
+		</p:menuitem>
+		<p:menuitem value="Chercher un site" outcome="/simple-search-site" icon="pi pi-search" class="menu">
+			<f:param name="menu" value="3" />
+		</p:menuitem>
+	</p:tabMenu>
+	<h:form id="form">
+		<h2><h:outputText value="Il y a #{simpleResultHotelBean.numberOfHotels} hotel.s qui correspond.ent à votre recherche"/></h2>
+		<p:repeat value="#{simpleResultHotelBean.hotels}" var="hotel">
+	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
+	            <p:commandLink update=":form:hotelDetail" oncomplete="PF('hotelDialog').show()">
+	            	<f:setPropertyActionListener value="#{hotel}" target="#{simpleResultHotelBean.selectedHotel}" />
+	            	<h:outputText value="#{hotel.name}"/>
+	            </p:commandLink>
+	            <p:outputPanel>
+	                <h:panelGrid columns="2" cellpadding="5">
+	                	<h:outputText value="Nom" />
+	                    <h:outputText value="#{hotel.name}" style="font-weight: bold"/>
+	                
+	                    <h:outputText value="Prix:" />
+	                    <h:outputText value="#{hotel.price}€/nuit" style="font-weight: bold"/>
+	 
+	                </h:panelGrid>
+	            </p:outputPanel>
+	        </h:panelGrid>
+	        <hr />
+    	</p:repeat>
+    	<p:dialog header="Hotel Info" widgetVar="hotelDialog" modal="true" showEffect="blind" hideEffect="explode" resizable="false" width="50%">
+	        <p:outputPanel id="hotelDetail" style="text-align:center;">
+	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultHotelBean.selectedHotel}">
+	            
+	 				<f:facet name="header">
+                    	<h:graphicImage value="resources/default/hotel.jpg" width="100%" resizable="false"/> 
+               		</f:facet>
+               		
+	 				<h:outputText value="Nom" />
+	                <h:outputText value="#{hotel.name}" style="font-weight: bold"/>
+	 		
+	                <h:outputText value="Prix" />
+	                <h:outputText value="#{simpleResultBean.selectedHotel.price}€/nuit"/>
+	                
+	                <h:outputText value="Nom de la plage" />
+	                <h:outputText value="#{hotel.description}" style="font-weight: bold"/>
+
+            	</p:panelGrid>
+        	</p:outputPanel>
+   		</p:dialog>
+   		</h:form>
+</h:body>
+</html>

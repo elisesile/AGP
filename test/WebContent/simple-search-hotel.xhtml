@@ -6,7 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Résultat de la recherche</title>
+	<title>Chercher une information</title>
 	<h:outputStylesheet library="default" name="css/style.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </h:head>
@@ -25,26 +25,15 @@
 			<f:param name="menu" value="3" />
 		</p:menuitem>
 	</p:tabMenu>
-	<h:outputText value="#{offerDetailBean.offre.name}" />
-	<h:outputText value="#{offerDetailBean.offre.hotel.name}" />
-	<h:form id="form">
-		<p:repeat value="#{offerDetailBean.offre.excursions}" var="excursion">
-	        <h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
-	        <h:outputText value="#{excursion.num}" ></h:outputText>
-	            <p:outputPanel>
-	                <h:panelGrid columns="2" cellpadding="5">
-	                    <h:outputText value="Prix:" />
-	                    <h:outputText value="info excursion" style="font-weight: bold"/>
-	 
-	                    <h:outputText value="Description:" />
-	                    <h:outputText value="info excursion" style="font-weight: bold"/>
-	 
-	                </h:panelGrid>
-	            </p:outputPanel>
-	        </h:panelGrid>
-	        <hr />
-    	</p:repeat>
-   		</h:form>
-	
+	<h:form>
+		<h:outputText id="displayRange" value="Prix de la nuit d'hôtel compris entre #{simpleSearchHotelBean.minPrice}€ et #{simpleSearchHotelBean.maxPrice}€" />
+		<p:slider minValue="0" maxValue="300" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix de la nuit d'hôtel compris entre {min}€ et {max}€" />
+		<h:inputHidden id="valMin" value="#{simpleSearchHotelBean.minPrice}" />
+		<h:inputHidden id="valMax" value="#{simpleSearchHotelBean.maxPrice}" />
+		<br />
+		<p:commandButton value="Go" action="#{simpleSearchHotelBean.searchAction}">
+		
+		</p:commandButton>
+	</h:form>
 </h:body>
 </html>
