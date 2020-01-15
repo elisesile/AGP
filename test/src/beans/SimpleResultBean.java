@@ -27,44 +27,37 @@ import persistence.jdbc.Queries;
 @ManagedBean
 @RequestScoped
 public class SimpleResultBean {
-    
+
 	private List<Hotel> hotels = new ArrayList<Hotel>();
 	private List<AbstractSite> sites = new ArrayList<AbstractSite>();
 	private Hotel selectedHotel;
 	private AbstractSite selectedSite;
 	private SimpleResultInitialisator initialize;
-	
-	@ManagedProperty(value="#{simpleSearchBean}")
+
+	@ManagedProperty(value = "#{simpleSearchBean}")
 	private SimpleSearchBean simpleSearchBean;
-     
-    @PostConstruct
-    public void init() {
-    	initialize = new SimpleResultInitialisator();
-    	if(simpleSearchBean.isHotelSearch()) {
-    		hotels = initialize.initHotelList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-    	}
-    	if(simpleSearchBean.isSiteSearch()) {
-	    	if(simpleSearchBean.getKeywords().equals("")) {
-		    	sites = initialize.initSiteListint(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
-	    	}
-	    	else {
-	    		sites = initialize.initSiteListLucene(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice(), simpleSearchBean.getKeywords());
-	    	}
-    	}
-    	simpleSearchBean.setNumberOfHotels(hotels.size());
-    	simpleSearchBean.setNumberOfSites(sites.size());
-    	
-    	
-    	
-    	/*AbstractSite s1 = new ActivitySite();
-    	s1.setName("Volcan");
-    	s1.setDescription("Un joli volcan");
-    	AbstractSite s2 = new HistoricSite();
-    	s2.setName("Ruines");
-    	s2.setDescription("Une jolie ruine");
-    	sites.add(s1);
-    	sites.add(s2);*/
-    }
+
+	@PostConstruct
+	public void init() {
+		initialize = new SimpleResultInitialisator();
+		if (simpleSearchBean.isHotelSearch()) {
+			hotels = initialize.initHotelList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+		}
+		if (simpleSearchBean.isSiteSearch()) {
+			if (simpleSearchBean.getKeywords().equals("")) {
+				sites = initialize.initSiteList(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice());
+			} else {
+				sites = initialize.initSiteListLucene(simpleSearchBean.getMinPrice(), simpleSearchBean.getMaxPrice(),
+						simpleSearchBean.getKeywords());
+			}
+		}
+		simpleSearchBean.setNumberOfHotels(hotels.size());
+		simpleSearchBean.setNumberOfSites(sites.size());
+	}
+
+	public void debug() {
+		System.out.println(selectedSite.getName());
+	}
 
 	public List<Hotel> getHotels() {
 		return hotels;
@@ -105,7 +98,7 @@ public class SimpleResultBean {
 	public void setSimpleSearchBean(SimpleSearchBean simpleSearchBean) {
 		this.simpleSearchBean = simpleSearchBean;
 	}
-   
+
 	public int getNumberOfHotels() {
 		return simpleSearchBean.getNumberOfHotels();
 	}
@@ -121,5 +114,5 @@ public class SimpleResultBean {
 	public void setNumberOfSites(int numberOfSites) {
 		simpleSearchBean.setNumberOfSites(numberOfSites);
 	}
-    
+
 }
