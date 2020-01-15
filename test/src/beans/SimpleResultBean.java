@@ -1,21 +1,21 @@
 package beans;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.PreparedStatement;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 
 import data.AbstractSite;
 import data.ActivitySite;
@@ -74,16 +74,22 @@ public class SimpleResultBean {
 				    	site.setPrice(sitesResult.getInt(4));
 				    	
 				    	File text = new File("data/"+sitesResult.getString(1)+".txt");
-				    	Scanner scnr;
-				    	String line ="";
+				    	BufferedReader br;
+				    	String line ="", tmp;
 						try {
-							scnr = new Scanner(text);
-							while(scnr.hasNextLine()){
-					            line += scnr.nextLine();
-					    	}
-						} catch (FileNotFoundException e) {
+							br = new BufferedReader(new InputStreamReader(new FileInputStream(text), "UTF8"));
+							
+							while((tmp = br.readLine()) != null){
+							    line += tmp;
+							}
+						} catch (UnsupportedEncodingException e1) {
+							e1.printStackTrace();
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						} catch (IOException e) {
 							e.printStackTrace();
-						}  	
+						}
+						
 				    	site.setDescription(line);
 				    	//site.setDescription(sitesResult.getString(4));
 						sites.add(site);
