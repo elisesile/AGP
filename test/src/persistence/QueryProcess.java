@@ -135,8 +135,17 @@ public class QueryProcess {
 		try {
 			indexer.initIndexer();
 			indexer.createIndexFromDirectory();
-			indexer.closeIndexer();
 			this.setIndexer(indexer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void closeIndex() {
+		try {
+			this.getIndexer().closeIndexer();
+		} catch (CorruptIndexException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -155,6 +164,11 @@ public class QueryProcess {
 	 * @return boolean (true if it's a success)
 	 */
 	public boolean addSite(String name, String type, int price, double latitude, double longitude, String fileContent){
+		if(this.isAlreadyIndexed() == false) {
+			this.createIndex();
+			this.setAlreadyIndexed(true);
+		}
+		
 		Queries queries = new Queries();
 		int idSite = queries.addSite(name, type, price, latitude, longitude);
 		String fileName = "data/"+String.valueOf(idSite)+".txt";
