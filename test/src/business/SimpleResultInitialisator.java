@@ -126,7 +126,7 @@ public class SimpleResultInitialisator {
 				} catch (UnsupportedEncodingException e1) {
 					e1.printStackTrace();
 				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
+					e1.printStackTrace(); 
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
