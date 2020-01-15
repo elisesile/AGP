@@ -64,7 +64,7 @@ public class SimpleResultBean {
 					while(sitesResult.next()){
 						simpleSearchBean.setNumberOfSites(simpleSearchBean.getNumberOfSites()+1);
 				    	AbstractSite site;
-				    	if(sitesResult.getString(2) == "Historic") {
+				    	if(sitesResult.getString(3).equals("Historic")) {
 				    		site = new HistoricSite();
 				    	}
 				    	else {
