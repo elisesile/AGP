@@ -2,20 +2,23 @@ package beans;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 import data.SimpleEntry;
 
 @ManagedBean(name = "simpleSearchBean")
-@RequestScoped
+@SessionScoped
 public class SimpleSearchBean {
     
 	private SimpleEntry simpleEntry = new SimpleEntry();
      
     @PostConstruct
     public void init() {
-       //TODO
+    	simpleEntry.setHotelSearch(true);
+    	simpleEntry.setKeywords("");
+    	simpleEntry.setMaxPrice(0);
+    	simpleEntry.setMaxPrice(500);
+    	simpleEntry.setSiteSearch(true);
     }
     
     public String searchAction() {
