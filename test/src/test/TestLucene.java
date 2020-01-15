@@ -1,16 +1,31 @@
 package test;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.index.CorruptIndexException;
 
-import persistence.lucene.Indexer;
-import persistence.lucene.Searcher;
+import persistence.QueryProcess;
+import persistence.jdbc.Queries;
 
 public class TestLucene {
 	public static void main(String[] args) {
-		Indexer indexer = new Indexer();
+		
+		Queries query = new Queries();
+		query.getSites();
+		ResultSet result = query.getResultsSet();
+		try {
+			System.out.println(QueryProcess.getInstance().executeQuery(result, "cascade culture"));
+		} catch (CorruptIndexException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		/*Indexer indexer = new Indexer();
 		
 		try {
 			indexer.initIndexer();
@@ -34,6 +49,6 @@ public class TestLucene {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		*/
 	}
 }
