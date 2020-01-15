@@ -44,19 +44,14 @@ public class Searcher {
     * @param maxSearch
     * @param searchQuery
     * 
-    * @return documents
-    * 
     * @throws IOException(TopDocs)
     * @throws ParseException
     */
-	public TopDocs search(int maxSearch, String searchQuery) throws IOException, ParseException {
+	public void search(int maxSearch, String searchQuery) throws IOException, ParseException {
 		Query query = this.getQueryParser().parse(searchQuery);
 		TopDocs docs = this.getIndexSearcher().search(query, maxSearch);
 		
-		//Retourne rien ? Faut utiliser l'itérateur ?
 		this.setDocsIterator(docs.scoreDocs);
-		
-		return docs;
 	}
 	   
 	/**

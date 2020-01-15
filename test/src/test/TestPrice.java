@@ -24,13 +24,9 @@ public class TestPrice {
 		idRides.add(1);
 		idRides.add(2);
 		
-		ResultSet rides = queries.getRidesCoordAndTransportTypePrice(idRides);
-		System.out.println("bla");
-		
-		ResultSet hotel = queries.getHotel(18);
-		System.out.println("blu");
-		
-		int totalPrice = queries.getTotalPriceHotelAndRides(rides, hotel);
+		int hotel = 17;
+				
+		int totalPrice = queries.getTotalPriceRidesAndHotel(idRides, hotel);
 		System.out.println(totalPrice);
 			
 	}
