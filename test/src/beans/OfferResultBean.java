@@ -49,6 +49,11 @@ public class OfferResultBean {
      	s2.setPrice(200);
      	s2.setDescription("Un bon volcan");
      	
+     	AbstractSite s3 = new ActivitySite();
+     	s3.setName("TestActivity");
+     	s3.setPrice(50);
+     	s3.setDescription("Un bon test");
+     	
      	Ride ride = new Ride();
     	ride.setTransport(transport);	
     	ride.setArrival_site(s1);
@@ -57,11 +62,17 @@ public class OfferResultBean {
     	Ride ride2 = new Ride();
     	ride.setTransport(transport);	
     	ride.setArrival_site(s2);
-    	ride.setDeparture_site(s2);
+    	ride.setDeparture_site(s1);
+    	
+    	Ride ride3 = new Ride();
+    	ride.setTransport(transport);	
+    	ride.setArrival_site(s1);
+    	ride.setDeparture_site(s3);
      	
      	ArrayList<Ride> rides = new ArrayList<Ride>();
     	rides.add(ride);
     	rides.add(ride2);
+    	rides.add(ride3);
      	
     	Excursion e1 = new Excursion();
     	e1.setNum(1);

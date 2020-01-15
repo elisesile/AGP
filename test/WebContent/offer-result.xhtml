@@ -25,24 +25,49 @@
 			<f:param name="menu" value="3" />
 		</p:menuitem>
 	</p:tabMenu>
-	<h2>Offres trouvées :</h2>
-	<p:repeat value="#{offerResultBean.offres}" var="offre">
-		<h:panelGrid columns="2" style="width:100%" columnClasses="name,detail">
-		<h:link value="#{offre.name}" outcome="offer-detail">
-			<f:param name="menu" value="1" />
-		</h:link>
-			<p:outputPanel>
-				<h:panelGrid columns="2" cellpadding="5">
-					<h:outputText value="Prix:" />
-					<h:outputText value="#{offre.price}€" style="font-weight: bold" />
-
-					<h:outputText value="Description:" />
-					<h:outputText value="#{offre.description}" style="font-weight: bold" />
-
-				</h:panelGrid>
-			</p:outputPanel>
-		</h:panelGrid>
-		<hr />
-	</p:repeat>
+	<h:form>
+    	<p:dataTable var="offre" value="#{offerResultBean.offres}">
+        <f:facet name="header">
+            Offres trouvés
+        </f:facet>
+        <p:column style="width:16px">
+            <p:rowToggler />
+        </p:column>
+        <p:column headerText="Id">
+            <h:outputText value="#{offre.name}" />
+        </p:column>
+        <p:column headerText="Year">
+            <h:outputText value="#{offre.price}" />
+        </p:column>
+ 
+        <p:rowExpansion>
+            <p:panelGrid  columns="2" columnClasses="label,value" style="width:80%">
+                <f:facet name="header">
+                	Infos détaillés
+                   <!-- <p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/> -->
+                </f:facet>
+ 
+                <h:outputText value="hotel" />
+                <h:outputText value="#{offre.hotel.name}" />
+ 
+                <h:outputText value="prix" />
+                <h:outputText value="#{offre.price}" />
+            </p:panelGrid>
+             <p:dataTable var="excursion" value="#{offre.excursions}">
+            	<p:column headerText="Excursion">
+            		<p:dataTable var="ride" value="#{excursion.rides}">
+            			<p:column headerText="Depart">
+            				<h:outputText value="#{ride.departure_site.name}" />
+            			</p:column>
+            			<p:column headerText="Arrivee">
+            				<h:outputText value="#{ride.arrival_site.name}" />
+            			</p:column>
+            		</p:dataTable>
+            	</p:column>
+            </p:dataTable>
+            
+        </p:rowExpansion>
+    </p:dataTable>
+	</h:form>
 </h:body>
 </html>

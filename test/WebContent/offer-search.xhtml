@@ -38,6 +38,8 @@
 	            <f:selectItem itemLabel="Historique" itemValue="Historique" />
 	            <f:selectItem itemLabel="Loisir et Historique" itemValue="Loisir et Historique" />
 	        </p:selectOneButton>
+	        <h:outputText value="Mots clés: " />
+			<p:inputText value="#{offerSearchBean.keywords}"/>
         </h:panelGrid>
         <h:panelGrid columns="3" cellpadding="5">
         	<h:outputText value="Intensité souhaité:" />

@@ -7,6 +7,7 @@ public class OfferEntry {
     private String typeOfTrip;
     private int intensity = 2;
     private String intensityMessage;
+    private String keywords;
     
     public OfferEntry() {
     	
@@ -41,6 +42,14 @@ public class OfferEntry {
 	}
 	public void setIntensityMessage(String intensityMessage) {
 		this.intensityMessage = intensityMessage;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
     
     

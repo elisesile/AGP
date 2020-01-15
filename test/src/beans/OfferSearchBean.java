@@ -25,13 +25,12 @@ public class OfferSearchBean {
 	}
  
     public void changeMessage() {
-    	//DÃ©finir de meilleurs messages
+    	//Définir de meilleurs messages
     	switch(entries.getIntensity()) {
-	    	case 0: entries.setIntensityMessage("Voyage non intense"); break;
 	    	case 1: entries.setIntensityMessage("Voyage peu intense"); break;
 	    	case 2: entries.setIntensityMessage("Voyage moyennement intense"); break;
 	    	case 3: entries.setIntensityMessage("Voyage intense"); break;
-	    	case 4: entries.setIntensityMessage("Voyage trÃ©s intense"); break;
+	    	case 4: entries.setIntensityMessage("Voyage très intense"); break;
 	    	default: break;
     	}
     }
@@ -74,5 +73,13 @@ public class OfferSearchBean {
 
 	public void setIntensityMessage(String intensityMessage) {
 		entries.setIntensityMessage(intensityMessage);
+	}
+	
+	public String getKeywords() {
+		return entries.getKeywords();
+	}
+	
+	public void setKeywords(String keywords) {
+		entries.setKeywords(keywords);
 	}
 }
