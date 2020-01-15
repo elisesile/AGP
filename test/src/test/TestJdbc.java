@@ -40,6 +40,23 @@ public class TestJdbc {
 			e.printStackTrace();
 		}
 		
+	/*	Queries queries = new Queries();
+		queries.getSitesOrderByActivity();
+		ResultSet results = queries.getResultsSet();
+		try {
+			while(queries.nextIterator()) {
+				//int id = results.getInt(1);
+				String name = results.getString(1);
+				//int price = results.getInt(3);
+				String type = results.getString(2);
+				
+				System.out.println(name+ " || "+ type);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}*/
+		
+		
 		/*
 		Queries queries = new Queries();
 		PreparedStatement preparedStatement = null;

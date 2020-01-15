@@ -260,6 +260,22 @@ public class Queries implements QueriesPersistenceAPI {
 		return totalPrice;
 	}
 
+	/**
+	 * Get all sites in database
+	 * 
+	 * @return result
+	 */
+	public void getSitesOrderByActivity() {
+		try {
+			String query = "SELECT name, type FROM site ORDER BY type";
+	
+			this.preparedStatement = JdbcConnection.getConnection().prepareStatement(query);
+			
+			this.initIterator(this.preparedStatement.executeQuery());
+		} catch (SQLException se) {
+			System.err.println(se.getMessage());
+		}
+	}
 
 	/**
 	 * @return the preparedStatement

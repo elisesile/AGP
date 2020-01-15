@@ -20,7 +20,7 @@ public class TestProcessJoinedQuery {
 		sqlResult = testQueries.getResultsSet();
 		
 		try {
-			QueryProcess.getInstance().executeQuery(sqlResult, "cascade");
+			QueryProcess.getInstance().executeQuery(sqlResult, "cascade trou");
 			System.out.println(QueryProcess.getInstance().getResultHashMap());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
