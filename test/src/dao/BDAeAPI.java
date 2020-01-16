@@ -16,4 +16,8 @@ public interface BDAeAPI {
 	Searcher executeTextual(String query);
 	
 	HashMap<BigDecimal,HashMap<String, String>> mergeQueries(String query) throws CorruptIndexException, SQLException, IOException;
+	
+	boolean addSite(String name, String type, int price, double latitude, double longitude, String fileContent);
+	
+	void createIndex();
 }
