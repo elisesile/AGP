@@ -81,7 +81,7 @@ public class OfferCalculator {
 		return hotelsList;
 	}
 	
-	private ArrayList<Ride> getRides(){
+	private ArrayList<Ride> getRides(String siteType){
 		ArrayList<Ride> ridesList = new ArrayList<Ride>();
 		ArrayList<Integer> idsSite = new ArrayList<Integer>();
 		
@@ -90,8 +90,11 @@ public class OfferCalculator {
 			ResultSet sites = queries.getResultsSet();
 			
 			while(queries.nextIterator()) {
-				int currentSite = sites.getInt(0);
-				idsSite.add(currentSite);
+				int currentSite = sites.getInt(1);
+				String currentType = sites.getString(3);
+				if(currentType.equals(siteType)) {
+					idsSite.add(currentSite);
+				}
 			}
 			
 			for(Integer key : idsSite) {
@@ -157,69 +160,70 @@ public class OfferCalculator {
 		return ridesList;
 	}
 	
-	private ArrayList<Ride> getRidesLucene(String enteredKeywords){
+	private ArrayList<Ride> getRidesLucene(String enteredKeywords, String siteType){
 		ArrayList<Ride> ridesList = new ArrayList<Ride>();
 		
 		try {
 			HashMap<BigDecimal, HashMap<String, String>> sites = QueriesProcess.getInstance().mergeQueries("SELECT * FROM site ORDER BY type WITH "+enteredKeywords);
 			ArrayList<BigDecimal> keys = QueriesProcess.getInstance().generateAndSortScoresArrayList();
 			for(BigDecimal key : keys) {
-				HashMap<String,String> currentSite = sites.get(key);
-				
-				Queries queries = QueriesProcess.getInstance().executeSQL("SELECT siteD.name, siteD.type, siteD.price, coordD.latitude, coordD.longitude, siteA.name, siteA.type, siteA.price, coordA.latitude, coordA.longitude, transport.type, transport.price, transport.is_per_km FROM ride INNER JOIN site AS siteD ON siteD.id_site = ride.departure_site INNER JOIN site AS siteA ON siteA.id_site = ride.arrival_site INNER JOIN coordinates AS coordD ON coordD.id_coordinates = siteD.id_coordinates INNER JOIN coordinates AS coordA ON coordA.id_coordinates = siteA.id_coordinates INNER JOIN transport ON transport.id_transport = ride.id_transport WHERE ride.departure_site = "+currentSite.get("id_site")+" OR ride.arrival_site = "+currentSite.get("id_site"));
-				ResultSet rides = queries.getResultsSet();
-				try {
-					while(queries.nextIterator()) {
-						String nameD = rides.getString(1);
-						String typeD = rides.getString(2);
-						int priceD = rides.getInt(3);
-						double latitudeD = rides.getDouble(4);
-						double longitudeD = rides.getDouble(5);
-						String nameA = rides.getString(6);
-						String typeA = rides.getString(7);
-						int priceA = rides.getInt(8);
-						double latitudeA = rides.getDouble(9);
-						double longitudeA = rides.getDouble(10);
-						String typeT = rides.getString(11);
-						int priceT = rides.getInt(12);
-						boolean isPerKmT = rides.getBoolean(13);
-						
-						AbstractSite siteD, siteA;
-						if(typeD.equals("Historic")) {
-							siteD = new HistoricSite();
-				    	}
-				    	else {
-				    		siteD = new ActivitySite();
-				    	}
-						if(typeA.equals("Historic")) {
-							siteA = new HistoricSite();
-				    	}
-				    	else {
-				    		siteA = new ActivitySite();
-				    	}
-						siteD.setName(nameD);
-						siteD.setPrice(priceD);
-						siteD.setCoordinates(new Coordinates(latitudeD, longitudeD));
-						siteA.setName(nameA);
-						siteA.setPrice(priceA);
-						siteA.setCoordinates(new Coordinates(latitudeA, longitudeA));
-						Transport transport = new Transport();
-						transport.setPerKm(isPerKmT);
-						transport.setPrice(priceT);
-						if(typeT.equals("Bus")) {
-							transport.setType(TransportEnum.BUS);
+				if(siteType.equals(sites.get(key).get("type"))) {
+					HashMap<String,String> currentSite = sites.get(key);
+					
+					Queries queries = QueriesProcess.getInstance().executeSQL("SELECT siteD.name, siteD.type, siteD.price, coordD.latitude, coordD.longitude, siteA.name, siteA.type, siteA.price, coordA.latitude, coordA.longitude, transport.type, transport.price, transport.is_per_km FROM ride INNER JOIN site AS siteD ON siteD.id_site = ride.departure_site INNER JOIN site AS siteA ON siteA.id_site = ride.arrival_site INNER JOIN coordinates AS coordD ON coordD.id_coordinates = siteD.id_coordinates INNER JOIN coordinates AS coordA ON coordA.id_coordinates = siteA.id_coordinates INNER JOIN transport ON transport.id_transport = ride.id_transport WHERE ride.departure_site = "+currentSite.get("id_site")+" OR ride.arrival_site = "+currentSite.get("id_site"));
+					ResultSet rides = queries.getResultsSet();
+					try {
+						while(queries.nextIterator()) {
+							String nameD = rides.getString(1);
+							String typeD = rides.getString(2);
+							int priceD = rides.getInt(3);
+							double latitudeD = rides.getDouble(4);
+							double longitudeD = rides.getDouble(5);
+							String nameA = rides.getString(6);
+							String typeA = rides.getString(7);
+							int priceA = rides.getInt(8);
+							double latitudeA = rides.getDouble(9);
+							double longitudeA = rides.getDouble(10);
+							String typeT = rides.getString(11);
+							int priceT = rides.getInt(12);
+							boolean isPerKmT = rides.getBoolean(13);
+							
+							AbstractSite siteD, siteA;
+							if(typeD.equals("Historic")) {
+								siteD = new HistoricSite();
+					    	}
+					    	else {
+					    		siteD = new ActivitySite();
+					    	}
+							if(typeA.equals("Historic")) {
+								siteA = new HistoricSite();
+					    	}
+					    	else {
+					    		siteA = new ActivitySite();
+					    	}
+							siteD.setName(nameD);
+							siteD.setPrice(priceD);
+							siteD.setCoordinates(new Coordinates(latitudeD, longitudeD));
+							siteA.setName(nameA);
+							siteA.setPrice(priceA);
+							siteA.setCoordinates(new Coordinates(latitudeA, longitudeA));
+							Transport transport = new Transport();
+							transport.setPerKm(isPerKmT);
+							transport.setPrice(priceT);
+							if(typeT.equals("Bus")) {
+								transport.setType(TransportEnum.BUS);
+							}
+							else {
+								transport.setType(TransportEnum.BOAT);
+							}
+							
+							Ride ride = new Ride(siteD, siteA, transport);
+							ridesList.add(ride);
 						}
-						else {
-							transport.setType(TransportEnum.BOAT);
-						}
-						
-						Ride ride = new Ride(siteD, siteA, transport);
-						ridesList.add(ride);
+					} catch (SQLException e) {
+						e.printStackTrace();
 					}
-				} catch (SQLException e) {
-					e.printStackTrace();
 				}
-				
 			}
 		} catch (CorruptIndexException e1) {
 			e1.printStackTrace();
@@ -301,10 +305,10 @@ public class OfferCalculator {
 		
 		hotelsList = this.getHotels();
 		if(enteredKeywords.isEmpty()) {
-			ridesList = this.getRides();
+			ridesList = this.getRides(siteType);
 		}
 		else {
-			ridesList = this.getRidesLucene(enteredKeywords);
+			ridesList = this.getRidesLucene(enteredKeywords, siteType);
 		}
 		
 		
