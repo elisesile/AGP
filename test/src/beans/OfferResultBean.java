@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import business.Calculators.OfferCalculator;
+import business.calculators.OfferCalculator;
 import business.data.AbstractSite;
 import business.data.ActivitySite;
 import business.data.Excursion;

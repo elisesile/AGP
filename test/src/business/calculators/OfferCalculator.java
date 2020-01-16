@@ -1,4 +1,4 @@
-package business.Calculators;
+package business.calculators;
 
 import java.io.IOException;
 import java.math.BigDecimal;
