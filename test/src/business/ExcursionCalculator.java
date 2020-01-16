@@ -115,14 +115,18 @@ public class ExcursionCalculator {
 	}
 	
 	public static void removeLinkedRides(AbstractSite arrivalSite, AbstractSite departureSite, ArrayList<Ride> currentRides) {
+		ArrayList<Ride> toRemove = new ArrayList<Ride>();
 		for(int i=0 ; i<currentRides.size() ; i++) {
 			if(currentRides.get(i).getArrival_site().getName().equals(arrivalSite.getName())
 				|| currentRides.get(i).getArrival_site().getName().equals(departureSite.getName())
 				|| currentRides.get(i).getDeparture_site().getName().equals(arrivalSite.getName())
 				|| currentRides.get(i).getDeparture_site().getName().equals(departureSite.getName())
 				) {
-				currentRides.remove(i);
+				toRemove.add(currentRides.get(i));
 			}
+		}
+		for(Ride ride:toRemove) {
+			currentRides.remove(ride);
 		}
 	}
 	
