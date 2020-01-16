@@ -32,8 +32,8 @@
 	<h:form>
 		<p:dataTable var="offre" value="#{offerResultBean.offres}">
 			<f:facet name="header">
-            Offres trouvés
-        </f:facet>
+            	Offres trouvés
+        	</f:facet>
 			<p:column style="width:16px">
 				<p:rowToggler />
 			</p:column>
@@ -44,13 +44,12 @@
 				<h:outputText value="#{offre.price}" />
 			</p:column>
 
-			<p:rowExpansion>
+			<p:rowExpansion style="text-align:center">
 				<p:panelGrid columns="2" style="width:100%">
 					<p:panelGrid columns="2" columnClasses="label,value"
 						style="width:100%">
 						<f:facet name="header">
-	                	Infos détaillés
-	                   <!-- <p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/> -->
+	                		Infos détaillés
 						</f:facet>
 
 						<h:outputText value="Hotel" />
@@ -61,7 +60,7 @@
 					</p:panelGrid>
 					<p:dataTable var="excursion" value="#{offre.excursions}" style="width:100%" >
 						<f:facet name="header">
-	                	Excursions
+	                		Excursions
 						</f:facet>
 						<p:column headerText="Nom de l'excursion">
 							<h:outputText value="#{excursion.name}" />

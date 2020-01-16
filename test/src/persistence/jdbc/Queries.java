@@ -150,15 +150,6 @@ public class Queries {
 		return preparedStatement;
 	}
 
-
-	/**
-	 * @param preparedStatement the preparedStatement to set
-	 */
-	private void setPreparedStatement(PreparedStatement preparedStatement) {
-		this.preparedStatement = preparedStatement;
-	}
-
-
 	/**
 	 * @return the resultsSet
 	 */
