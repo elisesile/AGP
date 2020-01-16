@@ -14,7 +14,7 @@ import data.ActivitySite;
 import data.Excursion;
 import data.HistoricSite;
 import data.Hotel;
-import data.Offre;
+import data.Offer;
 import data.Ride;
 import data.Transport;
 import data.TransportEnum;
@@ -23,7 +23,7 @@ import data.TransportEnum;
 @SessionScoped
 public class OfferResultBean {
     
-	private List<Offre> offres = new ArrayList<Offre>();
+	private List<Offer> offres = new ArrayList<Offer>();
 	
 	@ManagedProperty(value="#{offerSearchBean}")
 	private OfferSearchBean offerSearchBean;
@@ -88,13 +88,13 @@ public class OfferResultBean {
     	excursions.add(e1);
     	excursions.add(e2);
     	
-    	Offre offre = new Offre();
+    	Offer offre = new Offer();
     	offre.setName("Offre 1");
     	offre.setPrice(1750);
     	offre.setHotel(h1);
     	offre.setExcursions(excursions);
     	
-    	Offre offre2 = new Offre();
+    	Offer offre2 = new Offer();
     	offre2.setName("Offre 2");
     	offre2.setPrice(3584);
     	offre2.setHotel(h1);
@@ -104,11 +104,11 @@ public class OfferResultBean {
     	offres.add(offre2);
     }
 
-	public List<Offre> getOffres() {
+	public List<Offer> getOffres() {
 		return offres;
 	}
 
-	public void setOffres(List<Offre> offres) {
+	public void setOffres(List<Offer> offres) {
 		this.offres = offres;
 	}
 

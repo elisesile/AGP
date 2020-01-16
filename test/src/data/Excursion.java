@@ -52,5 +52,11 @@ public class Excursion {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "Excursion [rides=" + rides + ", visitedSites=" + visitedSites + ", name=" + name + ", beach=" + beach
+				+ ", description=" + description + "]";
+	}
 	
 }

@@ -2,14 +2,14 @@ package data;
 
 import java.util.ArrayList;
 
-public class Offre {
+public class Offer {
 
 	private String name;
 	private int price;
 	private Hotel hotel;
 	private ArrayList<Excursion> excursions = new ArrayList<Excursion>();
 	
-	public Offre() {
+	public Offer() {
 	}
 
 	public String getName() {
@@ -42,6 +42,11 @@ public class Offre {
 
 	public void setExcursions(ArrayList<Excursion> excursions) {
 		this.excursions = excursions;
+	}
+
+	@Override
+	public String toString() {
+		return "Offer [name=" + name + ", price=" + price + ", hotel=" + hotel + ", excursions=" + excursions + "]";
 	}
 	
 }

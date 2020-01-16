@@ -6,7 +6,6 @@ public abstract class AbstractSite {
 	private String description;
 	protected SiteEnum type;
 	private Coordinates coordinates;
-//	private int id_site;
 	
 	public AbstractSite() {
 	}
@@ -51,12 +50,10 @@ public abstract class AbstractSite {
 		this.coordinates = coordinates;
 	}
 
-//	public int getId_site() {
-//		return id_site;
-//	}
-//
-//	public void setId_site(int id_site) {
-//		this.id_site = id_site;
-//	}
+	@Override
+	public String toString() {
+		return "AbstractSite [name=" + name + ", price=" + price + ", description=" + description + ", type=" + type
+				+ ", coordinates=" + coordinates + "]";
+	}
 
 }

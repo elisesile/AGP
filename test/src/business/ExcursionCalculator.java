@@ -1,10 +1,11 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import data.AbstractSite;
 import data.Excursion;
-import data.Offre;
+import data.Offer;
 import data.Ride;
 
 public class ExcursionCalculator {
@@ -12,9 +13,7 @@ public class ExcursionCalculator {
 	public static void getSiteList(Excursion excursion){
 		ArrayList<Ride> rides =  excursion.getRides();
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
-		for ( int index = 0; index<rides.size();index++) 
-			
-		{
+		for(int index = 0; index<rides.size();index++) {
 			AbstractSite arrival = rides.get(index).getArrival_site();
 			AbstractSite departure = rides.get(index).getDeparture_site();
 			sites.add(rides.get(index).getArrival_site());
@@ -22,28 +21,30 @@ public class ExcursionCalculator {
 			
 			if( !sites.contains(arrival)) {
 				sites.add(arrival);
-				
 			}
 			if( !sites.contains(departure)) {
 				sites.add(departure);
-				
 			}
-			
 		}
 		excursion.setVisitedSites(sites);
-		
 	}
 	
-	public static void organizeExcursions(ArrayList<Offre> offers, ArrayList<Ride> rides) {
-		//Récup tous les rides
-		for(Offre offer : offers) {
+	public static void organizeExcursions(ArrayList<Offer> offers, ArrayList<Ride> rides, ArrayList<Integer> usedRides) {
+		for(Offer offer : offers) {
 			ArrayList<Excursion> excursions = offer.getExcursions();
 			
 			for(Excursion excursion : excursions) {
 				if(!excursion.isBeach()) {
-					//TODO
+					
+					for(int i = 0 ; i < 2 ; i++) {
+						int random = new Random().nextInt(rides.size());
+						if(!usedRides.contains(random)) {
+							excursion.getRides().add(rides.get(random));
+						}
+					}
 					
 				}
+				
 			}
 		}
 	}

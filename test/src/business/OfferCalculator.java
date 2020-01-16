@@ -1,14 +1,21 @@
 package business;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import data.Excursion;
-import data.Hotel;
-import data.Offre;
+import org.apache.lucene.index.CorruptIndexException;
+
+import data.*;
+import persistence.QueriesProcess;
+import persistence.jdbc.Queries;
 
 public class OfferCalculator {
 	
-	public void initExcursions(int intensity, Offre offre){
+	public void initExcursions(int intensity, Offer offre){
 		ArrayList<Excursion> excursions = new ArrayList<Excursion>();
 		Excursion e1 = new Excursion();
 		Excursion e2 = new Excursion();
@@ -38,27 +45,125 @@ public class OfferCalculator {
 		offre.setExcursions(excursions);
 	}
 	
-	public ArrayList<Offre> getOffers(int minPrice, int maxPrice, String enteredKeywords, String siteType, int intensity) {
-		ArrayList<Offre> offres = new ArrayList<Offre>();
+	public ArrayList<Offer> getOffers(int minPrice, int maxPrice, String enteredKeywords, String siteType, int intensity) {
+		ArrayList<Offer> offersList = new ArrayList<Offer>();
+		ArrayList<Hotel> hotelsList = new ArrayList<Hotel>();
+		ArrayList<Ride> ridesList = new ArrayList<Ride>();
+		ArrayList<Integer> usedRides = new ArrayList<Integer>();
 		
-		// offre = hotel, excursions (rides)
+		/*
+		 * 1) Récupérer tous les hotels (infos) OK
+		 * 2) Récupérer les rides (infos sites + transport) avec types + motsclés OK
+		 * 3) Appel initExcursions pour définir l'intensité OK
+		 * 4) Appel organizeExcursions pour définir les excursions selon la demande OK
+		 * 
+		 * */
+		Queries queries = QueriesProcess.getInstance().executeSQL("SELECT id_hotel, name, price, beach_name, latitude, longitude FROM hotel INNER JOIN coordinates ON coordinates.id_coordinates = hotel.id_coordinates;");
+		ResultSet hotels = queries.getResultsSet();
+		try {
+			while(queries.nextIterator()) {
+				String name = hotels.getString(2);
+				int price = hotels.getInt(3);
+				String beachName = hotels.getString(4);
+				double latitude = hotels.getDouble(5);
+				double longitude = hotels.getDouble(6);
+				
+				Hotel hotel = new Hotel();
+				hotel.setName(name);
+				hotel.setPrice(price);
+				hotel.setBeachName(beachName);
+				hotel.setCoordinates(new Coordinates(latitude, longitude));
+				hotelsList.add(hotel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		/*for(Hotel hotel: hotels) {
-			Offre offre = new Offre();
-			offre.setHotel(hotel);
-			initExcursions(intensity, offre);
-			ExcursionCalculator.organizeExcursions(offres, );
+		
+		try {
+			HashMap<BigDecimal, HashMap<String, String>> sites = QueriesProcess.getInstance().mergeQueries("SELECT * FROM site ORDER BY type WITH "+enteredKeywords);
+			ArrayList<BigDecimal> keys = QueriesProcess.getInstance().generateAndSortScoresArrayList();
+			for(BigDecimal key : keys) {
+				HashMap<String,String> currentSite = sites.get(key);
+				
+				queries = QueriesProcess.getInstance().executeSQL("SELECT siteD.name, siteD.type, siteD.price, coordD.latitude, coordD.longitude, siteA.name, siteA.type, siteA.price, coordA.latitude, coordA.longitude, transport.type, transport.price, transport.is_per_km FROM ride INNER JOIN site AS siteD ON siteD.id_site = ride.departure_site INNER JOIN site AS siteA ON siteA.id_site = ride.arrival_site INNER JOIN coordinates AS coordD ON coordD.id_coordinates = siteD.id_coordinates INNER JOIN coordinates AS coordA ON coordA.id_coordinates = siteA.id_coordinates INNER JOIN transport ON transport.id_transport = ride.id_transport WHERE ride.departure_site = "+currentSite.get("id_site")+" OR ride.arrival_site = "+currentSite.get("id_site"));
+				ResultSet rides = queries.getResultsSet();
+				try {
+					while(queries.nextIterator()) {
+						String nameD = rides.getString(1);
+						String typeD = rides.getString(2);
+						int priceD = rides.getInt(3);
+						double latitudeD = rides.getDouble(4);
+						double longitudeD = rides.getDouble(5);
+						String nameA = rides.getString(6);
+						String typeA = rides.getString(7);
+						int priceA = rides.getInt(8);
+						double latitudeA = rides.getDouble(9);
+						double longitudeA = rides.getDouble(10);
+						String typeT = rides.getString(11);
+						int priceT = rides.getInt(12);
+						boolean isPerKmT = rides.getBoolean(13);
+						
+						AbstractSite siteD, siteA;
+						if(typeD.equals("Historic")) {
+							siteD = new HistoricSite();
+				    	}
+				    	else {
+				    		siteD = new ActivitySite();
+				    	}
+						if(typeA.equals("Historic")) {
+							siteA = new HistoricSite();
+				    	}
+				    	else {
+				    		siteA = new ActivitySite();
+				    	}
+						siteD.setName(nameD);
+						siteD.setPrice(priceD);
+						siteD.setCoordinates(new Coordinates(latitudeD, longitudeD));
+						siteA.setName(nameA);
+						siteA.setPrice(priceA);
+						siteA.setCoordinates(new Coordinates(latitudeA, longitudeA));
+						Transport transport = new Transport();
+						transport.setPerKm(isPerKmT);
+						transport.setPrice(priceT);
+						if(typeT.equals("Bus")) {
+							transport.setType(TransportEnum.BUS);
+						}
+						else {
+							transport.setType(TransportEnum.BOAT);
+						}
+						
+						Ride ride = new Ride(siteD, siteA, transport);
+						ridesList.add(ride);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		} catch (CorruptIndexException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		for(Hotel hotel : hotelsList) {
+			Offer offer = new Offer();
+			offer.setHotel(hotel);
+			initExcursions(intensity, offer);
+			offersList.add(offer);
+			ExcursionCalculator.organizeExcursions(offersList, ridesList, usedRides);
+			
 			/* TODO
-			 * si setBeach false alors générer une excursion (avec les mots clés)
 			 * voir prix total puis si c'est dans la range ajouté dans arraylist sinon non
 			 */
 			
-			
-			/*
-			offres.add(offre);
-		}*/
+		}
 		
-		return offres;
+		return offersList;
 	}
 	
 }

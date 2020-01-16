@@ -1,6 +1,6 @@
 package data;
 
 public enum SiteEnum {
-	ACTIVITE,
-	HISTORIQUE
+	ACTIVITY,
+	HISTORIC
 }

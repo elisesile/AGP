@@ -1,35 +1,32 @@
 package data;
 
 public class Coordinates {
-//	private int id_coordinates;
-	private Float latitude;
-	private Float longitude;
+	private double latitude;
+	private double longitude;
 	
-	public Coordinates() {
-		
+	public Coordinates(double latitude, double longitude) {
+		this.setLatitude(latitude);
+		this.setLongitude(longitude);
 	}
-	
-//	public int getId_coordinates() {
-//		return id_coordinates;
-//	}
-//
-//	public void setId_coordinates(int id_coordinates) {
-//		this.id_coordinates = id_coordinates;
-//	}
 
-	public Float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	public Float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
-	};
+	}
+
+	@Override
+	public String toString() {
+		return "Coordinates [latitude=" + latitude + ", longitude=" + longitude + "]";
+	}
 }

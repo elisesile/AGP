@@ -4,6 +4,8 @@ public class Hotel {
 
 	private String name;
 	private int price;
+	private String beachName;
+	private Coordinates coordinates;
 	private String description;
 	
 	public Hotel() {
@@ -31,6 +33,28 @@ public class Hotel {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Coordinates getCoordinates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(Coordinates coordinates) {
+		this.coordinates = coordinates;
+	}
+
+	public String getBeachName() {
+		return beachName;
+	}
+
+	public void setBeachName(String beachName) {
+		this.beachName = beachName;
+	}
+
+	@Override
+	public String toString() {
+		return "Hotel [name=" + name + ", price=" + price + ", beachName=" + beachName + ", coordinates=" + coordinates
+				+ ", description=" + description + "]";
 	}
 	
 }
