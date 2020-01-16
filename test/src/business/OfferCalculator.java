@@ -238,7 +238,7 @@ public class OfferCalculator {
 	
 	public void calculateOfferPrice(ArrayList<Offer> offersList) {
 		for(Offer offer : offersList) {
-			int hotelPrice = offer.getHotel().getPrice();
+			int hotelPrice = offer.getHotel().getPrice()*4;
 			int transportPrice = 0, sitePrice = 0;
 			ArrayList<Excursion> excursions = offer.getExcursions();
 			
