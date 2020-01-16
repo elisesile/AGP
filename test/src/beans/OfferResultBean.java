@@ -6,9 +6,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import business.OfferCalculator;
+import business.Calculators.OfferCalculator;
 import business.data.AbstractSite;
 import business.data.ActivitySite;
 import business.data.Excursion;
@@ -21,7 +22,7 @@ import business.data.TransportEnum;
 import business.spring.SpringIoC;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class OfferResultBean {
     
 	private List<Offer> offres = new ArrayList<Offer>();

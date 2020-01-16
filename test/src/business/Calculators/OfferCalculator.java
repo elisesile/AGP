@@ -1,4 +1,4 @@
-package business;
+package business.Calculators;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -19,6 +19,7 @@ import business.data.Offer;
 import business.data.Ride;
 import business.data.Transport;
 import business.data.TransportEnum;
+import business.spring.SpringIoC;
 import persistence.QueriesProcess;
 import persistence.jdbc.Queries;
 
@@ -26,10 +27,10 @@ public class OfferCalculator {
 	
 	public void initExcursions(int intensity, Offer offre){
 		ArrayList<Excursion> excursions = new ArrayList<Excursion>();
-		Excursion e1 = new Excursion();
-		Excursion e2 = new Excursion();
-		Excursion e3 = new Excursion();
-		Excursion e4 = new Excursion();
+		Excursion e1 = (Excursion)SpringIoC.getBean("excursion");
+		Excursion e2 = (Excursion)SpringIoC.getBean("excursion");
+		Excursion e3 = (Excursion)SpringIoC.getBean("excursion");
+		Excursion e4 = (Excursion)SpringIoC.getBean("excursion");
 		
 		switch(intensity) {
 		case 1:
@@ -67,7 +68,7 @@ public class OfferCalculator {
 				double latitude = hotels.getDouble(5);
 				double longitude = hotels.getDouble(6);
 				
-				Hotel hotel = new Hotel();
+				Hotel hotel = (Hotel)SpringIoC.getBean("hotel");
 				hotel.setName(name);
 				hotel.setPrice(price);
 				hotel.setBeachName(beachName);
@@ -118,16 +119,16 @@ public class OfferCalculator {
 						
 						AbstractSite siteD, siteA;
 						if(typeD.equals("Historic")) {
-							siteD = new HistoricSite();
+							siteD = (HistoricSite)SpringIoC.getBean("historic");
 				    	}
 				    	else {
-				    		siteD = new ActivitySite();
+				    		siteD = (ActivitySite)SpringIoC.getBean("activity");
 				    	}
 						if(typeA.equals("Historic")) {
-							siteA = new HistoricSite();
+							siteA = (HistoricSite)SpringIoC.getBean("historic");
 				    	}
 				    	else {
-				    		siteA = new ActivitySite();
+				    		siteA = (ActivitySite)SpringIoC.getBean("activity");
 				    	}
 						siteD.setName(nameD);
 						siteD.setPrice(priceD);
@@ -135,7 +136,7 @@ public class OfferCalculator {
 						siteA.setName(nameA);
 						siteA.setPrice(priceA);
 						siteA.setCoordinates(new Coordinates(latitudeA, longitudeA));
-						Transport transport = new Transport();
+						Transport transport = (Transport)SpringIoC.getBean("transport");
 						transport.setPerKm(isPerKmT);
 						transport.setPrice(priceT);
 						if(typeT.equals("Bus")) {
@@ -144,8 +145,10 @@ public class OfferCalculator {
 						else {
 							transport.setType(TransportEnum.BOAT);
 						}
-						
-						Ride ride = new Ride(siteD, siteA, transport);
+						Ride ride = (Ride)SpringIoC.getBean("ride");
+						ride.setArrival_site(siteA);
+						ride.setDeparture_site(siteD);
+						ride.setTransport(transport);
 						ridesList.add(ride);
 					}
 				} catch (SQLException e) {
@@ -190,16 +193,16 @@ public class OfferCalculator {
 							
 							AbstractSite siteD, siteA;
 							if(typeD.equals("Historic")) {
-								siteD = new HistoricSite();
+								siteD = (HistoricSite)SpringIoC.getBean("historic");
 					    	}
 					    	else {
-					    		siteD = new ActivitySite();
+					    		siteD = (ActivitySite)SpringIoC.getBean("activity");
 					    	}
 							if(typeA.equals("Historic")) {
-								siteA = new HistoricSite();
+								siteA = (HistoricSite)SpringIoC.getBean("historic");
 					    	}
 					    	else {
-					    		siteA = new ActivitySite();
+					    		siteA = (ActivitySite)SpringIoC.getBean("activity");
 					    	}
 							siteD.setName(nameD);
 							siteD.setPrice(priceD);
@@ -217,7 +220,10 @@ public class OfferCalculator {
 								transport.setType(TransportEnum.BOAT);
 							}
 							
-							Ride ride = new Ride(siteD, siteA, transport);
+							Ride ride = (Ride)SpringIoC.getBean("ride");
+							ride.setArrival_site(siteA);
+							ride.setDeparture_site(siteD);
+							ride.setTransport(transport);
 							ridesList.add(ride);
 						}
 					} catch (SQLException e) {
@@ -313,7 +319,7 @@ public class OfferCalculator {
 		
 		
 		for(Hotel hotel : hotelsList) {
-			Offer offer = new Offer();
+			Offer offer = (Offer)SpringIoC.getBean("offer");
 			offer.setHotel(hotel);
 			initExcursions(intensity, offer);
 			generatedOffersList.add(offer);
@@ -321,7 +327,7 @@ public class OfferCalculator {
 		}
 		
 		this.calculateOfferPrice(generatedOffersList);
-		
+
 		for(Offer currentOffer : generatedOffersList) {
 			if (currentOffer.getPrice() >= minPrice && currentOffer.getPrice() <= maxPrice) {
 				sortedOffersList.add(0, currentOffer);
@@ -329,8 +335,19 @@ public class OfferCalculator {
 				sortedOffersList.add(currentOffer);
 			}
 		}
-		
+		initNameAndDescription(sortedOffersList);
 		return sortedOffersList;
 	}
 	
+	public void initNameAndDescription(ArrayList<Offer> offers) {
+		int offerNum =0;
+		for(Offer offer: offers) {
+			offer.setName("Offre N°"+offerNum++);
+			for(int index=0;index<offer.getExcursions().size();index++) {
+				Excursion excursion = offer.getExcursions().get(index);
+				ExcursionCalculator.setExcursionDescription(excursion);
+				excursion.setName("Jour N"+index);
+			}	
+		}
+	}
 }

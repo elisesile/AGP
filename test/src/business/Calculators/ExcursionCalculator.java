@@ -1,4 +1,4 @@
-package business;
+package business.Calculators;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -68,9 +68,7 @@ public class ExcursionCalculator {
 	}
 	
 	public static void organizeExcursions(ArrayList<Offer> offers, ArrayList<Ride> rides) {
-		int offerNum=0;
 		for(Offer offer : offers) {
-			offer.setName("Offre N°"+offerNum++);
 			ArrayList<Excursion> excursions = offer.getExcursions();
 			
 			ArrayList<Ride> currentRides = new ArrayList<Ride>();
@@ -78,11 +76,7 @@ public class ExcursionCalculator {
 			while(iterator.hasNext()){
 				currentRides.add((Ride) iterator.next());	
 			}
-			int index = 0;
 			for(Excursion excursion : excursions) {
-				setExcursionDescription(excursion);
-				excursion.setName("Jour N°"+index);
-				index++;
 				if(!excursion.isBeach()) {
 					int nearestRide = ExcursionCalculator.getNearestRideSite(offers, currentRides);
 					if(nearestRide == -1) {

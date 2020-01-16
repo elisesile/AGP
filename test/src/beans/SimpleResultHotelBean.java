@@ -8,8 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-
-import business.SimpleResultInitialisator;
+import business.Calculators.SimpleResultInitialisator;
 import business.data.Hotel;
 
 @ManagedBean
