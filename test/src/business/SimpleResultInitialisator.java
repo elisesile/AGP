@@ -1,4 +1,4 @@
-package business.calculators;
+package business;
 
 import java.io.BufferedReader;
 import java.io.File;

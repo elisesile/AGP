@@ -1,4 +1,4 @@
-package business.calculators;
+package business;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -1,4 +1,4 @@
-package business.calculators;
+package business;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -32,8 +32,24 @@ public class OfferCalculator {
 		Excursion e3 = (Excursion)SpringIoC.getBean("excursion");
 		Excursion e4 = (Excursion)SpringIoC.getBean("excursion");
 		
+		excursions.add(e1);
+		excursions.add(e2);
+		excursions.add(e3);
+		excursions.add(e4);
+		offre.setExcursions(excursions);
+		
+		int min =0, max = 3;
+		int index;
 		switch(intensity) {
 		case 1:
+			for(int i=0;i<3;i++) {
+				index = (int)(Math.random()*((max-min)+1))+min;
+				while(excursions.get(index).isBeach()) {
+					index = (int)(Math.random()*((max-min)+1))+min;
+					System.out.println(index);
+				}
+				excursions.get(index).setBeach(true);
+			}
 			e1.setBeach(true);
 			e2.setBeach(true);
 			e3.setBeach(true);
@@ -48,11 +64,7 @@ public class OfferCalculator {
 			break;
 		default:break;
 		}
-		excursions.add(e1);
-		excursions.add(e2);
-		excursions.add(e3);
-		excursions.add(e4);
-		offre.setExcursions(excursions);
+		
 	}
 	
 	private ArrayList<Hotel> getHotels() {
