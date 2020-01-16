@@ -7,14 +7,12 @@ import business.data.*;
 
 public class ExcursionCalculator {
 	
-	public static void getSiteList(Excursion excursion){
+	public static void initSiteList(Excursion excursion){
 		ArrayList<Ride> rides =  excursion.getRides();
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
 		for(int index = 0; index<rides.size();index++) {
 			AbstractSite arrival = rides.get(index).getArrival_site();
 			AbstractSite departure = rides.get(index).getDeparture_site();
-			sites.add(rides.get(index).getArrival_site());
-			sites.contains(rides.get(index).getArrival_site());
 			
 			if( !sites.contains(arrival)) {
 				sites.add(arrival);
@@ -70,7 +68,9 @@ public class ExcursionCalculator {
 	}
 	
 	public static void organizeExcursions(ArrayList<Offer> offers, ArrayList<Ride> rides) {
+		int offerNum=0;
 		for(Offer offer : offers) {
+			offer.setName("Offre N°"+offerNum++);
 			ArrayList<Excursion> excursions = offer.getExcursions();
 			
 			ArrayList<Ride> currentRides = new ArrayList<Ride>();
@@ -78,8 +78,11 @@ public class ExcursionCalculator {
 			while(iterator.hasNext()){
 				currentRides.add((Ride) iterator.next());	
 			}
-			
+			int index = 0;
 			for(Excursion excursion : excursions) {
+				setExcursionDescription(excursion);
+				excursion.setName("Jour N°"+index);
+				index++;
 				if(!excursion.isBeach()) {
 					int nearestRide = ExcursionCalculator.getNearestRideSite(offers, currentRides);
 					if(nearestRide == -1) {
@@ -98,6 +101,26 @@ public class ExcursionCalculator {
 					excursion.getRides().add(currentRides.get(nextRide));
 					currentRides.remove(nextRide);
 				}
+			}
+		}
+	}
+	
+	public static void setExcursionDescription(Excursion excursion) {
+		if(excursion.isBeach()) {
+			excursion.setDescription("Journée libre !");
+		}
+		else {
+			initSiteList(excursion);
+			//AbstractSite site: excursion.getVisitedSites();
+			for(int index = 0; index<excursion.getVisitedSites().size()-1;index++) {
+				AbstractSite site = excursion.getVisitedSites().get(index);
+				if(index!=0) {
+					excursion.setDescription(excursion.getDescription()+" --> "+site.getName());
+				}
+				else {
+					excursion.setDescription(site.getName());
+				}
+				
 			}
 		}
 	}

@@ -29,7 +29,7 @@
 			<f:param name="menu" value="3" />
 		</p:menuitem>
 	</p:tabMenu>
-	<h:form>
+	<h:form style="text-align:center">
 		<p:dataTable var="offre" value="#{offerResultBean.offres}">
 			<f:facet name="header">
             	Offres trouvés
@@ -62,7 +62,7 @@
 						<f:facet name="header">
 	                		Excursions
 						</f:facet>
-						<p:column headerText="Nom de l'excursion">
+						<p:column headerText="Jour">
 							<h:outputText value="#{excursion.name}" />
 						</p:column>
 						<p:column headerText="Description">
