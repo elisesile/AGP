@@ -240,25 +240,4 @@ public class Indexer {
 	private IndexWriter getWriter() {
 		return writer;
 	}
-
-	/**
-	 * @param writer the writer to set
-	 */
-	private void setWriter(IndexWriter writer) {
-		this.writer = writer;
-	}
-
-	/**
-	 * @return the textFileFilter
-	 */
-	private TextFileFilter getTextFileFilter() {
-		return textFileFilter;
-	}
-
-	/**
-	 * @param textFileFilter the textFileFilter to set
-	 */
-	private void setTextFileFilter(TextFileFilter textFileFilter) {
-		this.textFileFilter = textFileFilter;
-	}
 }

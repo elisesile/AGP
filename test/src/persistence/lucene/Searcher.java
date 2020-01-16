@@ -132,26 +132,12 @@ public class Searcher {
 	}
 
 	/**
-	 * @param indexSearcher the indexSearcher to set
-	 */
-	private void setIndexSearcher(IndexSearcher indexSearcher) {
-		this.indexSearcher = indexSearcher;
-	}
-
-	/**
 	 * @return the queryParser
 	 */
 	private QueryParser getQueryParser() {
 		return queryParser;
 	}
-
-	/**
-	 * @param queryParser the queryParser to set
-	 */
-	private void setQueryParser(QueryParser queryParser) {
-		this.queryParser = queryParser;
-	}
-
+	
 	/**
 	 * @return the docsIterator
 	 */
