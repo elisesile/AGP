@@ -29,7 +29,7 @@ public class OfferSearchBean {
 	    	case 1: entries.setIntensityMessage("Voyage peu intense"); break;
 	    	case 2: entries.setIntensityMessage("Voyage moyennement intense"); break;
 	    	case 3: entries.setIntensityMessage("Voyage intense"); break;
-	    	case 4: entries.setIntensityMessage("Voyage tr�s intense"); break;
+	    	case 4: entries.setIntensityMessage("Voyage très intense"); break;
 	    	default: break;
     	}
     }

@@ -4,7 +4,7 @@ public class OfferEntry {
 	 
     private int minPrice = 500;
     private int maxPrice = 5000;
-    private String typeOfTrip;
+    private String typeOfTrip="";
     private int intensity = 2;
     private String intensityMessage;
     private String keywords;
