@@ -54,19 +54,9 @@ public class OfferCalculator {
 		offre.setExcursions(excursions);
 	}
 	
-	public ArrayList<Offer> getOffers(int minPrice, int maxPrice, String enteredKeywords, String siteType, int intensity) {
-		ArrayList<Offer> offersList = new ArrayList<Offer>();
+	private ArrayList<Hotel> getHotels() {
 		ArrayList<Hotel> hotelsList = new ArrayList<Hotel>();
-		ArrayList<Ride> ridesList = new ArrayList<Ride>();
-		ArrayList<Integer> usedRides = new ArrayList<Integer>();
 		
-		/*
-		 * 1) Récupérer tous les hotels (infos) OK
-		 * 2) Récupérer les rides (infos sites + transport) avec types + motsclés OK
-		 * 3) Appel initExcursions pour définir l'intensité OK
-		 * 4) Appel organizeExcursions pour définir les excursions selon la demande OK
-		 * 
-		 * */
 		Queries queries = QueriesProcess.getInstance().executeSQL("SELECT id_hotel, name, price, beach_name, latitude, longitude FROM hotel INNER JOIN coordinates ON coordinates.id_coordinates = hotel.id_coordinates;");
 		ResultSet hotels = queries.getResultsSet();
 		try {
@@ -88,6 +78,11 @@ public class OfferCalculator {
 			e.printStackTrace();
 		}
 		
+		return hotelsList;
+	}
+	
+	private ArrayList<Ride> getRides(String enteredKeywords){
+		ArrayList<Ride> ridesList = new ArrayList<Ride>();
 		
 		try {
 			HashMap<BigDecimal, HashMap<String, String>> sites = QueriesProcess.getInstance().mergeQueries("SELECT * FROM site ORDER BY type WITH "+enteredKeywords);
@@ -95,7 +90,7 @@ public class OfferCalculator {
 			for(BigDecimal key : keys) {
 				HashMap<String,String> currentSite = sites.get(key);
 				
-				queries = QueriesProcess.getInstance().executeSQL("SELECT siteD.name, siteD.type, siteD.price, coordD.latitude, coordD.longitude, siteA.name, siteA.type, siteA.price, coordA.latitude, coordA.longitude, transport.type, transport.price, transport.is_per_km FROM ride INNER JOIN site AS siteD ON siteD.id_site = ride.departure_site INNER JOIN site AS siteA ON siteA.id_site = ride.arrival_site INNER JOIN coordinates AS coordD ON coordD.id_coordinates = siteD.id_coordinates INNER JOIN coordinates AS coordA ON coordA.id_coordinates = siteA.id_coordinates INNER JOIN transport ON transport.id_transport = ride.id_transport WHERE ride.departure_site = "+currentSite.get("id_site")+" OR ride.arrival_site = "+currentSite.get("id_site"));
+				Queries queries = QueriesProcess.getInstance().executeSQL("SELECT siteD.name, siteD.type, siteD.price, coordD.latitude, coordD.longitude, siteA.name, siteA.type, siteA.price, coordA.latitude, coordA.longitude, transport.type, transport.price, transport.is_per_km FROM ride INNER JOIN site AS siteD ON siteD.id_site = ride.departure_site INNER JOIN site AS siteA ON siteA.id_site = ride.arrival_site INNER JOIN coordinates AS coordD ON coordD.id_coordinates = siteD.id_coordinates INNER JOIN coordinates AS coordA ON coordA.id_coordinates = siteA.id_coordinates INNER JOIN transport ON transport.id_transport = ride.id_transport WHERE ride.departure_site = "+currentSite.get("id_site")+" OR ride.arrival_site = "+currentSite.get("id_site"));
 				ResultSet rides = queries.getResultsSet();
 				try {
 					while(queries.nextIterator()) {
@@ -158,18 +153,29 @@ public class OfferCalculator {
 			e1.printStackTrace();
 		}
 		
+		return ridesList;
+	}
+	
+	public ArrayList<Offer> getOffers(int minPrice, int maxPrice, String enteredKeywords, String siteType, int intensity) {
+		ArrayList<Offer> offersList = new ArrayList<Offer>();
+		ArrayList<Hotel> hotelsList = new ArrayList<Hotel>();
+		ArrayList<Ride> ridesList = new ArrayList<Ride>();
+		
+		
+		hotelsList = this.getHotels();
+		ridesList = this.getRides(enteredKeywords);
+		
 		
 		for(Hotel hotel : hotelsList) {
 			Offer offer = new Offer();
 			offer.setHotel(hotel);
 			initExcursions(intensity, offer);
 			offersList.add(offer);
-			ExcursionCalculator.organizeExcursions(offersList, ridesList, usedRides);
+			ExcursionCalculator.organizeExcursions(offersList, ridesList);
 			
 			/* TODO
 			 * voir prix total puis si c'est dans la range ajouté dans arraylist sinon non
 			 */
-			
 		}
 		
 		return offersList;

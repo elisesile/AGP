@@ -1,12 +1,9 @@
 package business;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Iterator;
 
-import business.data.AbstractSite;
-import business.data.Excursion;
-import business.data.Offer;
-import business.data.Ride;
+import business.data.*;
 
 public class ExcursionCalculator {
 	
@@ -29,22 +26,78 @@ public class ExcursionCalculator {
 		excursion.setVisitedSites(sites);
 	}
 	
-	public static void organizeExcursions(ArrayList<Offer> offers, ArrayList<Ride> rides, ArrayList<Integer> usedRides) {
+	public static int getNearestRideSite(ArrayList<Offer> offers, ArrayList<Ride> rides) {
+		int nearest = -1;
+		double distanceMin = 6378.137;
+		
+		for(Offer offer : offers) {
+			Hotel hotel = offer.getHotel();
+			for(int i=0 ; i < rides.size() ; i++) {
+				double hotelLatitude = hotel.getCoordinates().getLatitude();
+				double hotelLongitude = hotel.getCoordinates().getLongitude();
+				double siteLatitude = rides.get(i).getDeparture_site().getCoordinates().getLatitude();
+				double siteLongitude = rides.get(i).getDeparture_site().getCoordinates().getLongitude();
+				
+				double distance = ExcursionCalculator.getDistanceKM(hotelLatitude, hotelLongitude, siteLatitude, siteLongitude);
+				if(distance <= distanceMin) {
+					distanceMin = distance;
+					nearest = i;
+				}
+			}
+		}
+		
+		return nearest;
+	}
+	
+	public static int getNextRideSite(ArrayList<Ride> rides, AbstractSite arrivalSite) {
+		int nextNearest = -1;
+		double distanceMin = 6378.137;
+		
+		for(int i=0 ; i < rides.size() ; i++) {
+			double previousSiteLatitude = arrivalSite.getCoordinates().getLatitude();
+			double previousSiteLongitude = arrivalSite.getCoordinates().getLongitude();
+			double siteLatitude = rides.get(i).getDeparture_site().getCoordinates().getLatitude();
+			double siteLongitude = rides.get(i).getDeparture_site().getCoordinates().getLongitude();
+			
+			double distance = ExcursionCalculator.getDistanceKM(previousSiteLatitude, previousSiteLongitude, siteLatitude, siteLongitude);
+			if(distance <= distanceMin) {
+				distanceMin = distance;
+				nextNearest = i;
+			}
+		}
+		
+		return nextNearest;
+	}
+	
+	public static void organizeExcursions(ArrayList<Offer> offers, ArrayList<Ride> rides) {
 		for(Offer offer : offers) {
 			ArrayList<Excursion> excursions = offer.getExcursions();
 			
+			ArrayList<Ride> currentRides = new ArrayList<Ride>();
+			Iterator<Ride> iterator = rides.iterator();
+			while(iterator.hasNext()){
+				currentRides.add((Ride) iterator.next());	
+			}
+			
 			for(Excursion excursion : excursions) {
 				if(!excursion.isBeach()) {
-					
-					for(int i = 0 ; i < 2 ; i++) {
-						int random = new Random().nextInt(rides.size());
-						if(!usedRides.contains(random)) {
-							excursion.getRides().add(rides.get(random));
-						}
+					int nearestRide = ExcursionCalculator.getNearestRideSite(offers, currentRides);
+					if(nearestRide == -1) {
+						excursion.setBeach(true);
+						continue;
 					}
+					excursion.getRides().add(currentRides.get(nearestRide));
+					AbstractSite arrivalSite = currentRides.get(nearestRide).getArrival_site();
+					currentRides.remove(nearestRide);
 					
+					int nextRide = ExcursionCalculator.getNextRideSite(currentRides, arrivalSite);
+					if(nextRide == -1) {
+						excursion.setBeach(true);
+						continue;
+					}
+					excursion.getRides().add(currentRides.get(nextRide));
+					currentRides.remove(nextRide);
 				}
-				
 			}
 		}
 	}

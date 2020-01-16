@@ -8,12 +8,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.lucene.index.CorruptIndexException;
 
@@ -22,12 +20,11 @@ import business.data.ActivitySite;
 import business.data.HistoricSite;
 import business.data.Hotel;
 import persistence.QueriesProcess;
-import persistence.jdbc.JdbcConnection;
 import persistence.jdbc.Queries;
 
 public class SimpleResultInitialisator {
 
-	private Queries queries = new Queries();
+	private QueriesProcess queriesProcess = QueriesProcess.getInstance();
 	
 	public SimpleResultInitialisator() {
 		
@@ -35,9 +32,10 @@ public class SimpleResultInitialisator {
 	
 	public ArrayList<Hotel> initHotelList(int minPrice, int maxPrice){
 		String query = "SELECT * FROM Hotel WHERE price<="+maxPrice+" AND price>="+minPrice;
-		queries.executeQuery(query);
+		Queries results = queriesProcess.executeSQL(query);
+		
 		ArrayList<Hotel> hotels = new ArrayList<Hotel>();
-		ResultSet hotelsResult = queries.getResultsSet();
+		ResultSet hotelsResult = results.getResultsSet();
     	try {
 			while(hotelsResult.next()){
 		    	Hotel hotel = new Hotel();
@@ -55,8 +53,9 @@ public class SimpleResultInitialisator {
 	public ArrayList<AbstractSite> initSiteList (int minPrice, int maxPrice){
 		String query = "SELECT * FROM Site WHERE price<="+maxPrice+" AND price>="+minPrice;
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
-		queries.executeQuery(query);
-		ResultSet sitesResult = queries.getResultsSet();
+		
+		Queries results = queriesProcess.executeSQL(query);
+		ResultSet sitesResult = results.getResultsSet();
     	try {
 			while(sitesResult.next()){
 		    	AbstractSite site;
@@ -136,13 +135,10 @@ public class SimpleResultInitialisator {
 		    	sites.add(site);
 			}
 		} catch (CorruptIndexException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		
