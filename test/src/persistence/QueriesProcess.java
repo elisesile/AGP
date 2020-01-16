@@ -249,8 +249,4 @@ public class QueriesProcess implements BDAeAPI {
 	private HashMap<BigDecimal, HashMap<String, String>> getResultHashMap() {
 		return resultHashMap;
 	}
-
-	private void setResultHashMap(HashMap<BigDecimal, HashMap<String, String>> resultHashMap) {
-		this.resultHashMap = resultHashMap;
-	}
 }
