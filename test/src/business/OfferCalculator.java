@@ -100,7 +100,7 @@ public class OfferCalculator {
 		ArrayList<Integer> idsSite = new ArrayList<Integer>();
 		
 		try {
-			Queries queries = QueriesProcess.getInstance().executeSQL("SELECT * FROM site ORDER BY type");
+			Queries queries = QueriesProcess.getInstance().executeSQL("SELECT * FROM site");
 			ResultSet sites = queries.getResultsSet();
 			
 			while(queries.nextIterator()) {
@@ -183,7 +183,7 @@ public class OfferCalculator {
 			HashMap<BigDecimal, HashMap<String, String>> sites = QueriesProcess.getInstance().mergeQueries("SELECT * FROM site ORDER BY type WITH "+enteredKeywords);
 			ArrayList<BigDecimal> keys = QueriesProcess.getInstance().generateAndSortScoresArrayList();
 			for(BigDecimal key : keys) {
-				if(siteType.equals(sites.get(key).get("type"))) {
+				if(siteType.equals(sites.get(key).get("type")) || siteType.equals("")) {
 					HashMap<String,String> currentSite = sites.get(key);
 					
 					Queries queries = QueriesProcess.getInstance().executeSQL("SELECT siteD.name, siteD.type, siteD.price, coordD.latitude, coordD.longitude, siteA.name, siteA.type, siteA.price, coordA.latitude, coordA.longitude, transport.type, transport.price, transport.is_per_km FROM ride INNER JOIN site AS siteD ON siteD.id_site = ride.departure_site INNER JOIN site AS siteA ON siteA.id_site = ride.arrival_site INNER JOIN coordinates AS coordD ON coordD.id_coordinates = siteD.id_coordinates INNER JOIN coordinates AS coordA ON coordA.id_coordinates = siteA.id_coordinates INNER JOIN transport ON transport.id_transport = ride.id_transport WHERE ride.departure_site = "+currentSite.get("id_site")+" OR ride.arrival_site = "+currentSite.get("id_site"));
