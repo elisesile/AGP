@@ -75,12 +75,14 @@ public class OfferResultBean {
     	rides.add(ride3);
      	
     	Excursion e1 = new Excursion();
-    	e1.setNum(1);
+    	e1.setName("Excursion 1");
     	e1.setHotel(h1);
     	e1.setRides(rides);
     	
-    	Excursion e2 = e1;
-    	e2.setNum(2);
+    	Excursion e2 = new Excursion();
+    	e2.setName("Excursion 2");
+    	e1.setHotel(h1);
+    	e1.setRides(rides);
      
     	ArrayList<Excursion> excursions = new ArrayList<Excursion>();
     	excursions.add(e1);

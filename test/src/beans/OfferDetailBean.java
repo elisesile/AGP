@@ -59,12 +59,12 @@ public class OfferDetailBean {
     	rides.add(ride2);
      	
     	Excursion e1 = new Excursion();
-    	e1.setNum(1);
+    	e1.setName("");
     	e1.setHotel(h1);
     	e1.setRides(rides);
     	
     	Excursion e2 = new Excursion();
-    	e2.setNum(2);
+    	e2.setName("");
     	e1.setHotel(h1);
     	e1.setRides(rides);    	
      
