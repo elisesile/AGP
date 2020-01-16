@@ -4,14 +4,12 @@ import java.util.ArrayList;
 
 import data.AbstractSite;
 import data.Excursion;
+import data.Offre;
 import data.Ride;
 
 public class ExcursionCalculator {
-
 	
-	
-	public void getSiteList(Excursion excursion){
-		
+	public static void getSiteList(Excursion excursion){
 		ArrayList<Ride> rides =  excursion.getRides();
 		ArrayList<AbstractSite> sites = new ArrayList<AbstractSite>();
 		for ( int index = 0; index<rides.size();index++) 
@@ -36,10 +34,16 @@ public class ExcursionCalculator {
 		
 	}
 	
-	public void organizeExcursions(ArrayList<Excursion> excursions, ArrayList<Ride> rides) {
-		for(Excursion excursion: excursions) {
-			if(!excursion.isBeach()) {
-				//TODO
+	public static void organizeExcursions(ArrayList<Offre> offers, ArrayList<Ride> rides) {
+		//Récup tous les rides
+		for(Offre offer : offers) {
+			ArrayList<Excursion> excursions = offer.getExcursions();
+			
+			for(Excursion excursion : excursions) {
+				if(!excursion.isBeach()) {
+					//TODO
+					
+				}
 			}
 		}
 	}
@@ -55,5 +59,4 @@ public class ExcursionCalculator {
 		return earthRadius * distance;
 	}
 
-	
 }

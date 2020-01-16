@@ -6,7 +6,6 @@ public class Excursion {
 	
 	private ArrayList<Ride> rides = new ArrayList<Ride>();
 	private ArrayList<AbstractSite> visitedSites = new ArrayList<AbstractSite>();
-	private Hotel hotel;
 	private String name;
 	private boolean beach;
 	
@@ -19,14 +18,6 @@ public class Excursion {
 
 	public void setRides(ArrayList<Ride> rides) {
 		this.rides = rides;
-	}
-
-	public Hotel getHotel() {
-		return hotel;
-	}
-
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
 	}
 
 	public String getName() {

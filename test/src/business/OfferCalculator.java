@@ -38,14 +38,26 @@ public class OfferCalculator {
 		offre.setExcursions(excursions);
 	}
 	
-	public ArrayList<Offre> initOffer(ArrayList<Hotel> hotels, int intensity) {
+	public ArrayList<Offre> getOffers(int minPrice, int maxPrice, String enteredKeywords, String siteType, int intensity) {
 		ArrayList<Offre> offres = new ArrayList<Offre>();
-		for(Hotel hotel: hotels) {
+		
+		// offre = hotel, excursions (rides)
+		
+		/*for(Hotel hotel: hotels) {
 			Offre offre = new Offre();
 			offre.setHotel(hotel);
 			initExcursions(intensity, offre);
+			ExcursionCalculator.organizeExcursions(offres, );
+			/* TODO
+			 * si setBeach false alors générer une excursion (avec les mots clés)
+			 * voir prix total puis si c'est dans la range ajouté dans arraylist sinon non
+			 */
+			
+			
+			/*
 			offres.add(offre);
-		}
+		}*/
+		
 		return offres;
 	}
 	

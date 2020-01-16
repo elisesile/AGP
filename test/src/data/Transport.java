@@ -3,6 +3,7 @@ package data;
 public class Transport {
 	private TransportEnum type;
 	private int price;
+	private boolean isPerKm;
 	
 	public TransportEnum getType() {
 		return type;
@@ -15,6 +16,12 @@ public class Transport {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public boolean isPerKm() {
+		return isPerKm;
+	}
+	public void setPerKm(boolean isPerKm) {
+		this.isPerKm = isPerKm;
 	}
 
 }
