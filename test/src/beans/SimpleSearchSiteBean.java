@@ -3,8 +3,6 @@ package beans;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
-import business.data.SimpleHotelEntry;
 import business.data.SimpleSiteEntry;
 
 @ManagedBean(name = "simpleSearchSiteBean")

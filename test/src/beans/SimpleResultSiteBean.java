@@ -11,7 +11,6 @@ import javax.faces.bean.RequestScoped;
 
 import business.SimpleResultInitialisator;
 import business.data.AbstractSite;
-import business.data.Hotel;
 
 @ManagedBean
 @RequestScoped
