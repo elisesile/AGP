@@ -3,7 +3,7 @@ package test;
 import java.util.ArrayList;
 
 import business.OfferCalculator;
-import data.Offer;
+import business.data.Offer;
 
 public class TestOfferCalculator {
 

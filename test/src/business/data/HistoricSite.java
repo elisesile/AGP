@@ -1,4 +1,4 @@
-package data;
+package business.data;
 
 public class HistoricSite extends AbstractSite {
 

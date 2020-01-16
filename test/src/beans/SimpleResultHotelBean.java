@@ -10,8 +10,8 @@ import javax.faces.bean.RequestScoped;
 
 
 import business.SimpleResultInitialisator;
-import data.AbstractSite;
-import data.Hotel;
+import business.data.AbstractSite;
+import business.data.Hotel;
 
 @ManagedBean
 @RequestScoped

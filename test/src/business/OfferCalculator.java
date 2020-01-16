@@ -9,7 +9,16 @@ import java.util.HashMap;
 
 import org.apache.lucene.index.CorruptIndexException;
 
-import data.*;
+import business.data.AbstractSite;
+import business.data.ActivitySite;
+import business.data.Coordinates;
+import business.data.Excursion;
+import business.data.HistoricSite;
+import business.data.Hotel;
+import business.data.Offer;
+import business.data.Ride;
+import business.data.Transport;
+import business.data.TransportEnum;
 import persistence.QueriesProcess;
 import persistence.jdbc.Queries;
 

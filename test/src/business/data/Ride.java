@@ -1,4 +1,4 @@
-package data;
+package business.data;
 
 public class Ride {
 	private AbstractSite departure_site;

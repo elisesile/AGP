@@ -5,7 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import data.OfferEntry;
+import business.data.OfferEntry;
 
 @ManagedBean(name = "offerSearchBean")
 @SessionScoped
@@ -25,12 +25,12 @@ public class OfferSearchBean {
 	}
  
     public void changeMessage() {
-    	//Définir de meilleurs messages
+    	//Dï¿½finir de meilleurs messages
     	switch(entries.getIntensity()) {
 	    	case 1: entries.setIntensityMessage("Voyage peu intense"); break;
 	    	case 2: entries.setIntensityMessage("Voyage moyennement intense"); break;
 	    	case 3: entries.setIntensityMessage("Voyage intense"); break;
-	    	case 4: entries.setIntensityMessage("Voyage très intense"); break;
+	    	case 4: entries.setIntensityMessage("Voyage trï¿½s intense"); break;
 	    	default: break;
     	}
     }

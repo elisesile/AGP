@@ -17,10 +17,10 @@ import java.util.List;
 
 import org.apache.lucene.index.CorruptIndexException;
 
-import data.AbstractSite;
-import data.ActivitySite;
-import data.HistoricSite;
-import data.Hotel;
+import business.data.AbstractSite;
+import business.data.ActivitySite;
+import business.data.HistoricSite;
+import business.data.Hotel;
 import persistence.QueriesProcess;
 import persistence.jdbc.JdbcConnection;
 import persistence.jdbc.Queries;

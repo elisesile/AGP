@@ -9,15 +9,15 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-import data.AbstractSite;
-import data.ActivitySite;
-import data.Excursion;
-import data.HistoricSite;
-import data.Hotel;
-import data.Offer;
-import data.Ride;
-import data.Transport;
-import data.TransportEnum;
+import business.data.AbstractSite;
+import business.data.ActivitySite;
+import business.data.Excursion;
+import business.data.HistoricSite;
+import business.data.Hotel;
+import business.data.Offer;
+import business.data.Ride;
+import business.data.Transport;
+import business.data.TransportEnum;
 
 @ManagedBean
 @SessionScoped
@@ -54,20 +54,11 @@ public class OfferResultBean {
      	s3.setPrice(50);
      	s3.setDescription("Un bon test");
      	
-     	Ride ride = new Ride();
-    	ride.setTransport(transport);	
-    	ride.setArrival_site(s1);
-    	ride.setDeparture_site(s2);
+     	Ride ride = new Ride(s1,s2,transport);
     	
-    	Ride ride2 = new Ride();
-    	ride.setTransport(transport);	
-    	ride.setArrival_site(s2);
-    	ride.setDeparture_site(s1);
+    	Ride ride2 = new Ride(s2,s3,transport);
     	
-    	Ride ride3 = new Ride();
-    	ride.setTransport(transport);	
-    	ride.setArrival_site(s1);
-    	ride.setDeparture_site(s3);
+    	Ride ride3 = new Ride(s3,s2,transport);
      	
      	ArrayList<Ride> rides = new ArrayList<Ride>();
     	rides.add(ride);

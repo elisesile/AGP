@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import data.SimpleHotelEntry;
+import business.data.SimpleHotelEntry;
 
 @ManagedBean(name = "simpleSearchHotelBean")
 @SessionScoped

@@ -3,10 +3,10 @@ package business;
 import java.util.ArrayList;
 import java.util.Random;
 
-import data.AbstractSite;
-import data.Excursion;
-import data.Offer;
-import data.Ride;
+import business.data.AbstractSite;
+import business.data.Excursion;
+import business.data.Offer;
+import business.data.Ride;
 
 public class ExcursionCalculator {
 	

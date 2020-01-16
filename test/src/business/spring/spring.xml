@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
 	xmlns:context="http://www.springframework.org/schema/context">
 
-	<bean id="simulation" class="business.simulation.Simulation">
+	<!--<bean id="simulation" class="business.simulation.Simulation">
 		<property name="simulationEntry" ref="entry" />
 		<property name="statisticManager" ref="manager" />
 		<property name="statisticPersistence" ref="jdbcDAO" />
@@ -22,7 +22,6 @@
 	<bean id="jdbcDAO" class="persistence.jdbc.JdbcPersistence"
 		parent="persistenceDAO" />
 
-	<!-- This part is used only by TestSimulation -->
 	<bean id="entry" class="business.client.SimulationEntry">
 		<property name="cashierCount">
 			<value>3</value>
@@ -47,22 +46,22 @@
 		</property>
 	</bean>
 
-	<bean id="manager" class="business.simulation.StatisticManager" />
-
-	<bean id="client" class="business.client.AbstractClient"
-		abstract="true" scope="prototype" />
-	<bean id="operation" class="business.client.AbstractOperation"
+	<bean id="manager" class="business.simulation.StatisticManager" /> -->
+	<!--  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   -->
+	<bean id="site" class="business.data.AbstractSite"
 		abstract="true" scope="prototype" />
 
-	<bean id="vipConsultation" class="business.client.VIPClient"
-		parent="client">
-		<property name="operation" ref="consultation" />
+	<bean id="activity" class="data.ActivitySite"
+		parent="site">
 	</bean>
-	<bean id="vipTransfer" class="business.client.VIPClient"
-		parent="client">
-		<property name="operation" ref="transfer" />
+	<bean id="historic" class="data.HistoricSite"
+		parent="site">
 	</bean>
-	<bean id="vipWithdraw" class="business.client.VIPClient"
+	<bean id="offre" class="data.Offre" scope="prototype"/>
+	<bean id="excursion" class="data.Excursion" scope="prototype"/>
+	<!--  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   -->
+	
+	<!-- <bean id="vipWithdraw" class="business.client.VIPClient"
 		parent="client">
 		<property name="operation" ref="withdraw" />
 	</bean>
@@ -83,6 +82,6 @@
 	<bean id="transfer" class="business.client.Transfer"
 		parent="operation" />
 	<bean id="withdraw" class="business.client.Withdraw"
-		parent="operation" />
+		parent="operation" /> -->
 
 </beans>
