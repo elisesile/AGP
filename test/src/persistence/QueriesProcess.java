@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.lucene.index.CorruptIndexException;
@@ -145,11 +146,11 @@ public class QueriesProcess implements BDAeAPI {
 	
 	public ArrayList<BigDecimal> generateAndSortScoresArrayList() {
 		ArrayList<BigDecimal> scoresArrayList = new ArrayList<BigDecimal>();
-		Set set = this.resultHashMap.entrySet();
-		Iterator resultHashMapIterator = set.iterator();
+		Set<Entry<BigDecimal, HashMap<String, String>>> set = this.resultHashMap.entrySet();
+		Iterator<Entry<BigDecimal, HashMap<String, String>>> resultHashMapIterator = set.iterator();
 		
 		while(resultHashMapIterator.hasNext()) {
-			Map.Entry mapEntry = (Map.Entry)resultHashMapIterator.next();
+			Map.Entry<BigDecimal, HashMap<String, String>> mapEntry = (Map.Entry<BigDecimal, HashMap<String, String>>)resultHashMapIterator.next();
 			scoresArrayList.add((BigDecimal) mapEntry.getKey());
 		}
 		
