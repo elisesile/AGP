@@ -46,21 +46,22 @@ public class OfferCalculator {
 				index = (int)(Math.random()*((max-min)+1))+min;
 				while(excursions.get(index).isBeach()) {
 					index = (int)(Math.random()*((max-min)+1))+min;
-					System.out.println(index);
 				}
 				excursions.get(index).setBeach(true);
 			}
-			e1.setBeach(true);
-			e2.setBeach(true);
-			e3.setBeach(true);
-			e4.setBeach(true);
 			break;
 		case 2:
-			e1.setBeach(true);
-			e2.setBeach(true);
+			for(int i=0;i<2;i++) {
+				index = (int)(Math.random()*((max-min)+1))+min;
+				while(excursions.get(index).isBeach()) {
+					index = (int)(Math.random()*((max-min)+1))+min;
+				}
+				excursions.get(index).setBeach(true);
+			}
 			break;
 		case 3:
-			e2.setBeach(true);
+				index = (int)(Math.random()*((max-min)+1))+min;
+				excursions.get(index).setBeach(true);
 			break;
 		default:break;
 		}
@@ -105,7 +106,7 @@ public class OfferCalculator {
 			while(queries.nextIterator()) {
 				int currentSite = sites.getInt(1);
 				String currentType = sites.getString(3);
-				if(currentType.equals(siteType)) {
+				if(currentType.equals(siteType)|| siteType.equals("")) {
 					idsSite.add(currentSite);
 				}
 			}
