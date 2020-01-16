@@ -359,7 +359,7 @@ public class OfferCalculator {
 			for(int index=0;index<offer.getExcursions().size();index++) {
 				Excursion excursion = offer.getExcursions().get(index);
 				ExcursionCalculator.setExcursionDescription(excursion);
-				excursion.setName("Jour N"+index);
+				excursion.setName("Jour N°"+index);
 			}	
 		}
 	}

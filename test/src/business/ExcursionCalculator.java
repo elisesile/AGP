@@ -14,11 +14,11 @@ public class ExcursionCalculator {
 			AbstractSite arrival = rides.get(index).getArrival_site();
 			AbstractSite departure = rides.get(index).getDeparture_site();
 			
-			if( !sites.contains(arrival)) {
-				sites.add(arrival);
-			}
 			if( !sites.contains(departure)) {
 				sites.add(departure);
+			}
+			if( !sites.contains(arrival)) {
+				sites.add(arrival);
 			}
 		}
 		excursion.setVisitedSites(sites);
@@ -85,6 +85,7 @@ public class ExcursionCalculator {
 						continue;
 					}
 					excursion.getRides().add(currentRides.get(nearestRide));
+					System.out.println("organize = hotel: "+ offer.getHotel().getName()+" -- site: "+ excursion.getRides().get(0).getDeparture_site().getName());
 					AbstractSite arrivalSite = currentRides.get(nearestRide).getArrival_site();
 					AbstractSite departureSite = currentRides.get(nearestRide).getDeparture_site();
 					ExcursionCalculator.removeLinkedRides(arrivalSite, departureSite, currentRides);
@@ -119,7 +120,6 @@ public class ExcursionCalculator {
 		}
 		else {
 			initSiteList(excursion);
-			//AbstractSite site: excursion.getVisitedSites();
 			for(int index = 0; index<excursion.getVisitedSites().size()-1;index++) {
 				AbstractSite site = excursion.getVisitedSites().get(index);
 				if(index!=0) {
