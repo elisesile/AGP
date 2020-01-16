@@ -2,6 +2,7 @@ package persistence.jdbc;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,16 +10,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JdbcConnection {
+	private static JdbcConnection jdbcConnection = new JdbcConnection();
 	private static Connection connection;
-	
-	private static String host = "localhost";
-    private static String base = "tahiti";
-    private static String user = "root";
-    private static String password = "";
-    private static String url = "jdbc:mysql://" + host + "/" + base;
-    
-    private JdbcConnection() {}
-	
+		
 	/**
 	* Get the connection
 	* 
@@ -27,10 +21,17 @@ public class JdbcConnection {
 	public static Connection getConnection(){
 		if (connection == null) {
 			try {
-				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-				connection = DriverManager.getConnection(url, user, password);
-			} catch (SQLException e) {
-				e.printStackTrace();
+				ArrayList<String> arrayInformation = jdbcConnection.readConnectionInfo("src/persistence/config/connectiondb.conf");
+				if(arrayInformation != null) {
+					DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+					connection = DriverManager.getConnection(arrayInformation.get(2), arrayInformation.get(0), arrayInformation.get(1));
+				}
+				else {
+					return null;
+				}
+				
+			} catch (Exception e) {
+				System.err.println("ERROR: Connection failed: " + e.getMessage());
 			}
 		}
 		return connection; 
