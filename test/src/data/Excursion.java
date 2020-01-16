@@ -8,6 +8,7 @@ public class Excursion {
 	private ArrayList<AbstractSite> visitedSites = new ArrayList<AbstractSite>();
 	private String name;
 	private boolean beach;
+	private String description;
 	
 	public Excursion() {
 	}
@@ -42,6 +43,14 @@ public class Excursion {
 
 	public void setBeach(boolean beach) {
 		this.beach = beach;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

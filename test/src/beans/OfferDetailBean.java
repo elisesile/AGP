@@ -60,12 +60,10 @@ public class OfferDetailBean {
      	
     	Excursion e1 = new Excursion();
     	e1.setName("");
-    	e1.setHotel(h1);
     	e1.setRides(rides);
     	
     	Excursion e2 = new Excursion();
     	e2.setName("");
-    	e1.setHotel(h1);
     	e1.setRides(rides);    	
      
     	ArrayList<Excursion> excursions = new ArrayList<Excursion>();
@@ -74,7 +72,6 @@ public class OfferDetailBean {
     	
     	offre = new Offre();
     	offre.setName("Offre 1");
-    	offre.setDescription("Une bonne offre");
     	offre.setPrice(1750);
     	offre.setHotel(h1);    	
     	offre.setExcursions(excursions);
