@@ -11,6 +11,10 @@ public class Ride {
 		this.setTransport(transport);
 	}
 	
+	public Ride() {
+		
+	}
+	
 	public AbstractSite getDeparture_site() {
 		return departure_site;
 	}

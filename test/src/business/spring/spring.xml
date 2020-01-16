@@ -51,14 +51,20 @@
 	<bean id="site" class="business.data.AbstractSite"
 		abstract="true" scope="prototype" />
 
-	<bean id="activity" class="data.ActivitySite"
+	<bean id="activity" class="business.data.ActivitySite"
 		parent="site">
 	</bean>
-	<bean id="historic" class="data.HistoricSite"
+	<bean id="historic" class="business.data.HistoricSite"
 		parent="site">
 	</bean>
-	<bean id="offre" class="data.Offre" scope="prototype"/>
-	<bean id="excursion" class="data.Excursion" scope="prototype"/>
+	<bean id="offer" class="business.data.Offer" scope="prototype"/>
+	<bean id="hotel" class="business.data.Hotel" scope="prototype"/>
+	<bean id="excursion" class="business.data.Excursion" scope="prototype"/>
+	<bean id="transport" class="business.data.Transport" scope="prototype"/>
+	<bean id="ride" class="business.data.Ride" scope="prototype"/>
+	<bean id="simpleSiteEntry" class="business.data.SimpleSiteEntry" scope="prototype"/>
+	<bean id="simpleHotelEntry" class="business.data.SimpleHotelEntry" scope="prototype"/>
+	<bean id="offerEntry" class="business.data.OfferEntry" scope="prototype"/>
 	<!--  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   -->
 	
 	<!-- <bean id="vipWithdraw" class="business.client.VIPClient"
