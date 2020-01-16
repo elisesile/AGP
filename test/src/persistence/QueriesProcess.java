@@ -37,7 +37,7 @@ public class QueriesProcess implements BDAeAPI {
 	}
 	
 	
-	private void createIndex() {
+	public void createIndex() {
 		Indexer indexer = this.getIndexer();
 		
 		try {
