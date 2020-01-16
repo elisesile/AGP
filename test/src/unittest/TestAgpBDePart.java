@@ -83,8 +83,9 @@ public class TestAgpBDePart {
 	@Test
 	public void testJoinedQuery() throws CorruptIndexException, SQLException, IOException {
 		map = QueriesProcess.getInstance().mergeQueries("SELECT * FROM site WITH trou souffleur");
-		assertEquals(true, map.containsKey(BigDecimal.valueOf(3.6945908069610596)));
-		System.out.println(map.keySet());
+		//System.out.println(map.keySet());
+		assertEquals(true, map.containsKey(BigDecimal.valueOf(3.6221795082092285)));
+		//System.out.println(map.keySet());
 		
 	}	
 }
