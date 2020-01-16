@@ -217,7 +217,8 @@ public class OfferCalculator {
 	}
 	
 	public ArrayList<Offer> getOffers(int minPrice, int maxPrice, String enteredKeywords, String siteType, int intensity) {
-		ArrayList<Offer> offersList = new ArrayList<Offer>();
+		ArrayList<Offer> generatedOffersList = new ArrayList<Offer>();
+		ArrayList<Offer> sortedOffersList = new ArrayList<Offer>();
 		ArrayList<Hotel> hotelsList = new ArrayList<Hotel>();
 		ArrayList<Ride> ridesList = new ArrayList<Ride>();
 		
@@ -230,16 +231,21 @@ public class OfferCalculator {
 			Offer offer = new Offer();
 			offer.setHotel(hotel);
 			initExcursions(intensity, offer);
-			offersList.add(offer);
-			ExcursionCalculator.organizeExcursions(offersList, ridesList);
+			generatedOffersList.add(offer);
+			ExcursionCalculator.organizeExcursions(generatedOffersList, ridesList);
 		}
 		
-		this.calculateOfferPrice(offersList);
-		/* TODO
-		 * voir prix total puis si c'est dans la range ajouté dans arraylist sinon non
-		 */
+		this.calculateOfferPrice(generatedOffersList);
 		
-		return offersList;
+		for(Offer currentOffer : generatedOffersList) {
+			if (currentOffer.getPrice() >= minPrice && currentOffer.getPrice() <= maxPrice) {
+				sortedOffersList.add(0, currentOffer);
+			} else {
+				sortedOffersList.add(currentOffer);
+			}
+		}
+		
+		return sortedOffersList;
 	}
 	
 }
