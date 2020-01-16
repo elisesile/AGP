@@ -27,7 +27,7 @@
 	</p:tabMenu>
 	<h:form>
 	    <h:outputText id="displayRange" value="Prix compris entre #{offerSearchBean.minPrice}€ et #{offerSearchBean.maxPrice}€"/>
-	    <p:slider minValue="500" maxValue="5000" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix compris entre {min}€ et {max}€" class="slider"/>
+	    <p:slider minValue="0" maxValue="10000" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix compris entre {min}€ et {max}€" class="slider"/>
 	    <h:inputHidden id="valMin" value="#{offerSearchBean.minPrice}" />
 	    <h:inputHidden id="valMax" value="#{offerSearchBean.maxPrice}" />
 	    <br/>

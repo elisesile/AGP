@@ -2,8 +2,8 @@ package business.data;
 
 public class OfferEntry {
 	 
-    private int minPrice = 500;
-    private int maxPrice = 5000;
+    private int minPrice = 0;
+    private int maxPrice = 10000;
     private String typeOfTrip;
     private int intensity = 2;
     private String intensityMessage;
