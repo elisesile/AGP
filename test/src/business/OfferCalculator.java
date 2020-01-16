@@ -156,6 +156,66 @@ public class OfferCalculator {
 		return ridesList;
 	}
 	
+	public void calculateOfferPrice(ArrayList<Offer> offersList) {
+		for(Offer offer : offersList) {
+			int hotelPrice = offer.getHotel().getPrice();
+			int transportPrice = 0, sitePrice = 0;
+			ArrayList<Excursion> excursions = offer.getExcursions();
+			
+			double hotelLatitude = offer.getHotel().getCoordinates().getLatitude();
+			double hotelLongitude = offer.getHotel().getCoordinates().getLongitude();
+			
+			for(Excursion excursion : excursions) {
+				ArrayList<Ride> ridesList = excursion.getRides();
+				
+				if(!excursion.isBeach()) {
+					sitePrice += ridesList.get(0).getDeparture_site().getPrice();
+					for(Ride ride : ridesList) {
+						sitePrice += ride.getArrival_site().getPrice();
+						
+						double siteDLatitude = ride.getDeparture_site().getCoordinates().getLatitude();
+						double siteDLongitude = ride.getDeparture_site().getCoordinates().getLongitude();
+						double siteALatitude = ride.getArrival_site().getCoordinates().getLatitude();
+						double siteALongitude = ride.getArrival_site().getCoordinates().getLongitude();
+						
+						double distance = ExcursionCalculator.getDistanceKM(siteDLatitude, siteDLongitude, siteALatitude, siteALongitude);
+						
+						if(ride.getTransport().isPerKm()) {
+							transportPrice += (int) Math.floor(distance * ride.getTransport().getPrice());
+						}
+						else {
+							transportPrice += ride.getTransport().getPrice();
+						}
+					}
+					
+					double firstSiteLatitude = ridesList.get(0).getDeparture_site().getCoordinates().getLatitude();
+					double firstSiteLongitude = ridesList.get(0).getDeparture_site().getCoordinates().getLongitude();
+					double lastSiteLatitude = ridesList.get(ridesList.size()-1).getDeparture_site().getCoordinates().getLatitude();
+					double lastSiteLongitude = ridesList.get(ridesList.size()-1).getDeparture_site().getCoordinates().getLongitude();
+					
+					double distance = ExcursionCalculator.getDistanceKM(hotelLatitude, hotelLongitude, firstSiteLatitude, firstSiteLongitude);
+					if(ridesList.get(0).getTransport().isPerKm()) {
+						transportPrice += (int) Math.floor(distance * ridesList.get(0).getTransport().getPrice());
+					}
+					else {
+						transportPrice += ridesList.get(0).getTransport().getPrice();
+					}
+					
+					distance = ExcursionCalculator.getDistanceKM(lastSiteLatitude, lastSiteLongitude, hotelLatitude, hotelLongitude);
+					if(ridesList.get(ridesList.size()-1).getTransport().isPerKm()) {
+						transportPrice += (int) Math.floor(distance * ridesList.get(ridesList.size()-1).getTransport().getPrice());
+					}
+					else {
+						transportPrice += ridesList.get(ridesList.size()-1).getTransport().getPrice();
+					}
+				}
+			}
+			
+			int totalPrice = hotelPrice+transportPrice+sitePrice;
+			offer.setPrice(totalPrice);
+		}
+	}
+	
 	public ArrayList<Offer> getOffers(int minPrice, int maxPrice, String enteredKeywords, String siteType, int intensity) {
 		ArrayList<Offer> offersList = new ArrayList<Offer>();
 		ArrayList<Hotel> hotelsList = new ArrayList<Hotel>();
@@ -172,11 +232,12 @@ public class OfferCalculator {
 			initExcursions(intensity, offer);
 			offersList.add(offer);
 			ExcursionCalculator.organizeExcursions(offersList, ridesList);
-			
-			/* TODO
-			 * voir prix total puis si c'est dans la range ajouté dans arraylist sinon non
-			 */
 		}
+		
+		this.calculateOfferPrice(offersList);
+		/* TODO
+		 * voir prix total puis si c'est dans la range ajouté dans arraylist sinon non
+		 */
 		
 		return offersList;
 	}
