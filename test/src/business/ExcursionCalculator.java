@@ -76,6 +76,7 @@ public class ExcursionCalculator {
 			while(iterator.hasNext()){
 				currentRides.add((Ride) iterator.next());	
 			}
+			
 			for(Excursion excursion : excursions) {
 				if(!excursion.isBeach()) {
 					int nearestRide = ExcursionCalculator.getNearestRideSite(offers, currentRides);
@@ -85,7 +86,8 @@ public class ExcursionCalculator {
 					}
 					excursion.getRides().add(currentRides.get(nearestRide));
 					AbstractSite arrivalSite = currentRides.get(nearestRide).getArrival_site();
-					currentRides.remove(nearestRide);
+					AbstractSite departureSite = currentRides.get(nearestRide).getDeparture_site();
+					ExcursionCalculator.removeLinkedRides(arrivalSite, departureSite, currentRides);
 					
 					int nextRide = ExcursionCalculator.getNextRideSite(currentRides, arrivalSite);
 					if(nextRide == -1) {
@@ -93,8 +95,20 @@ public class ExcursionCalculator {
 						continue;
 					}
 					excursion.getRides().add(currentRides.get(nextRide));
-					currentRides.remove(nextRide);
+					ExcursionCalculator.removeLinkedRides(arrivalSite, departureSite, currentRides);
 				}
+			}
+		}
+	}
+	
+	public static void removeLinkedRides(AbstractSite arrivalSite, AbstractSite departureSite, ArrayList<Ride> currentRides) {
+		for(int i=0 ; i<currentRides.size() ; i++) {
+			if(currentRides.get(i).getArrival_site().getName().equals(arrivalSite.getName())
+				|| currentRides.get(i).getArrival_site().getName().equals(departureSite.getName())
+				|| currentRides.get(i).getDeparture_site().getName().equals(arrivalSite.getName())
+				|| currentRides.get(i).getDeparture_site().getName().equals(departureSite.getName())
+				) {
+				currentRides.remove(i);
 			}
 		}
 	}

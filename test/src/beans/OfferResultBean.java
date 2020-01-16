@@ -7,19 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 import business.OfferCalculator;
-import business.data.AbstractSite;
-import business.data.ActivitySite;
-import business.data.Excursion;
-import business.data.HistoricSite;
-import business.data.Hotel;
 import business.data.Offer;
-import business.data.Ride;
-import business.data.Transport;
-import business.data.TransportEnum;
-import business.spring.SpringIoC;
 
 @ManagedBean
 @RequestScoped
