@@ -47,7 +47,7 @@ public class ExcursionCalculator {
 		return nearest;
 	}
 	
-	public static int getNextRideSite(ArrayList<Ride> rides, AbstractSite arrivalSite) {
+	/*public static int getNextRideSite(ArrayList<Ride> rides, AbstractSite arrivalSite) {
 		int nextNearest = -1;
 		double distanceMin = 6378.137;
 		
@@ -65,6 +65,19 @@ public class ExcursionCalculator {
 		}
 		
 		return nextNearest;
+	}*/
+	
+	public static int getNextRideSite(ArrayList<Ride> rides, AbstractSite arrivalSite) {
+		int index;
+		if(rides.size()>0) {
+			do {
+				index = (int)(Math.random()*(rides.size()));
+			}while(rides.get(index).getArrival_site().equals(rides.get(index).getDeparture_site()));
+		}
+		else {
+			index = -1;
+		}	
+		return index;
 	}
 	
 	public static void organizeExcursions(ArrayList<Offer> offers, ArrayList<Ride> rides) {
@@ -85,7 +98,6 @@ public class ExcursionCalculator {
 						continue;
 					}
 					excursion.getRides().add(currentRides.get(nearestRide));
-					System.out.println("organize = hotel: "+ offer.getHotel().getName()+" -- site: "+ excursion.getRides().get(0).getDeparture_site().getName());
 					AbstractSite arrivalSite = currentRides.get(nearestRide).getArrival_site();
 					AbstractSite departureSite = currentRides.get(nearestRide).getDeparture_site();
 					ExcursionCalculator.removeLinkedRides(arrivalSite, departureSite, currentRides);

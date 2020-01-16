@@ -336,8 +336,8 @@ public class OfferCalculator {
 			offer.setHotel(hotel);
 			initExcursions(intensity, offer);
 			generatedOffersList.add(offer);
-			ExcursionCalculator.organizeExcursions(generatedOffersList, ridesList);
 		}
+		ExcursionCalculator.organizeExcursions(generatedOffersList, ridesList);
 		
 		this.calculateOfferPrice(generatedOffersList);
 
@@ -353,7 +353,7 @@ public class OfferCalculator {
 	}
 	
 	public void initNameAndDescription(ArrayList<Offer> offers) {
-		int offerNum =0;
+		int offerNum =1;
 		for(Offer offer: offers) {
 			offer.setName("Offre N°"+offerNum++);
 			for(int index=0;index<offer.getExcursions().size();index++) {
