@@ -27,15 +27,15 @@
 	</p:tabMenu>
 	<h:form>
 	    <h:outputText id="displayRange" value="Prix compris entre #{offerSearchBean.minPrice}€ et #{offerSearchBean.maxPrice}€"/>
-	    <p:slider minValue="0" maxValue="10000" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix compris entre {min}€ et {max}€" class="slider"/>
+	    <p:slider minValue="0" maxValue="2500" for="valMin,valMax" display="displayRange" style="width: 400px" range="true" displayTemplate="Prix compris entre {min}€ et {max}€" class="slider"/>
 	    <h:inputHidden id="valMin" value="#{offerSearchBean.minPrice}" />
 	    <h:inputHidden id="valMax" value="#{offerSearchBean.maxPrice}" />
 	    <br/>
 	    <h:panelGrid columns="2" cellpadding="5">
 	        <h:outputText value="Type de voyage souhaitée:" />
 	        <p:selectOneButton value="#{offerSearchBean.typeOfTrip}">
-	            <f:selectItem itemLabel="Loisir" itemValue="Activity" />
-	            <f:selectItem itemLabel="Historique" itemValue="Historic" />
+	            <f:selectItem itemLabel="Loisir" itemValue="activity" />
+	            <f:selectItem itemLabel="Historique" itemValue="historic" />
 	            <f:selectItem itemLabel="Loisir et Historique" itemValue="" />
 	        </p:selectOneButton>
 	        <h:outputText value="Mots clés: " />

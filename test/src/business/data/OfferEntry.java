@@ -3,11 +3,11 @@ package business.data;
 public class OfferEntry {
 	 
     private int minPrice = 0;
-    private int maxPrice = 10000;
-    private String typeOfTrip;
+    private int maxPrice = 2500;
+    private String typeOfTrip="";
     private int intensity = 2;
     private String intensityMessage;
-    private String keywords;
+    private String keywords="";
     
     public OfferEntry() {
     	
