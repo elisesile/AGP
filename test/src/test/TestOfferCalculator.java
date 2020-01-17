@@ -27,7 +27,9 @@ public class TestOfferCalculator {
 		while(offersItr.hasNext())
 		{
 			Offer currentOffer = offersItr.next();
-			System.out.println("==== " + currentOffer.getName() + "====");
+			System.out.println("==== " + currentOffer.getName() + " ====");
+			System.out.println("\tPrix de l'offre : " + currentOffer.getPrice() + " €");
+			System.out.println("\tNom de l'hôtel : " + currentOffer.getHotel().getName());
 			ArrayList<Excursion> excursionsList = currentOffer.getExcursions();
 			
 			Iterator<Excursion> excursionsIterator = excursionsList.listIterator();
@@ -48,11 +50,11 @@ public class TestOfferCalculator {
 						Ride currentRide= ridesIterator.next();
 						
 						System.out.println("\t\t==== RIDE ====");
-						System.out.println("\t\t\tArrival Site Name : " + currentRide.getArrival_site().getName());
-						System.out.println("\t\t\tDeparture Site Name : " + currentRide.getDeparture_site().getName());
+						System.out.println("\t\t\tSite de départ : " + currentRide.getArrival_site().getName());
+						System.out.println("\t\t\tSite d'arrivée : " + currentRide.getDeparture_site().getName());
 					}
 				} else {
-					System.out.println("\t\t==== JOURNEE LIBRE ====");
+					System.out.println("\t\tDay Off");
 				}
 			}
 			
