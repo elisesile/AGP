@@ -167,7 +167,7 @@ public class OfferCalculator {
 							ride.setArrival_site(siteA);
 							ride.setDeparture_site(siteD);
 							ride.setTransport(transport);
-							ridesList.add(ride);System.out.println(ridesList);
+							ridesList.add(ride);
 						}
 					}
 				} catch (SQLException e) {

@@ -73,7 +73,7 @@ public class ExcursionCalculator {
 		if(rides.size()>0) {
 			do {
 				index = (int)(Math.random()*(rides.size()));
-			}while(rides.get(index).getArrival_site().equals(rides.get(index).getDeparture_site()));
+			}while(!rides.get(index).getDeparture_site().getName().equals(arrivalSite.getName()));
 		}
 		else {
 			index = -1;
