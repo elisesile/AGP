@@ -133,7 +133,7 @@ public class ExcursionCalculator {
 		}
 		else {
 			initSiteList(excursion);
-			for(int index = 0; index<excursion.getVisitedSites().size()-1;index++) {
+			for(int index = 0; index<excursion.getVisitedSites().size();index++) {
 				AbstractSite site = excursion.getVisitedSites().get(index);
 				if(index!=0) {
 					excursion.setDescription(excursion.getDescription()+" --> "+site.getName());
