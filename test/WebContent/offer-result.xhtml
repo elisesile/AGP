@@ -31,7 +31,7 @@
 	</p:tabMenu>
 	<h:form style="text-align:center">
 
-		<p:dataList var="offre" value="#{offerResultBean.offres}" itemType="none" style="margin:0px">
+		<p:dataList var="offre" value="#{offerResultBean.offres}" itemType="none" style="margin:0px;text-align:center">
 			<f:facet name="header">
             		Offres trouvés
         		</f:facet>
@@ -40,15 +40,13 @@
 			</p:column>
 			<p:dataTable value="#{offre}"
 				style="width:100%">
-				<p:column headerText="Prix: ">
+				<p:column headerText="Prix de l'offre: ">
 					<h:outputText value="#{offre.price}€" />
 				</p:column>
-				<p:column headerText="Prix: ">
-					<h:outputText value="Hotel: " />
+				<p:column headerText="Hotel: ">
 					<h:outputText value="#{offre.hotel.name}" />
 				</p:column>
 				<p:column headerText="Prix de l'hotel: ">
-					<h:outputText value="Prix: " />
 					<h:outputText value="#{offre.hotel.price}€/nuit" />
 				</p:column>
 			</p:dataTable>
