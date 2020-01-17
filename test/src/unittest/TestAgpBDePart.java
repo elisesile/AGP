@@ -42,7 +42,6 @@ public class TestAgpBDePart {
 	
 	@Test
 	public void testSimpleQuery() throws SQLException {
-		//Connection connection = JdbcConnection.getConnection();
 		queries.executeQuery("SELECT name FROM hotel WHERE  price = 135 AND beach_name = 'Plage Papeete' ");
 		ResultSet results = queries.getResultsSet();
 		while(queries.nextIterator()) {
@@ -83,9 +82,6 @@ public class TestAgpBDePart {
 	@Test
 	public void testJoinedQuery() throws CorruptIndexException, SQLException, IOException {
 		map = QueriesProcess.getInstance().mergeQueries("SELECT * FROM site WITH trou souffleur");
-		//System.out.println(map.keySet());
 		assertEquals(true, map.containsKey(BigDecimal.valueOf(3.6221795082092285)));
-		//System.out.println(map.keySet());
-		
 	}	
 }

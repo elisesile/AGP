@@ -13,7 +13,7 @@ public class TestOfferCalculator {
 
 	public static void main(String[] args) {
 		OfferCalculator oc = new OfferCalculator();
-		ArrayList<Offer> offersList = oc.getOffers(0, 3000, "trou souffleur", "activity", 2); //"" = "cascade"
+		ArrayList<Offer> offersList = oc.getOffers(0, 1000, "trou souffleur", "activity", 2); //"" = "cascade"
 		
 		for(int i=0 ; i < offersList.size() ; i++) {
 			System.out.println(offersList.get(i));
@@ -49,16 +49,14 @@ public class TestOfferCalculator {
 					{
 						Ride currentRide= ridesIterator.next();
 						
-						System.out.println("\t\t==== RIDE ====");
+						System.out.println("\t\t==== Trajet ====");
 						System.out.println("\t\t\tSite de départ : " + currentRide.getArrival_site().getName());
 						System.out.println("\t\t\tSite d'arrivée : " + currentRide.getDeparture_site().getName());
 					}
 				} else {
-					System.out.println("\t\tDay Off");
+					System.out.println("\t\tJournée Libre");
 				}
 			}
-			
-//			System.out.println(currentOffer.getExcursions());
 		}
 	}
 
