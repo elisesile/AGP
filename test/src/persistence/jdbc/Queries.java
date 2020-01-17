@@ -58,35 +58,6 @@ public class Queries {
 			System.err.println(se.getMessage());
 		}
 	}
-
-	//SELECT * FROM hotel WHERE price <= ? AND price >= ?
-	//SELECT * FROM site WHERE type = ?
-	//SELECT * FROM site
-	//SELECT * FROM site WHERE price <= ? AND price >= ?
-	/*
-	SELECT ride.id_ride, siteS.*, siteE.*, transport.*" + 
-							" FROM ride" + 
-							" INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
-							" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
-							" INNER JOIN transport ON transport.id_transport = ride.id_transport;
-	 * */
-	/*
-	SELECT transport.price, transport.is_per_km, coordS.latitude, coordS.longitude, coordE.latitude, coordE.longitude, siteS.price" + 
-					" FROM ride" + 
-					" INNER JOIN site AS siteS ON siteS.id_site = ride.departure_site" + 
-					" INNER JOIN site AS siteE ON siteE.id_site = ride.arrival_site" + 
-					" INNER JOIN coordinates AS coordS ON coordS.id_coordinates = siteS.id_coordinates" + 
-					" INNER JOIN coordinates AS coordE ON coordE.id_coordinates = siteE.id_coordinates" + 
-					" INNER JOIN transport ON transport.id_transport = ride.id_transport" + 
-					" WHERE ride.id_ride IN (?)
-	 * */
-	/*
-	 SELECT *" + 
-					" FROM hotel" +  
-					" WHERE hotel.id_hotel = (?)
-	 * */
-	//SELECT * FROM site ORDER BY type = ? DESC
-	
 	
 	/**
 	 * Insert lines in database to add a site

@@ -14,17 +14,14 @@ public class OfferSearchBean {
      
     @PostConstruct
     public void init() {
-       //TODO
     	entries.setIntensityMessage("Voyage moyennement intense");
     }
     
     public String searchAction() {
-    	//TODO
 		return "offer-result";
 	}
  
     public void changeMessage() {
-    	//D�finir de meilleurs messages
     	switch(entries.getIntensity()) {
 	    	case 1: entries.setIntensityMessage("Voyage peu intense"); break;
 	    	case 2: entries.setIntensityMessage("Voyage moyennement intense"); break;
