@@ -30,9 +30,9 @@ CREATE TABLE site (
 	id_site INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	
 	name VARCHAR(100) NOT NULL,
-	type ENUM('Historic', 'Activity') NOT NULL,
+	type ENUM('historic', 'activity') NOT NULL,
 	price INT NOT NULL,
-	
+	lien_image VARCHAR(100),
 	id_coordinates INT NOT NULL,
 	FOREIGN KEY (id_coordinates) REFERENCES coordinates(id_coordinates) ON DELETE CASCADE
 )ENGINE=InnoDB,
