@@ -41,7 +41,7 @@
 				<h:outputText value="#{offre.name}" />
 			</p:column>
 			<p:column headerText="Prix">
-				<h:outputText value="#{offre.price}" />
+				<h:outputText value="#{offre.price}€" />
 			</p:column>
 
 			<p:rowExpansion style="text-align:center">
@@ -56,7 +56,7 @@
 						<h:outputText value="#{offre.hotel.name}" />
 
 						<h:outputText value="Prix" />
-						<h:outputText value="#{offre.price}" />
+						<h:outputText value="#{offre.hotel.price}€/nuit" />
 					</p:panelGrid>
 					<p:dataTable var="excursion" value="#{offre.excursions}" style="width:100%" >
 						<f:facet name="header">
