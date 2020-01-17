@@ -161,13 +161,13 @@ public class OfferCalculator {
 						else {
 							transport.setType(TransportEnum.BOAT);
 						}
-						
-						if(siteType.isEmpty() || (siteA.getType().equals(siteType) && siteD.getType().equals(siteType))) {
+
+						if(siteType.isEmpty() || (typeA.equals(siteType) && typeD.equals(siteType))) {
 							Ride ride = (Ride)SpringIoC.getBean("ride");
 							ride.setArrival_site(siteA);
 							ride.setDeparture_site(siteD);
 							ride.setTransport(transport);
-							ridesList.add(ride);
+							ridesList.add(ride);System.out.println(ridesList);
 						}
 					}
 				} catch (SQLException e) {
@@ -197,7 +197,7 @@ public class OfferCalculator {
 			for(BigDecimal key : keys) {
 				if(siteType.equals(sites.get(key).get("type")) || siteType.equals("")) {
 					HashMap<String,String> currentSite = sites.get(key);
-					System.out.println(currentSite);
+					
 					Queries queries = QueriesProcess.getInstance().executeSQL("SELECT siteD.name, siteD.type, siteD.price, coordD.latitude, coordD.longitude, siteA.name, siteA.type, siteA.price, coordA.latitude, coordA.longitude, transport.type, transport.price, transport.is_per_km FROM ride INNER JOIN site AS siteD ON siteD.id_site = ride.departure_site INNER JOIN site AS siteA ON siteA.id_site = ride.arrival_site INNER JOIN coordinates AS coordD ON coordD.id_coordinates = siteD.id_coordinates INNER JOIN coordinates AS coordA ON coordA.id_coordinates = siteA.id_coordinates INNER JOIN transport ON transport.id_transport = ride.id_transport WHERE ride.departure_site = "+currentSite.get("id_site")+" OR ride.arrival_site = "+currentSite.get("id_site"));
 					ResultSet rides = queries.getResultsSet();
 					try {
@@ -217,13 +217,13 @@ public class OfferCalculator {
 							boolean isPerKmT = rides.getBoolean(13);
 							
 							AbstractSite siteD, siteA;
-							if(typeD.equals("Historic")) {
+							if(typeD.equals("historic")) {
 								siteD = (HistoricSite)SpringIoC.getBean("historic");
 					    	}
 					    	else {
 					    		siteD = (ActivitySite)SpringIoC.getBean("activity");
 					    	}
-							if(typeA.equals("Historic")) {
+							if(typeA.equals("historic")) {
 								siteA = (HistoricSite)SpringIoC.getBean("historic");
 					    	}
 					    	else {
@@ -238,13 +238,13 @@ public class OfferCalculator {
 							Transport transport = new Transport();
 							transport.setPerKm(isPerKmT);
 							transport.setPrice(priceT);
-							if(typeT.equals("Bus")) {
+							if(typeT.equals("bus")) {
 								transport.setType(TransportEnum.BUS);
 							}
 							else {
 								transport.setType(TransportEnum.BOAT);
 							}
-							System.out.println(nameD+" / "+nameA+" / "+siteD.getType()+" / "+siteA.getType());
+
 							if(siteType.isEmpty() || (siteA.getType().equals(siteType) && siteD.getType().equals(siteType))) {
 								Ride ride = (Ride)SpringIoC.getBean("ride");
 								ride.setArrival_site(siteA);

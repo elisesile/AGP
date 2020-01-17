@@ -19,7 +19,7 @@ CHARACTER SET utf8 COLLATE utf8_bin;
 CREATE TABLE transport (
 	id_transport INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	
-	type ENUM('Bus', 'Boat') NOT NULL,
+	type ENUM('bus', 'boat') NOT NULL,
 	price INT NOT NULL,
 	is_per_km BOOLEAN 
 )ENGINE=InnoDB,
