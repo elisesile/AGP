@@ -17,7 +17,6 @@ public class SimpleSearchSiteBean {
     }
     
     public String searchAction() {
-    	//TODO
 		return "simple-result-site";
 	}
 

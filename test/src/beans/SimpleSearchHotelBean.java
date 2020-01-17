@@ -17,7 +17,6 @@ public class SimpleSearchHotelBean {
     }
     
     public String searchAction() {
-    	//TODO
 		return "simple-result-hotel";
 	}
 

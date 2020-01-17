@@ -23,17 +23,6 @@ public class TestAgpBusinessPart {
 		queries = new Queries();
 	}
 	
-/*	@Test
-	public void testCalculPrice() {
-		ArrayList<Integer> idRides = new ArrayList<Integer>();
-		idRides.add(10);
-		idRides.add(2);
-		
-		int hotel = 1;
-				
-		int totalPrice = queries.getTotalPriceRidesAndHotel(idRides, hotel);
-	}	*/
-	
 	@Test
 	public void testCalculDistance() {
 		

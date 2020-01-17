@@ -113,7 +113,6 @@ public class SimpleResultInitialisator {
 		    	}
 				site.setName(currentMap.get("name"));
 				site.setPrice(Integer.parseInt(currentMap.get("price")));
-				//sitesInformations.put("id_coordinates", String.valueOf(id_coordinates));
 				
 				File text = new File("data/"+currentMap.get("id_site")+".txt");
 		    	BufferedReader br;
