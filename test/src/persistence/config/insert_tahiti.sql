@@ -70,20 +70,20 @@ VALUES (1,'Notre Dame Cathedral', 'historic', 0, 17),
  (19,'Nui Diving', 'activity', 49, 35);
 
 -- Hotel Insertion
-INSERT INTO hotel(name, price, beach_name, id_coordinates)
- VALUES ('Residence Arahiri', 49, 'Plage Papeete', 1),
- ('Royal Tahitien', 135, 'Plage Papeete', 2),
- ('Manapiti Sea View', 106, 'Plage Papeete', 3),
- ('Hotel Sarah Nui', 105, 'Plage Papeete', 4),
- ('5 Stars Apt', 106, 'Plage Papeete', 5),
- ('Mahana Lodge', 28, 'Plage Papeete', 6),
- ('Studio Te Tiare', 99, 'Nanu\'u', 7),
- ('Le Maori', 169, 'Nanu\'u', 8),
- ('Alizé', 118, 'Nanu\'u', 9),
- ('Mitirapa', 186, 'Phaëton', 10),
- ('The Farm 689', 59, 'Phaëton', 11),
- ('Vanira Lodge', 125, 'Teahupoo', 12),
- ('Villa BO', 109, 'Teahupoo', 13),
- ('Hitimoana', 92, 'Moana', 14),
- ('Manomano', 29, 'Tiamao', 15),
- ('Le rocher', 273, 'Plage du Rocher', 16);
+INSERT INTO hotel(name, price, beach_name,lien_image, id_coordinates)
+ VALUES ('Residence Arahiri', 49, 'Plage Papeete','https://r-cf.bstatic.com/images/hotel/max1280x900/205/205239933.jpg', 1),
+ ('Royal Tahitien', 135, 'Plage Papeete','https://r-cf.bstatic.com/images/hotel/max1280x900/109/10953874.jpg', 2),
+ ('Manapiti Sea View', 106, 'Plage Papeete','https://r-cf.bstatic.com/images/hotel/max1280x900/204/204361837.jpg', 3),
+ ('Hotel Sarah Nui', 105, 'Plage Papeete','https://r-cf.bstatic.com/images/hotel/max1280x900/208/20834814.jpg', 4),
+ ('5 Stars Apt', 106, 'Plage Papeete','https://q-cf.bstatic.com/images/hotel/max1280x900/223/223088100.jpg', 5),
+ ('Mahana Lodge', 28, 'Plage Papeete','https://q-cf.bstatic.com/images/hotel/max1280x900/974/97407797.jpg', 6),
+ ('Studio Te Tiare', 99, 'Nanu\'u','https://r-cf.bstatic.com/images/hotel/max1280x900/192/192169130.jpg', 7),
+ ('Le Maori', 169, 'Nanu\'u','https://q-cf.bstatic.com/images/hotel/max1280x900/115/115219622.jpg', 8),
+ ('Alizé', 118, 'Nanu\'u','https://r-cf.bstatic.com/images/hotel/max1280x900/202/202045692.jpg', 9),
+ ('Mitirapa', 186, 'Phaëton','https://q-cf.bstatic.com/images/hotel/max1280x900/156/15670548.jpg', 10),
+ ('The Farm 689', 59, 'Phaëton','https://r-cf.bstatic.com/images/hotel/max1280x900/216/216287105.jpg', 11),
+ ('Vanira Lodge', 125, 'Teahupoo','https://r-cf.bstatic.com/images/hotel/max1280x900/217/217386427.jpg', 12),
+ ('Villa BO', 109, 'Teahupoo','https://r-cf.bstatic.com/images/hotel/max1280x900/129/129399410.jpg', 13),
+ ('Hitimoana', 92, 'Moana','https://r-cf.bstatic.com/images/hotel/max1280x900/331/33188566.jpg', 14),
+ ('Manomano', 29, 'Tiamao','https://r-cf.bstatic.com/images/hotel/max1280x900/203/203842514.jpg', 15),
+ ('Le rocher', 273, 'Plage du Rocher','https://r-cf.bstatic.com/images/hotel/max1280x900/238/238074925.jpg', 16);

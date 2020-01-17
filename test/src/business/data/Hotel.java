@@ -7,6 +7,7 @@ public class Hotel {
 	private String beachName;
 	private Coordinates coordinates;
 	private String description;
+	private String image;
 	
 	public Hotel() {
 	}
@@ -55,6 +56,14 @@ public class Hotel {
 	public String toString() {
 		return "Hotel [name=" + name + ", price=" + price + ", beachName=" + beachName + ", coordinates=" + coordinates
 				+ ", description=" + description + "]";
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 }

@@ -42,6 +42,7 @@ public class SimpleResultInitialisator {
 				hotel.setName(hotelsResult.getString(2));
 				hotel.setPrice(hotelsResult.getInt(3));
 				hotel.setDescription(hotelsResult.getString(4));
+				hotel.setImage(hotelsResult.getString(5));
 				hotels.add(hotel);
 			}
 		} catch (SQLException e) {

@@ -52,7 +52,7 @@
 	            <p:panelGrid  columns="2" rendered="#{not empty simpleResultHotelBean.selectedHotel}">
 	            
 	 				<f:facet name="header">
-                    	<h:graphicImage value="resources/default/hotel.jpg" width="100%" resizable="false"/> 
+                    	<h:graphicImage value="#{hotel.image}" width="100%" resizable="false"/> 
                		</f:facet>
                		
 	 				<h:outputText value="Nom" />

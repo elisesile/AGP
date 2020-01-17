@@ -45,7 +45,7 @@ CREATE TABLE hotel (
 	name VARCHAR(50) NOT NULL,
 	price INT NOT NULL,
 	beach_name VARCHAR(50),
-	lien_image VARCHAR(50),
+	lien_image VARCHAR(150),
 	id_coordinates INT NOT NULL,
 	FOREIGN KEY (id_coordinates) REFERENCES coordinates(id_coordinates) ON DELETE CASCADE
 )ENGINE=InnoDB,
