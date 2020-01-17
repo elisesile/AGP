@@ -13,13 +13,10 @@ public class ExcursionCalculator {
 		for(int index = 0; index<rides.size();index++) {
 			AbstractSite arrival = rides.get(index).getArrival_site();
 			AbstractSite departure = rides.get(index).getDeparture_site();
-			
-			if( !sites.contains(departure)) {
+			if(index == 0) {
 				sites.add(departure);
 			}
-			if( !sites.contains(arrival)) {
-				sites.add(arrival);
-			}
+			sites.add(arrival);
 		}
 		excursion.setVisitedSites(sites);
 	}
