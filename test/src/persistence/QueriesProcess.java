@@ -103,10 +103,9 @@ public class QueriesProcess implements BDAeAPI {
 			this.setAlreadyIndexed(true);
 		}
 		//Split query
-		String[] arrayQueries = query.toLowerCase().split(" with ");
+		String[] arrayQueries = query.split(" WITH ");
 		ResultSet sqlResult = this.executeSQL(arrayQueries[0]).getResultsSet();
 		this.executeTextual(arrayQueries[1]);
-		
 		
 		int foundDocuments = 0;
 		ScoreDoc currentScoreDoc;

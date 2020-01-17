@@ -37,6 +37,7 @@ public class ExcursionCalculator {
 				double siteLongitude = rides.get(i).getDeparture_site().getCoordinates().getLongitude();
 				
 				double distance = ExcursionCalculator.getDistanceKM(hotelLatitude, hotelLongitude, siteLatitude, siteLongitude);
+				
 				if(distance <= distanceMin) {
 					distanceMin = distance;
 					nearest = i;
@@ -119,7 +120,6 @@ public class ExcursionCalculator {
 		for(int i=0 ; i<currentRides.size() ; i++) {
 			if(currentRides.get(i).getArrival_site().getName().equals(arrivalSite.getName())
 				|| currentRides.get(i).getArrival_site().getName().equals(departureSite.getName())
-				|| currentRides.get(i).getDeparture_site().getName().equals(arrivalSite.getName())
 				|| currentRides.get(i).getDeparture_site().getName().equals(departureSite.getName())
 				) {
 				toRemove.add(currentRides.get(i));
