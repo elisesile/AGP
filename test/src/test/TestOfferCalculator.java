@@ -13,7 +13,7 @@ public class TestOfferCalculator {
 
 	public static void main(String[] args) {
 		OfferCalculator oc = new OfferCalculator();
-		ArrayList<Offer> offersList = oc.getOffers(0, 1000, "", "activity", 2); //"" = "cascade"
+		ArrayList<Offer> offersList = oc.getOffers(0, 3000, "trou souffleur", "activity", 2); //"" = "cascade"
 		
 		for(int i=0 ; i < offersList.size() ; i++) {
 			System.out.println(offersList.get(i));
